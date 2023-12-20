@@ -22,31 +22,6 @@ export class TableDemoComponent implements OnInit {
 
     customers1:  any;
 
-    customers2: any;
-
-    customers3: any;
-
-    selectedCustomers1: any;
-
-    selectedCustomer: UserRoles = {
-        estado: null,
-        fechasistema: null,
-        id: null,
-        tipo: null
-    };
-
-
-
-    statuses: any[] = [];
-
-    products: Product[] = [];
-
-    rowGroupMetadata: any;
-
-    expandedRows: expandedRows = {};
-
-    activityValues: number[] = [0, 100];
-
     isExpanded: boolean = false;
 
     idFrozen: boolean = false;
@@ -58,62 +33,38 @@ export class TableDemoComponent implements OnInit {
     constructor(private server: DataRoleService) { }
 
     ngOnInit() {
-
-        this.server.GetDataRole().subscribe((response)=>{
-            console.log(response);
-            const res = response;
-            this.customers1 = res;
-            this.loading = false;
-            this.customers1.forEach(UserRoles => res.fechasistema = new Date(UserRoles.fechasistema));
-        });
+        this.RenderDatos();
     }
 
-    onSort() {
-        this.updateRowGroupMetaData();
+    RenderDatos(){
+            this.server.GetDataRole().subscribe((response)=>{
+                console.log(response);
+                const res = response;
+                this.customers1 = res;
+                this.loading = false;
+                //this.customers1.forEach(UserRoles => res.fechasistema = new Date(UserRoles.fechasistema));
+            });
+          
     }
 
-    updateRowGroupMetaData() {
-        this.rowGroupMetadata = {};
 
-        if (this.customers3) {
-            for (let i = 0; i < this.customers3.length; i++) {
-                const rowData = this.customers3[i];
-                const representativeName = rowData?.representative?.name || '';
 
-                if (i === 0) {
-                    this.rowGroupMetadata[representativeName] = { index: 0, size: 1 };
-                }
-                else {
-                    const previousRowData = this.customers3[i - 1];
-                    const previousRowGroup = previousRowData?.representative?.name;
-                    if (representativeName === previousRowGroup) {
-                        this.rowGroupMetadata[representativeName].size++;
-                    }
-                    else {
-                        this.rowGroupMetadata[representativeName] = { index: i, size: 1 };
-                    }
-                }
-            }
-        }
-    }
 
-    expandAll() {
-        if (!this.isExpanded) {
-            this.products.forEach(product => product && product.name ? this.expandedRows[product.name] = true : '');
+    // expandAll() {
+    //     if (!this.isExpanded) {
+    //         this.products.forEach(product => product && product.name ? this.expandedRows[product.name] = true : '');
 
-        } else {
-            this.expandedRows = {};
-        }
-        this.isExpanded = !this.isExpanded;
-    }
+    //     } else {
+    //         this.expandedRows = {};
+    //     }
+    //     this.isExpanded = !this.isExpanded;
+    // }
 
     formatCurrency(value: number) {
         return value.toLocaleString('en-ES', { style: 'currency', currency: 'COP' });
     }
 
-    onGlobalFilter(table: Table, event: Event) {
-        table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
-    }
+
 
     clear(table: Table) {
         table.clear();

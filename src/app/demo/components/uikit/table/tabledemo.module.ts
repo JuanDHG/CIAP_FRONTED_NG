@@ -15,6 +15,7 @@ import { ToastModule } from 'primeng/toast';
 import { SliderModule } from 'primeng/slider';
 import { RatingModule } from 'primeng/rating';
 import { TabViewModule } from 'primeng/tabview';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @NgModule({
 	imports: [
@@ -32,7 +33,8 @@ import { TabViewModule } from 'primeng/tabview';
 		DropdownModule,
 		ProgressBarModule,
 		ToastModule,
-		TabViewModule
+		TabViewModule,
+		InputSwitchModule
 	],
 	declarations: [TableDemoComponent]
 })

@@ -38,5 +38,5 @@ export interface DataSendEmail {
 export interface DataSendChangePassword{
     idUsuario: number,
     contrasena: string,
-    Recontrasena: string,
+    Recontrasena?: string,
 }

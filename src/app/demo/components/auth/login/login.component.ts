@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
-import { NameSw, DataLogin, DataValueEmail, DataOptNumberVale,
-         DataOptSend,DataSendEmail, DataSendChangePassword } from '../../../api/auth.module';
+import {
+    NameSw, DataLogin, DataValueEmail, DataOptNumberVale,
+    DataOptSend, DataSendEmail, DataSendChangePassword
+} from '../../../api/auth.module';
 import { Router } from '@angular/router';
 import { AuthService as Services } from './../../../../services/auth.service';
 import { sha256 } from "js-sha256";
 import Swal from 'sweetalert2';
+import { Message } from 'primeng/api';
 
 @Component({
     selector: 'app-login',
@@ -55,13 +58,13 @@ export class LoginComponent {
     }
 
     dappEmail: DataSendEmail = {
-        id_usuario:null,
+        id_usuario: null,
         nombres: null,
-        apellidos:null,
+        apellidos: null,
         email: null
     }
 
-    dappResPass:  DataSendChangePassword = {
+    dappResPass: DataSendChangePassword = {
         idUsuario: null,
         contrasena: null,
         Recontrasena: null
@@ -71,19 +74,19 @@ export class LoginComponent {
     displayChangePwwCA: boolean = false;
     fieldTextType: boolean;
     fieldChPw: boolean;
-    anima: any ;
+    anima: any;
     iconClass: string = 'pi';
     msmErr: string;
-    DonClass:boolean = true;
+    DonClass: boolean = true;
+    otpView: boolean = false;
+    AuxPass: string = null;
 
-    otpView:boolean = false; 
 
     constructor(
         public layoutService: LayoutService,
-        // private authService: AuthService,
         private rute: Router,
         private server: Services
-    ) {}
+    ) { }
 
     ViewPassword(): void {
         this.fieldTextType = !this.fieldTextType;
@@ -93,55 +96,55 @@ export class LoginComponent {
         this.fieldChPw = !this.fieldChPw;
     }
 
-    onAlertMessage(t: string, sms: string, i: any) : void {
+    onAlertMessage(t: string, sms: string, i: any): void {
         Swal.fire({
             title: t,
             text: sms,
             icon: i,
             confirmButtonText: 'Aceptar',
             confirmButtonColor: "#5fbb3a"
-          });
+        });
     }
 
 
-    onAlertMessageCustonCahnPass(t: string, sms: string, i: any) : void {
+    onAlertMessageCustonCahnPass(t: string, sms: string, i: any): void {
         Swal.fire({
             title: t,
             text: sms,
             icon: i,
             confirmButtonText: 'Aceptar',
             confirmButtonColor: "#5fbb3a"
-          }).then((result)=>{
-                if(result.isConfirmed){
-                    this.displayChangePwwCA  = true;
-                }
-          });
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.displayChangePwwCA = true;
+            }
+        });
     }
 
 
 
     onLogin(): void {
         if (this.dapp.user === '' || this.dapp.user === null) {
-            this.onAlertMessage("Error","debe ingresar usuario", "warning");
+            this.onAlertMessage("Error", "debe ingresar usuario", "warning");
 
-        } else if (this.dapp.pass === '' || this.dapp.pass === null) {
-            this.onAlertMessage("Error","debe ingresar contraseña", "warning");
+        } else if (this.AuxPass === '' || this.AuxPass === null) {
+            this.onAlertMessage("Error", "debe ingresar contraseña", "warning");
         } else {
-            
-            
+
+
             if (this.dapp.user.includes('@')) {
                 this.dapp.user = this.dapp.user;
                 this.dapp.user = '';
                 this.dapp = {
                     mail: this.dapp.user,
-                    pass: this.dapp.pass
+                    pass: sha256.hex(this.AuxPass)
                 }
                 this.ServicesValueData();
             } else {
                 this.dapp.mail = '';
                 this.dapp = {
                     user: this.dapp.user,
-                    pass: this.dapp.pass
+                    pass: sha256.hex(this.AuxPass)
                 }
                 this.ServicesValueData();
             }
@@ -150,27 +153,33 @@ export class LoginComponent {
 
     ServicesValueData(): void {
         console.log(this.dapp);
-        this.dapp.pass =  sha256.hex(this.dapp.pass);
-        this.server.postData(this.dapp).subscribe((res) => {            
+        this.server.postData(this.dapp).subscribe((res) => {
             const response = res.response;
             const data = res.data;
             if (response.status === 'ok') {
                 // var ifl = this.authService.login();
                 var ifl = true
                 if (ifl === true) {
-                   localStorage.setItem('dataUSer', JSON.stringify(data));
-                   this.rute.navigate(['/']);
+                    localStorage.setItem('dataUSer', JSON.stringify(data));
+                    this.rute.navigate(['/']);
                 } else {
-                    this.onAlertMessage("Error","La informacion ingresada no es correcta", "question");
+                    this.onAlertMessage("Error", "La informacion ingresada no es correcta", "question");
                 }
             } else {
                 if (response.status === 'ca') {
                     localStorage.setItem('DataOpt', JSON.stringify(data));
-                    this.onAlertMessageCustonCahnPass("Error",response.mensaje, "error");
-                } 
+                    this.onAlertMessageCustonCahnPass("Error", response.mensaje, "error");
+                }
                 if (response.status === 'bl') {
-                    this.onAlertMessage("Error",response.mensaje, "error");
-                } 
+                    this.onAlertMessage("Error", response.mensaje, "error");
+                }
+                if (response.status === 'no') {
+                    this.onAlertMessage("Error", response.mensaje, "Datos erroneos");
+                }
+                if (response.status === 'pr') {
+                    localStorage.setItem('DataOpt', JSON.stringify(data));
+                    this.onAlertMessageCustonCahnPass("Error", response.mensaje, "question");
+                }
 
             }
         });
@@ -183,50 +192,50 @@ export class LoginComponent {
     onBlur(): void {
         if (this.correo === '' || this.correo === null) {
             this.msmErr = 'El campo no puede ser verificado si esta vacio.'
-        }else{
+        } else {
             var evalueCorreo = this.validarCorreo(this.correo);
-        }       
+        }
         this.AnamacionVerificar(evalueCorreo)
     }
 
     AnamacionVerificar(e: any): void {
-         this.anima = false;
+        this.anima = false;
         if (e) {
             this.dopp.mail = this.correo;
-            this.server.postDataValCorre(this.dopp).subscribe((res)=>{
+            this.server.postDataValCorre(this.dopp).subscribe((res) => {
                 const response = res['response'].status;
                 const data = res['data'];
                 if (response === "ok") {
                     setTimeout(() => {
                         this.anima = true;
-                        this.msmErr= null;
+                        this.msmErr = null;
                         this.otpView = true;
-                    }, 600); 
+                    }, 600);
                     localStorage.setItem('DataOpt', JSON.stringify(data))
                     this.dappEmail = {
                         id_usuario: data.id_usuario,
-                        nombres:  data.nombres,
+                        nombres: data.nombres,
                         apellidos: data.apellidos,
-                        email:  data.correo
+                        email: data.correo
                     }
 
-                    this.server.postDataSendCorreo(this.dappEmail).subscribe((res)=>{
+                    this.server.postDataSendCorreo(this.dappEmail).subscribe((res) => {
                         console.log(res);
-                        
+
                     });
-                }else{
+                } else {
                     setTimeout(() => {
                         this.anima = false;
-                        this.msmErr= "El correo ingresado no es valido.";
+                        this.msmErr = "El correo ingresado no es valido.";
                         this.otpView = false;
-                    }, 600); 
+                    }, 600);
                 }
 
 
             });
 
-            
-        }else{
+
+        } else {
             this.msmErr = 'El correo ingresado no posee @, .com, .co, o punto. Favor verifique'
             setTimeout(() => {
                 this.anima = 'err';
@@ -234,9 +243,9 @@ export class LoginComponent {
                     this.anima = false;
                     setTimeout(() => {
                         this.anima = null;
-                      }, 900); 
-                  }, 5000); 
-              }, 600); 
+                    }, 900);
+                }, 5000);
+            }, 600);
         }
 
     }
@@ -247,83 +256,93 @@ export class LoginComponent {
         return regexCorreo.test(correo);
     }
 
-    validarPassword(password: string){
+    validarPassword(password: string) {
         const expresion = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{7,14}[^'\s]/;
         return expresion.test(password);
     }
-    
-    onBourNewPass() : void{
-        var valueKey = this.validarPassword(this.dappResPass.contrasena)
+
+    onBourNewPass(): void {
+        var valueKey = this.validarPassword(this.AuxPass)
 
         if (valueKey) {
-                this.ErrPws = "";
-        }else{
+            this.ErrPws = "";
+        } else {
             this.ErrPws = "La contraseña digitada con cumple con las politicas de seguridad.";
         }
     }
 
     ErrPws: string;
     ErrPwsR: string;
-    ValidarNuevaClave():void {
+
+    ValidarNuevaClave() {
 
         if (this.dappResPass.Recontrasena != this.dappResPass.contrasena) {
             this.ErrPwsR = "La verificación debe ser igual a la contraseña ingresada incialmente.";
-        }else{
+        } else {
             this.ErrPwsR = ""
             var data = JSON.parse(localStorage.getItem('DataOpt'));
             this.dappResPass = {
                 idUsuario: data.id_usuario,
                 contrasena: sha256.hex(this.dappResPass.contrasena),
-                Recontrasena: ''
             }
 
             console.log(this.dappResPass);
-            
-            
-            this.server.postDataChangePass(this.dappResPass).subscribe((res)=>{
+
+
+            this.server.postDataChangePass(this.dappResPass).subscribe((res) => {
                 const response = res;
 
+                console.log(res);
+                
+
                 if (response['status'] === 'ok') {
-                        alert(response['mensaje']);
-                        localStorage.setItem('DataOpt', '');
-                        this.display = false;
-                         this.dappResPass.contrasena = null;
-                }else{
-                    
+                    alert(response['mensaje']);
+                    this.onAlertMessage("éxito", response['mensaje'],"success");
+                    localStorage.setItem('DataOpt', '');
+                    this.display = false;
+                    this.dappResPass.contrasena = null;
+                    this.displayChangePwwCA = false;
+                } else {
                     this.display = false;
                     this.displayChangePwwCA = true;
-                    // localStorage.setItem('DataOpt', '');
                     this.dappResPass.contrasena = null;
-                    alert(response['mensaje']);
+                    //this.onAlertMessage("Error", response['mensaje'],"error");
+                    this.showErrorViaMessages('error', 'Error Message',  response['mensaje'])
                 }
             });
         }
- 
+
     }
 
-    validarOptDataSend(): void{
-            var dataOpt = JSON.parse(localStorage.getItem('DataOpt'));
-            var tk = parseInt(this.otpNum.num1 + this.otpNum.num2 + this.otpNum.num3 + this.otpNum.num4);
-            this.dappotp = {
-                idUsuario : dataOpt.id_usuario,
-                tokenUsuario : tk
+    validarOptDataSend(): void {
+        var dataOpt = JSON.parse(localStorage.getItem('DataOpt'));
+        var tk = parseInt(this.otpNum.num1 + this.otpNum.num2 + this.otpNum.num3 + this.otpNum.num4);
+        this.dappotp = {
+            idUsuario: dataOpt.id_usuario,
+            tokenUsuario: tk
+        }
+        this.server.posDataValueOpt(this.dappotp).subscribe((res) => {
+            console.log(res);
+            const response = res;
+
+            if (response['status'] === 'no') {
+                alert(response['mensaje']);
+                this.DonClass = true;
+
+            } else {
+                alert(response['mensaje']);
+
+                this.DonClass = false;
+                this.otpView = false;
             }
-            this.server.posDataValueOpt(this.dappotp).subscribe((res)=>{
-                    console.log(res);
-                    const response = res;
+        });
 
-                    if (response['status'] === 'no') {
-                            alert(response['mensaje']);
-                            this.DonClass = true;
+    }
 
-                    }else{
-                        alert(response['mensaje']);
-                        
-                        this.DonClass = false;
-                        this.otpView = false;
-                    }
-            });
-            
+    msgs: Message[] = [];
+    showErrorViaMessages(severity: string, summary: string, detail: any) {
+        this.msgs = [];
+        this.msgs.push({ severity: severity, summary: summary, detail: detail });
     }
 
 }

@@ -5,8 +5,6 @@
 
             <div class="flex justify-center items-center col-12 lg:col-6 p-0 h-full">
                 <div class="card p-6 w-full max-w-md m-ca car_srt">
-
-
                     <!-- Logo -->
                     <img src="./../../../../../assets/resources/resCiap/logo_max.webp" class="mx-auto mb-4 logo"
                         alt="Logo " />
@@ -19,11 +17,10 @@
                             <i class="pi pi-user"></i>
                             <label for="float-input">Usuario</label>
                         </span>
-                        <!-- Tu archivo HTML (probablemente tu-componente.component.html) -->
 
                         <span class="p-input-icon-left p-float-label lg:mb-5 p-input-icon-right">
                             <i class="pi pi-lock"></i>
-                            <input id="float-input" class="customerInput" [(ngModel)]="dapp.pass" name="pass"
+                            <input id="float-input" class="customerInput" [(ngModel)]="AuxPass" name="pass"
                                 [type]="fieldTextType ? 'text' : 'password'" pInputText />
                             <i class="pi" [ngClass]="{'pi-eye-slash': !fieldTextType,     'pi-eye': fieldTextType }"
                                 (mouseenter)="fieldTextType = true" (mouseleave)="fieldTextType = false"
@@ -38,6 +35,7 @@
                         <button pButton pRipple type="button" (click)="onLogin()" label="Iniciar sesión"
                             class="p-button-success cust_j_center"></button>
                         <br /><br />
+                        <p-messages [value]="msgs"></p-messages>
                     </form>
                 </div>
 
@@ -47,8 +45,7 @@
     </div>
 </div>
 
-
-<!-- <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button> -->
+<!-- modal para solicitar envio de OTP -->
 <p-dialog [modal]="true" [(visible)]="display" [style]="{ width: '50vw' }" [maximizable]="true" [draggable]="false">
     <div class="modalCustomer flex align-items-center justify-content-center">
         <div class="formularioRender" [ngClass]="{'visble': DonClass===true, 'invisble': DonClass===false}">
@@ -169,10 +166,7 @@
     </div>
 </p-dialog>
 
-
-
-
-
+<!-- modal para cambio de contraseña -->
 <p-dialog [modal]="true" [(visible)]="displayChangePwwCA" [style]="{ width: '50vw' }" [maximizable]="true" [draggable]="false">
     <div class="modalCustomer flex align-items-center justify-content-center">
   

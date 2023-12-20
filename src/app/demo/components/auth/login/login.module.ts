@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
 import { DialogModule } from 'primeng/dialog';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
 
 @NgModule({
     imports: [
@@ -18,7 +20,9 @@ import { DialogModule } from 'primeng/dialog';
         InputTextModule,
         FormsModule,
         PasswordModule,
-        DialogModule
+        DialogModule,
+        MessagesModule,
+		MessageModule,
     ],
     declarations: [LoginComponent]
 })
