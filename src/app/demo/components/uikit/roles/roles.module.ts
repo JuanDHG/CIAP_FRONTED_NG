@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TableDemoComponent } from './tabledemo.component';
-import { TableDemoRoutingModule } from './tabledemo-routing.module';
+import { RolesComponent } from './roles.component';
+import { TableDemoRoutingModule } from './roles-routing.module';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -36,6 +36,6 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 		TabViewModule,
 		InputSwitchModule
 	],
-	declarations: [TableDemoComponent]
+	declarations: [RolesComponent]
 })
 export class TableDemoModule { }

@@ -7,18 +7,18 @@ import { DataRoleService } from 'src/app/services/data-role.service';
 
 // importacion de interfaz
 
-import { UserRoles } from "./../../../api/datarole.module";
+import { UserRoles } from "../../../api/datarole.module";
 
 interface expandedRows {
     [key: string]: boolean;
 }
 
 @Component({
-    templateUrl: './tabledemo.component.html',
+    templateUrl: './roles.component.html',
     providers: [MessageService, ConfirmationService],
-    styleUrls:['./tabledemo.component.scss']
+    styleUrls:['./roles.component.scss']
 })
-export class TableDemoComponent implements OnInit {
+export class RolesComponent implements OnInit {
 
     customers1:  any;
 
