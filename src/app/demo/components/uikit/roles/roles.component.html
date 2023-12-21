@@ -8,7 +8,7 @@
             <!-- <h5>TabView</h5> -->
             <p-tabView orientation="left">
 				<p-tabPanel header="Roles / Perminsos" class="line-height-3 m-0">
-					<p-table #dt1 [value]="customers1" dataKey="id" [rows]="10" [loading]="loading" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll">
+					<p-table #dt1 [value]="customers1" dataKey="id" [rows]="15" [loading]="loading" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['id','tipo','fechasistema','estado']" responsiveLayout="scroll">
 						<ng-template pTemplate="caption">
 							<div class="flex justify-content-between flex-column sm:flex-row">
 								<span class="p-input-icon-left mb-2">

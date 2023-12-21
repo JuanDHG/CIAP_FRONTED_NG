@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Product } from 'src/app/demo/api/product';
 import { Table } from 'primeng/table';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { DataRoleService } from 'src/app/services/data-role.service';
@@ -42,29 +41,18 @@ export class RolesComponent implements OnInit {
                 const res = response;
                 this.customers1 = res;
                 this.loading = false;
-                //this.customers1.forEach(UserRoles => res.fechasistema = new Date(UserRoles.fechasistema));
+                this.customers1.forEach(UserRoles => res.fechasistema = new Date(UserRoles.fechasistema));
             });
-          
     }
 
-
-
-
-    // expandAll() {
-    //     if (!this.isExpanded) {
-    //         this.products.forEach(product => product && product.name ? this.expandedRows[product.name] = true : '');
-
-    //     } else {
-    //         this.expandedRows = {};
-    //     }
-    //     this.isExpanded = !this.isExpanded;
-    // }
+    onGlobalFilter(table: Table, event: Event) {
+        
+        table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+    }
 
     formatCurrency(value: number) {
         return value.toLocaleString('en-ES', { style: 'currency', currency: 'COP' });
     }
-
-
 
     clear(table: Table) {
         table.clear();
