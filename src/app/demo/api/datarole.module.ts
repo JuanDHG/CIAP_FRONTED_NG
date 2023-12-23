@@ -4,3 +4,8 @@ export interface UserRoles {
     estado: number;
     fechasistema: any;
 }
+
+
+export interface UserSerRol {
+    nombreRol: string;
+}

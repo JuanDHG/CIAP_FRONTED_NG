@@ -28,7 +28,7 @@ export class AppMenuComponent implements OnInit {
                     { label: 'Float Label', icon: 'pi pi-fw pi-bookmark', routerLink: ['/home/floatlabel'] },
                     { label: 'Invalid State', icon: 'pi pi-fw pi-exclamation-circle', routerLink: ['/home/invalidstate'] },
                     { label: 'Button', icon: 'pi pi-fw pi-box', routerLink: ['/home/button'] },
-                    { label: 'roles', icon: 'pi pi-tags', routerLink: ['/home/table'] },
+                    { label: 'roles', icon: 'pi pi-tags', routerLink: ['/home/roles'] },
                     { label: 'List', icon: 'pi pi-fw pi-list', routerLink: ['/home/list'] },
                     { label: 'Tree', icon: 'pi pi-fw pi-share-alt', routerLink: ['/home/tree'] },
                     { label: 'Panel', icon: 'pi pi-fw pi-tablet', routerLink: ['/home/panel'] },

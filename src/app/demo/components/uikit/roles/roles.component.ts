@@ -28,7 +28,7 @@ export class RolesComponent implements OnInit {
     loading: boolean = true;
 
     @ViewChild('filter') filter!: ElementRef;
-
+    display: boolean = false;
     constructor(private server: DataRoleService) { }
 
     ngOnInit() {
@@ -52,6 +52,10 @@ export class RolesComponent implements OnInit {
 
     formatCurrency(value: number) {
         return value.toLocaleString('en-ES', { style: 'currency', currency: 'COP' });
+    }
+
+    triggerModal(e: boolean){
+            this.display = e;
     }
 
     clear(table: Table) {

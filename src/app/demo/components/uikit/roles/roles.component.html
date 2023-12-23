@@ -15,7 +15,7 @@
 									<i class="pi pi-search"></i>
 									<input pInputText type="text" #filter (input)="onGlobalFilter(dt1, $event)" placeholder="Buscar" class="w-full"/>
 								</span>
-								<button pButton label="Añadir" class="p-button-outlined mb-2" icon="pi pi-plus-circle"></button>
+								<button pButton label="Añadir" class="p-button-outlined mb-2" icon="pi pi-plus-circle" (click)="triggerModal(true)"></button>
 								<button pButton label="Limpiar" class="p-button-outlined mb-2" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
 								
 
@@ -103,3 +103,44 @@
         </div>
     </div>
 </div>
+
+
+<!-- modal para Añadir Roles -->
+<p-dialog [modal]="true" [(visible)]="display" [style]="{ width: '50vw' }" [maximizable]="true" [draggable]="false">
+    <div class="modalCustomer flex align-items-center justify-content-center">
+      
+            <div class="flex flex-column">
+                <div class="flex align-items-center justify-content-center h-4rem  m-2">
+                    <div class="flex overflow-hidden">
+                        <div class="flex-grow-1 flex align-items-center justify-content-center">
+                            <h4 class="texReco">CREAR ROL / PERMISOS</h4>
+                        </div>
+                    </div>
+                </div>
+   
+				<!-- [ngClass]="{ 'invisble':otpView === false, 'visble':otpView === true} -->
+				<div class="formgrid grid">
+					<div class="field col">
+						<span class="p-float-label">
+							<input id="float-input" type="text" pInputText> 
+							<label for="float-input">Nombre del rol</label>
+						</span>
+					</div>
+					<div class="field col">
+						<h6>Proximamente los menus estaran disponibles</h6>
+					</div>
+				</div>
+
+
+            <div class="flex align-items-center justify-content-center">
+                <button pButton pRipple type="button" icon="pi pi-arrow-left" iconPos="left" label="Atras"  class="p-button-success cust_l"></button>
+                <button pButton pRipple type="button" icon="pi pi-check" iconPos="left" label="Guardar"   class="p-button-success cust_r"></button>
+            </div>
+            </div>
+
+
+
+
+
+    </div>
+</p-dialog>
