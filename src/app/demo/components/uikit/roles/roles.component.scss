@@ -3,10 +3,21 @@
 }
 .cust_l{
     margin: 3px;
-    background-color: #FF3131;
+    background-color: #ff3131c9;
 }
+
+.cust_l:enabled:hover {
+    background-color: #FF3131 !important;
+}
+
 
 .cust_r{
     margin: 3px;
     background-color: #5FBB3A;
+}
+
+.texReco {
+    font-size: 19px;
+    font-weight: 500;
+    margin-bottom: 50px;
 }

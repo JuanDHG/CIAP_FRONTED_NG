@@ -74,8 +74,8 @@
 									<b>No disponible</b>
 								</td>
 								<td>
-									<button pButton pRipple type="button"  icon="pi pi-pencil" class="p-button-outlined p-button-info cus"></button>
-									<p-inputSwitch class="cus" [ngModel]="customer.estado === 1" (ngModelChange)="customer.estado = $event ? 1 : 0" inputId="customerSwitch"></p-inputSwitch>
+									<button pButton pRipple type="button"  icon="pi pi-pencil" (click)="onPutDataRole(customer.id, customer.tipo)" class="p-button-outlined p-button-info cus"></button>
+									<p-inputSwitch class="cus" [ngModel]="customer.estado === 1" (ngModelChange)="customer.estado = $event ? 1 : 0"  (click)="onPutStatus(customer.id,customer.estado)" inputId="customerSwitch"></p-inputSwitch>
 									<button pButton pRipple type="button"  icon="pi pi-copy" class="p-button-outlined p-button-warning cus"></button>
 								</td>
 								<!-- <td>
@@ -122,19 +122,66 @@
 				<div class="formgrid grid">
 					<div class="field col">
 						<span class="p-float-label">
-							<input id="float-input" type="text" pInputText> 
+							<input id="float-input" type="text" [(ngModel)]="setData.nombreRol" pInputText> 
 							<label for="float-input">Nombre del rol</label>
 						</span>
 					</div>
 					<div class="field col">
 						<h6>Proximamente los menus estaran disponibles</h6>
 					</div>
+
+					<p-messages [(value)]="msgs"></p-messages>
+
 				</div>
 
 
             <div class="flex align-items-center justify-content-center">
-                <button pButton pRipple type="button" icon="pi pi-arrow-left" iconPos="left" label="Atras"  class="p-button-success cust_l"></button>
-                <button pButton pRipple type="button" icon="pi pi-check" iconPos="left" label="Guardar"   class="p-button-success cust_r"></button>
+                <button pButton pRipple type="button" icon="pi pi-arrow-left" (click)="triggerModal(false)" iconPos="left" label="Atras"  class="p-button-success cust_l"></button>
+                <button pButton pRipple type="button" icon="pi pi-check" (click)="onSetDataRole()" iconPos="left" label="Guardar"   class="p-button-success cust_r"></button>
+            </div>
+            </div>
+
+
+
+
+
+    </div>
+</p-dialog>
+
+
+
+<p-dialog [modal]="true" [(visible)]="displayEdit" [style]="{ width: '50vw' }" [maximizable]="true" [draggable]="false">
+    <div class="modalCustomer flex align-items-center justify-content-center">
+      
+            <div class="flex flex-column">
+                <div class="flex align-items-center justify-content-center h-4rem  m-2">
+                    <div class="flex overflow-hidden">
+                        <div class="flex-grow-1 flex align-items-center justify-content-center">
+                            <h4 class="texReco">EDITAR ROL / PERMISOS</h4>
+                        </div>
+                    </div>
+                </div>
+   
+				<!-- [ngClass]="{ 'invisble':otpView === false, 'visble':otpView === true} -->
+				<div class="formgrid grid">
+					<div class="field col">
+						<span class="p-float-label">
+							<input id="float-input" type="text" [(ngModel)]="putDataRole.nombreRol" pInputText> 
+							<label for="float-input">Nombre del rol</label>
+						</span>
+					</div>
+					<div class="field col">
+						<h6>Proximamente los menus estaran disponibles</h6>
+					</div>
+
+					<p-messages [(value)]="msgs"></p-messages>
+
+				</div>
+
+
+            <div class="flex align-items-center justify-content-center">
+                <button pButton pRipple type="button" icon="pi pi-arrow-left" (click)="triggerModal(false)" iconPos="left" label="Atras"  class="p-button-success cust_l"></button>
+                <button pButton pRipple type="button" icon="pi pi-check" (click)="SendServer()" iconPos="left" label="Guardar"   class="p-button-success cust_r"></button>
             </div>
             </div>
 

@@ -4,7 +4,7 @@ import { environment  as env} from 'src/environments/environment.prod';
 import { Observable, catchError, throwError } from 'rxjs';
 
 // importacion de modelocion de datos
-import { UserRoles } from "./../demo/api/datarole.module";
+import { RolGeneralData, RolSetData, RolStatus, RolPutData } from "./../demo/api/datarole.module";
 @Injectable({
   providedIn: 'root'
 })
@@ -20,9 +20,26 @@ export class DataRoleService {
   constructor(private http: HttpClient) { }
 
   // funcion para obtner los roles registrados 
-  GetDataRole(): Observable<UserRoles> {
+  GetDataRole() : Observable<RolGeneralData> {
     const url = `${this.baseUrl}/usuario/roles`;
-    return this.http.get<UserRoles>(url, this.httpOptions)
+    return this.http.get<RolGeneralData>(url, this.httpOptions)
+  }
+
+  PostSetDataRol(data : RolSetData) : Observable<RolSetData>{
+    const url = `${this.baseUrl}/usuario/rol/registro`;
+    return this.http.post<RolSetData>(url, data, this.httpOptions)
+  }
+
+  // este api debe ser revisador por el dev backend
+  PutStatusRole(data : RolStatus) : Observable<RolStatus>{
+    const url = `${this.baseUrl}/usuario/rol/estado`;
+    return this.http.put<RolStatus>(url, data, this.httpOptions)
+  }
+
+
+  PutDataRole(data : RolPutData) : Observable<RolPutData>{
+    const url = `${this.baseUrl}/usuario/rol/nombre`;
+    return this.http.put<RolPutData>(url, data, this.httpOptions)
   }
 
 

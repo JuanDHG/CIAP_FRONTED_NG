@@ -3,14 +3,10 @@ import { Table } from 'primeng/table';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { DataRoleService } from 'src/app/services/data-role.service';
 
-
 // importacion de interfaz
 
-import { UserRoles } from "../../../api/datarole.module";
+import { RolGeneralData, RolSetData, RolStatus, RolPutData } from "../../../api/datarole.module";
 
-interface expandedRows {
-    [key: string]: boolean;
-}
 
 @Component({
     templateUrl: './roles.component.html',
@@ -19,7 +15,7 @@ interface expandedRows {
 })
 export class RolesComponent implements OnInit {
 
-    customers1:  any;
+    customers1:  RolGeneralData;
 
     isExpanded: boolean = false;
 
@@ -27,11 +23,26 @@ export class RolesComponent implements OnInit {
 
     loading: boolean = true;
 
+    setData: RolSetData = {
+        nombreRol: null
+    };
+
+    putStatus: RolStatus = {
+        idRol: null,
+        estado: null
+    }
+
+    putDataRole: RolPutData = {
+        idRol: null,
+        nombreRol : null
+    }
+
     @ViewChild('filter') filter!: ElementRef;
     display: boolean = false;
-    constructor(private server: DataRoleService) { }
+    displayEdit: boolean =  false; 
+    constructor(private server: DataRoleService, private messageService: MessageService) { }
 
-    ngOnInit() {
+    ngOnInit():void {
         this.RenderDatos();
     }
 
@@ -41,7 +52,6 @@ export class RolesComponent implements OnInit {
                 const res = response;
                 this.customers1 = res;
                 this.loading = false;
-                this.customers1.forEach(UserRoles => res.fechasistema = new Date(UserRoles.fechasistema));
             });
     }
 
@@ -56,11 +66,65 @@ export class RolesComponent implements OnInit {
 
     triggerModal(e: boolean){
             this.display = e;
+            this.displayEdit = e;
     }
 
-    clear(table: Table) {
+    clear(table : Table) {
         table.clear();
         this.filter.nativeElement.value = '';
     }
     
+    msgs: [];
+    onSetDataRole() {
+        this.server.PostSetDataRol(this.setData).subscribe((res)=>{
+            console.log(res);
+
+            var response = res
+            if (response['status'] === 'ok') {
+                this.messageService.add({severity:'success', summary:response['mensaje']});
+                
+                setTimeout(() => {
+                    this.display = false;
+                    this.RenderDatos()
+                }, 3000);
+            }else{
+                this.messageService.add({severity:'error', summary:response['mensaje']});
+            }
+
+        })
+    }
+
+    onPutStatus(id: number, status: number) {
+        this.putStatus = {
+            idRol : id,
+            estado: status
+        }
+        this.server.PutStatusRole(this.putStatus).subscribe((res)=>{
+            console.log(res);
+             this.RenderDatos()
+        });
+    }
+
+    onPutDataRole(id: number, rol: string) {
+        this.putDataRole = {
+            idRol : id ,
+            nombreRol : rol
+        }
+        this.displayEdit = true;
+        console.log(this.putDataRole);
+    }
+
+
+    SendServer(){
+  
+        this.server.PutDataRole(this.putDataRole).subscribe((res)=>{
+            console.log(res);
+            this.displayEdit = false;
+            this.RenderDatos()
+        });
+    }
+
+
+
+
 }

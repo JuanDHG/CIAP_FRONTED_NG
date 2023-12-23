@@ -17,6 +17,8 @@ import { RatingModule } from 'primeng/rating';
 import { TabViewModule } from 'primeng/tabview';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { DialogModule } from 'primeng/dialog';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
 
 @NgModule({
 	imports: [
@@ -36,7 +38,9 @@ import { DialogModule } from 'primeng/dialog';
 		ToastModule,
 		TabViewModule,
 		InputSwitchModule,
-		DialogModule
+		DialogModule,
+		MessagesModule,
+		MessageModule
 	],
 	declarations: [RolesComponent]
 })
