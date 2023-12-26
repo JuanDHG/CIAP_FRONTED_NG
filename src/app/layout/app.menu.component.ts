@@ -29,6 +29,7 @@ export class AppMenuComponent implements OnInit {
                     { label: 'Invalid State', icon: 'pi pi-fw pi-exclamation-circle', routerLink: ['/home/invalidstate'] },
                     { label: 'Button', icon: 'pi pi-fw pi-box', routerLink: ['/home/button'] },
                     { label: 'roles', icon: 'pi pi-tags', routerLink: ['/home/roles'] },
+                    // { label: 'usuarios', icon: 'pi pi-user', routerLink: ['/home/usuarios'] },
                     { label: 'List', icon: 'pi pi-fw pi-list', routerLink: ['/home/list'] },
                     { label: 'Tree', icon: 'pi pi-fw pi-share-alt', routerLink: ['/home/tree'] },
                     { label: 'Panel', icon: 'pi pi-fw pi-tablet', routerLink: ['/home/panel'] },
@@ -41,13 +42,13 @@ export class AppMenuComponent implements OnInit {
                     { label: 'Misc', icon: 'pi pi-fw pi-circle', routerLink: ['/home/misc'] }
                 ]
             },
-            {
-                label: 'Prime Blocks',
-                items: [
-                    { label: 'Free Blocks', icon: 'pi pi-fw pi-eye', routerLink: ['/blocks'], badge: 'NEW' },
-                    { label: 'All Blocks', icon: 'pi pi-fw pi-globe', url: ['https://www.primefaces.org/primeblocks-ng'], target: '_blank' },
-                ]
-            },
+            // {
+            //     label: 'Prime Blocks',
+            //     items: [
+            //         { label: 'Free Blocks', icon: 'pi pi-fw pi-eye', routerLink: ['/blocks'], badge: 'NEW' },
+            //         { label: 'All Blocks', icon: 'pi pi-fw pi-globe', url: ['https://www.primefaces.org/primeblocks-ng'], target: '_blank' },
+            //     ]
+            // },
             {
                 label: 'Utilities',
                 items: [
@@ -149,17 +150,6 @@ export class AppMenuComponent implements OnInit {
                     }
                 ]
             },
-            {
-                label: 'Get Started',
-                items: [
-                    {
-                        label: 'Documentation', icon: 'pi pi-fw pi-question', routerLink: ['/documentation']
-                    },
-                    {
-                        label: 'View Source', icon: 'pi pi-fw pi-search', url: ['https://github.com/primefaces/sakai-ng'], target: '_blank'
-                    }
-                ]
-            }
         ];
     }
 }

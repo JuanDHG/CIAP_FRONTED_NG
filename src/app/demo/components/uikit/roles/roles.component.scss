@@ -16,6 +16,18 @@
     background-color: #5FBB3A;
 }
 
+.cust_r_cus {
+    margin: 3px;
+    background-color: #B3DB7D;
+    color: #000;
+}
+
+.cust_r_cus:enabled:hover {
+
+    background-color: #5FBB3A;
+    color: #fff;
+}
+
 .texReco {
     font-size: 19px;
     font-weight: 500;

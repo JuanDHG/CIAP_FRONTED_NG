@@ -19,6 +19,8 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { DialogModule } from 'primeng/dialog';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
+import {AvatarModule} from 'primeng/avatar';
+import {AvatarGroupModule} from 'primeng/avatargroup';
 
 @NgModule({
 	imports: [
@@ -40,7 +42,9 @@ import {MessageModule} from 'primeng/message';
 		InputSwitchModule,
 		DialogModule,
 		MessagesModule,
-		MessageModule
+		MessageModule,
+		AvatarModule,
+		AvatarGroupModule
 	],
 	declarations: [RolesComponent]
 })

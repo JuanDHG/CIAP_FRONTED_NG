@@ -20,3 +20,15 @@ export interface RolPutData {
     idRol: number,
     nombreRol: any
 }
+
+export interface UserData {
+    id_usuario: number;
+    usuario: string;
+    identificacion: number;
+    nombre: string;
+    apellidos: string;
+    correo: string;
+    id_rol: number;
+    rol: number;
+    estado: number;
+}

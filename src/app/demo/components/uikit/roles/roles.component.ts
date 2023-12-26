@@ -5,7 +5,7 @@ import { DataRoleService } from 'src/app/services/data-role.service';
 
 // importacion de interfaz
 
-import { RolGeneralData, RolSetData, RolStatus, RolPutData } from "../../../api/datarole.module";
+import { RolGeneralData, RolSetData, RolStatus, RolPutData,UserData } from "../../../api/datarole.module";
 
 
 @Component({
@@ -16,12 +16,14 @@ import { RolGeneralData, RolSetData, RolStatus, RolPutData } from "../../../api/
 export class RolesComponent implements OnInit {
 
     customers1:  RolGeneralData;
+    DataUser: UserData;
 
     isExpanded: boolean = false;
 
     idFrozen: boolean = false;
 
     loading: boolean = true;
+    loading2: boolean = true;
 
     setData: RolSetData = {
         nombreRol: null
@@ -40,22 +42,46 @@ export class RolesComponent implements OnInit {
     @ViewChild('filter') filter!: ElementRef;
     display: boolean = false;
     displayEdit: boolean =  false; 
-    constructor(private server: DataRoleService, private messageService: MessageService) { }
+    displayAddUser: boolean = false;
 
-    ngOnInit():void {
-        this.RenderDatos();
+
+    constructor(private server: DataRoleService, private messageService: MessageService) {  }
+
+    ngOnInit() {
+       this.RenderDatosRolesUser();
+
+       setTimeout(() => {
+        this.RenderDatosRoles()
+       },1500);
+       
     }
 
-    RenderDatos(){
+    RenderDatosRoles(){
             this.server.GetDataRole().subscribe((response)=>{
-                console.log(response);
                 const res = response;
+                console.log(res);
                 this.customers1 = res;
                 this.loading = false;
             });
+
+    }
+
+    RenderDatosRolesUser(){
+        this.server.GetUserList().subscribe((res)=>{
+            const resp = res;                
+            console.log(resp);
+            this.DataUser = resp;
+            this.loading2 = false;
+        });
     }
 
     onGlobalFilter(table: Table, event: Event) {
+        
+        table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+    }
+
+
+    onGlobalFilter2(table: Table, event: Event) {
         
         table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
     }
@@ -85,7 +111,7 @@ export class RolesComponent implements OnInit {
                 
                 setTimeout(() => {
                     this.display = false;
-                    this.RenderDatos()
+                    this.RenderDatosRoles()
                 }, 3000);
             }else{
                 this.messageService.add({severity:'error', summary:response['mensaje']});
@@ -101,7 +127,7 @@ export class RolesComponent implements OnInit {
         }
         this.server.PutStatusRole(this.putStatus).subscribe((res)=>{
             console.log(res);
-             this.RenderDatos()
+             this.RenderDatosRoles()
         });
     }
 
@@ -120,7 +146,7 @@ export class RolesComponent implements OnInit {
         this.server.PutDataRole(this.putDataRole).subscribe((res)=>{
             console.log(res);
             this.displayEdit = false;
-            this.RenderDatos()
+            this.RenderDatosRoles()
         });
     }
 

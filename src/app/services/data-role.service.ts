@@ -4,7 +4,7 @@ import { environment  as env} from 'src/environments/environment.prod';
 import { Observable, catchError, throwError } from 'rxjs';
 
 // importacion de modelocion de datos
-import { RolGeneralData, RolSetData, RolStatus, RolPutData } from "./../demo/api/datarole.module";
+import { RolGeneralData, RolSetData, RolStatus, RolPutData, UserData } from "./../demo/api/datarole.module";
 @Injectable({
   providedIn: 'root'
 })
@@ -42,5 +42,9 @@ export class DataRoleService {
     return this.http.put<RolPutData>(url, data, this.httpOptions)
   }
 
+  GetUserList() : Observable<UserData>{
+    const url = `${this.baseUrl}/usuario/cuentas-usuario`;
+    return this.http.get<UserData>(url, this.httpOptions)
+  }
 
 }
