@@ -111,7 +111,7 @@
 						<ng-template pTemplate="body" let-DataUser>
 							<tr>
 								<td>
-									<p-avatar label="{{DataUser.nombre.charAt(0)}}{{DataUser.apellidos.charAt(0)}} "></p-avatar>
+									<!-- <p-avatar label="{{ (DataUser.nombre.charAt(0) + DataUser.apellidos.charAt(0)).toUpperCase() }}" ></p-avatar> -->
 									{{DataUser.usuario}}
 									
 								</td>
@@ -128,7 +128,8 @@
 									{{DataUser.correo}}
 								</td>
 								<td>
-									<button pButton pRipple type="button" icon="pi pi-send"  iconPos="left" class="p-button-success cust_r_cus"></button>
+									<button pButton pRipple type="button" (click)="onViewDataProyect(DataUser.id_usuario, $event)" icon="pi pi-send"  iconPos="left" class="p-button-success cust_r_cus"></button>
+									<button type="button" pButton label="Image" (click)="op1.toggle($event)" class="p-button-success"></button>
 								</td>
 								<td>
 									{{DataUser.rol}}
@@ -382,4 +383,10 @@
 
 
     </div>
+</p-dialog>
+
+
+
+<p-dialog header="Title" [(visible)]="displayPro" position="right">
+    Content
 </p-dialog>

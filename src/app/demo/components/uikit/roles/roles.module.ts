@@ -21,7 +21,7 @@ import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import {AvatarModule} from 'primeng/avatar';
 import {AvatarGroupModule} from 'primeng/avatargroup';
-
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 @NgModule({
 	imports: [
 		CommonModule,
@@ -44,7 +44,8 @@ import {AvatarGroupModule} from 'primeng/avatargroup';
 		MessagesModule,
 		MessageModule,
 		AvatarModule,
-		AvatarGroupModule
+		AvatarGroupModule,
+		OverlayPanelModule
 	],
 	declarations: [RolesComponent]
 })

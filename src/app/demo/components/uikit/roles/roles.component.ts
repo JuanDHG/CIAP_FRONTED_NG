@@ -6,6 +6,8 @@ import { DataRoleService } from 'src/app/services/data-role.service';
 // importacion de interfaz
 
 import { RolGeneralData, RolSetData, RolStatus, RolPutData,UserData } from "../../../api/datarole.module";
+import { OverlayPanel } from 'primeng/overlaypanel';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -40,9 +42,12 @@ export class RolesComponent implements OnInit {
     }
 
     @ViewChild('filter') filter!: ElementRef;
+    @ViewChild('miPanel') overlayPanel: OverlayPanel;
+
     display: boolean = false;
     displayEdit: boolean =  false; 
     displayAddUser: boolean = false;
+    displayPro: boolean = false;
 
 
     constructor(private server: DataRoleService, private messageService: MessageService) {  }
@@ -59,7 +64,6 @@ export class RolesComponent implements OnInit {
     RenderDatosRoles(){
             this.server.GetDataRole().subscribe((response)=>{
                 const res = response;
-                console.log(res);
                 this.customers1 = res;
                 this.loading = false;
             });
@@ -69,7 +73,6 @@ export class RolesComponent implements OnInit {
     RenderDatosRolesUser(){
         this.server.GetUserList().subscribe((res)=>{
             const resp = res;                
-            console.log(resp);
             this.DataUser = resp;
             this.loading2 = false;
         });
@@ -120,6 +123,16 @@ export class RolesComponent implements OnInit {
         })
     }
 
+    onAlertMessage(t: string, sms: string, i: any): void {
+        Swal.fire({
+            title: t,
+            text: sms,
+            icon: i,
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: "#5fbb3a"
+        });
+    }
+
     onPutStatus(id: number, status: number) {
         this.putStatus = {
             idRol : id,
@@ -127,7 +140,16 @@ export class RolesComponent implements OnInit {
         }
         this.server.PutStatusRole(this.putStatus).subscribe((res)=>{
             console.log(res);
-             this.RenderDatosRoles()
+      
+
+             if (res['status'] === 'ok') {
+                // this.messageService.add({severity:'success', summary:res['mensaje']});
+                this.onAlertMessage("Exito!!!", res['message'], "success");
+                this.RenderDatosRoles()
+            }else{
+                this.onAlertMessage("Error", res['message'], "warning");
+                this.RenderDatosRoles()
+            }
         });
     }
 
@@ -152,5 +174,10 @@ export class RolesComponent implements OnInit {
 
 
 
-
+//    ver proyectos asociados 
+  
+    onViewDataProyect(id: number):void {
+        console.log(id);
+        this.displayPro = true;
+    }
 }
