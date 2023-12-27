@@ -129,7 +129,6 @@
 								</td>
 								<td>
 									<button pButton pRipple type="button" (click)="onViewDataProyect(DataUser.id_usuario, $event)" icon="pi pi-send"  iconPos="left" class="p-button-success cust_r_cus"></button>
-									<button type="button" pButton label="Image" (click)="op1.toggle($event)" class="p-button-success"></button>
 								</td>
 								<td>
 									{{DataUser.rol}}
@@ -342,7 +341,6 @@
 
 
 <!-- modal para Añadir Usuarios -->
-
 <p-dialog [modal]="true" [(visible)]="displayAddUser" [style]="{ width: '50vw' }" [maximizable]="true" [draggable]="false">
     <div class="modalCustomer flex align-items-center justify-content-center">
       
@@ -387,6 +385,47 @@
 
 
 
-<p-dialog header="Title" [(visible)]="displayPro" position="right">
-    Content
+<p-dialog [(visible)]="displayPro" >
+	<p-table #dtp [value]="Proyect" dataKey="proyecto_id" [rows]="15" [loading]="loading3" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['proyecto_id','nombre']" responsiveLayout="scroll">
+
+		<ng-template pTemplate="header">
+			<tr>
+				<!-- <th style="min-width: 12rem">
+					<div class="flex justify-content-between align-items-center">
+						proyecto_id
+						<!-- <p-columnFilter type="text" field="tipo" display="menu" placeholder="Buscar por nombre"></p-columnFilter>
+					</div>
+				</th> -->
+				<th style="min-width: 12rem">
+					<div class="flex justify-content-between align-items-center">
+						Proyecto
+						<!-- <p-columnFilter type="text" field="tipo" display="menu" placeholder="Buscar por menu"></p-columnFilter> -->
+					</div>
+				</th>
+
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="body" let-Proyect>
+			<tr>
+				<!-- <td>
+					{{Proyect.proyecto_id}}
+				</td> -->
+				<td>
+					<b>{{Proyect.nombre}}</b>
+				</td>
+
+
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="emptymessage">
+			<tr>
+				<td colspan="8">No se encontrar datos.</td>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="loadingbody">
+			<tr>
+				<td colspan="8">Cargando datos. Espere por favor.</td>
+			</tr>
+		</ng-template>
+	</p-table>
 </p-dialog>

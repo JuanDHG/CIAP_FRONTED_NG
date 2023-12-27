@@ -175,9 +175,33 @@ export class RolesComponent implements OnInit {
 
 
 //    ver proyectos asociados 
-  
+    Proyect: any;
+    loading3: boolean = false;
     onViewDataProyect(id: number):void {
-        console.log(id);
         this.displayPro = true;
+        this.server.GetUserProyect(id).subscribe((res)=>{
+            // console.log(res['status']);
+                this.loading3 = false;
+            if (res['status']=== 'ok') {
+
+                const data  = 
+                [
+                    {
+                        "proyecto_id": 0,
+                        "nombre": "Sin Proyecto Asociado"
+                    }
+                ]
+                this.Proyect = data;
+                console.log(this.Proyect);
+                
+
+            }else{
+                this.Proyect = res;
+                console.log(this.Proyect);
+            }
+        },(error) => {
+        console.error('Error en la solicitud GetUserProyect:', error);
+        // Puedes manejar el error de manera adecuada aquí, por ejemplo, mostrando un mensaje al usuario.
+    } );
     }
 }

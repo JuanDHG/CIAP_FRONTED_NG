@@ -47,4 +47,11 @@ export class DataRoleService {
     return this.http.get<UserData>(url, this.httpOptions)
   }
 
+
+  GetUserProyect(id: number) {
+    // La URL para incluir el parámetro 'id'
+    const url = `${this.baseUrl}/usuario/proyectos-de-usuario?id=${id}`;
+    return this.http.get(url, this.httpOptions);
+  }
+
 }
