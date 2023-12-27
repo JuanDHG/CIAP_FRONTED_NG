@@ -1,6 +1,6 @@
 export interface RolGeneralData {
-    id:any;
-    tipo:string;
+    id: number;
+    tipo: string;
     estado: number;
     fechasistema: any;
 }

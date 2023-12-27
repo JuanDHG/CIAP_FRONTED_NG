@@ -70,6 +70,19 @@ export class RolesComponent implements OnInit {
     selectedProyects: DataProyect[];
     selectedRole: RolGeneralData[];
 
+
+    DataUserEdit: UserData  = {
+        id_usuario: null,
+        usuario: null,
+        identificacion: null,
+        nombre: null,
+        apellidos: null,
+        correo: null,
+        id_rol: null,
+        rol: null,
+        estado: null
+    };
+
     constructor(private server: DataRoleService, private messageService: MessageService) { 
      }
 
@@ -273,12 +286,21 @@ export class RolesComponent implements OnInit {
 
     selectedProyectEdit: DataProyect[];
     selectedRoleEdit: RolGeneralData[];
-    onPutDataUser(id: any){
+    onPutDataUser(Dao: any){
 
+        
+        
+        console.log('Dao: ',Dao);
+        
+        const id = Dao.id_usuario; 
         this.SendDataSetRolesProyectos()
-        this.displayEditUser = true;   
+        this.displayEditUser = true; 
+        
+                   
+
+        //coloca el check en la lista de datos de proyecto q1ue viene de base de datos
         this.server.GetUserProyect(id).subscribe((res) => {
-            console.log('Data', res);
+            
             var resb: any = res;
             const DataRes: DataProyect[] = [];
             for (let i = 0; i < resb.length; i++) {
@@ -289,14 +311,27 @@ export class RolesComponent implements OnInit {
                 });
             }
             this.selectedProyectEdit = DataRes;
-          
-            console.log('Seleccion: ', this.selectedProyectEdit);
+
           });
-          
-          
-          
-          
+
+
                   
+        const DataRes: RolGeneralData[] = [];
+
+        var rol : string = Dao.rol;
+        var id_ : number  = parseInt(Dao.id_rol);
+        var date_r = Dao.fechasistema_rol;
+
+        var data = {
+            "id": id_ ,
+            "tipo": rol,
+            "estado": Dao.estado_rol,
+            "fechasistema": date_r
+        }
+        
+        DataRes.push(data);
+
+        this.selectedRoleEdit = DataRes;
 
     }
 
@@ -311,6 +346,7 @@ export class RolesComponent implements OnInit {
             this.server.GetDataRole().subscribe((res)=>{
                 const response: any = res
                 this.role = response;
+                console.log('rol: ', this.role);
             });
         }, 900);
         

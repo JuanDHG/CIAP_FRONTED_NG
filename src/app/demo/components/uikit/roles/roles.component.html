@@ -56,13 +56,13 @@
 								</th>
 								<th style="min-width: 12rem">
 									<div class="flex justify-content-between align-items-center">
-										Rol
+										Proyecto
 										<p-columnFilter type="text" field="correo" display="menu" placeholder="Buscar por correo"></p-columnFilter>
 									</div>
 								</th>
 								<th style="min-width: 12rem">
 									<div class="flex justify-content-between align-items-center">
-										Proyecto
+										Rol
 										<!-- <p-columnFilter type="text" field="estado" display="menu" placeholder="Buscar por correo"></p-columnFilter> -->
 									</div>
 								</th>
@@ -137,7 +137,7 @@
 									<p-inputSwitch class="cus" [ngModel]="DataUser.estado === 1" (ngModelChange)="DataUser.estado = $event ? 1 : 0"  (click)="onPutStatus(customer.id,customer.estado)" inputId="customerSwitch"></p-inputSwitch>
 								</td>
 								<td>
-									<button pButton pRipple type="button"  icon="pi pi-pencil" (click)="onPutDataUser(DataUser.id_usuario)" class="p-button-outlined p-button-info cus"></button>
+									<button pButton pRipple type="button"  icon="pi pi-pencil" (click)="onPutDataUser(DataUser)" class="p-button-outlined p-button-info cus"></button>
 								</td>
 								<!-- <td>
 									{{customer.fechasistema | date: 'MM/dd/yyyy'}}
@@ -436,13 +436,13 @@
 				<div class="formgrid grid">
 					<div class="field col">
 						<span class="p-float-label">
-							<input id="float-input" type="text" [(ngModel)]="DataRegUser.identificacion" pInputText> 
+							<input id="float-input" type="text" [(ngModel)]="DataUserEdit.identificacion" pInputText> 
 							<label for="float-input">Identificación</label>
 						</span>
 					</div>
 					<div class="field col">
 						<span class="p-float-label">
-							<input id="float-input" type="text" [(ngModel)]="DataRegUser.nombres" pInputText> 
+							<input id="float-input" type="text" [(ngModel)]="DataUserEdit.nombre" pInputText> 
 							<label for="float-input">Nombre</label>
 						</span>
 					</div>
@@ -456,31 +456,26 @@
 				<div class="formgrid grid">
 					<div class="field col">
 						<span class="p-float-label">
-							<input id="float-input" type="text" [(ngModel)]="Apellido1" pInputText> 
-							<label for="float-input">Primer apellido</label>
+							<input id="float-input" type="text" [(ngModel)]="DataUserEdit.apellidos" pInputText> 
+							<label for="float-input">Apellidos</label>
 						</span>
 					</div>
 					<div class="field col">
 						<span class="p-float-label">
-							<input id="float-input" type="text" [(ngModel)]="Apellido2" pInputText> 
-							<label for="float-input">Segundo apellido</label>
-						</span>
-					</div>
-					<div class="field col">
-						<span class="p-float-label">
-							<input id="float-input" type="text" [(ngModel)]="DataRegUser.correo" pInputText> 
+							<input id="float-input" type="text" [(ngModel)]="DataUserEdit.correo" pInputText> 
 							<label for="float-input">Correo</label>
 						</span>
 					</div>
 
-					
+					<div class="field col">
+							<p-multiSelect [options]="role" [(ngModel)]="selectedRoleEdit" optionLabel="tipo"  defaultLabel="Rol" [style]="{ width: '16rem'}" display="chip"  [virtualScroll]="true" [virtualScrollItemSize]="10"></p-multiSelect>
+					</div>
 				</div>
+				<!-- selectionLimit="1" -->
 					<br>
 
 					<div class="formgrid grid">
-						<div class="field col">
-							<p-multiSelect [options]="role" [(ngModel)]="selectedRoleEdit" optionLabel="tipo" optionValue="id" defaultLabel="Rol" [style]="{ width: '16rem'}" display="chip" selectionLimit="1" [virtualScroll]="true" [virtualScrollItemSize]="10"></p-multiSelect>
-						</div>
+
 						<div class="field col">
 		
 						</div>
