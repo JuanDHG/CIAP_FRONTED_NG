@@ -14,7 +14,7 @@
 									<i class="pi pi-search"></i>
 									<input pInputText type="text" #filter (input)="onGlobalFilter2(dt2, $event)" placeholder="Buscar" class="w-full"/>
 								</span>
-								<button pButton label="Añadir" class="p-button-outlined mb-2" icon="pi pi-plus-circle" (click)="triggerModal(true)"></button>
+								<button pButton label="Añadir" class="p-button-outlined mb-2" icon="pi pi-plus-circle" (click)="onAddUsers(true)"></button>
 								<button pButton label="Limpiar" class="p-button-outlined mb-2" icon="pi pi-filter-slash" (click)="clear(dt2)"></button>			
 								<!-- <p-toggleButton [(ngModel)]="idFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Desbloquear'" offLabel="Bloquear" [style]="{'width': '12rem'}"></p-toggleButton> -->
 
@@ -72,7 +72,7 @@
 										<!-- <p-columnFilter type="text" field="estado" display="menu" placeholder="Buscar por correo"></p-columnFilter> -->
 									</div>
 								</th>
-								<th style="min-width: 12rem">
+								<th style="min-width: 7rem">
 									<div class="flex justify-content-between align-items-center">
 										Acciones
 										<!-- <p-columnFilter type="text" field="estado" display="menu" placeholder="Buscar por correo"></p-columnFilter> -->
@@ -134,9 +134,10 @@
 									{{DataUser.rol}}
 								</td>
 								<td>
-									
 									<p-inputSwitch class="cus" [ngModel]="DataUser.estado === 1" (ngModelChange)="DataUser.estado = $event ? 1 : 0"  (click)="onPutStatus(customer.id,customer.estado)" inputId="customerSwitch"></p-inputSwitch>
-									
+								</td>
+								<td>
+									<button pButton pRipple type="button"  icon="pi pi-pencil" (click)="onPutDataUser(DataUser.id_usuario)" class="p-button-outlined p-button-info cus"></button>
 								</td>
 								<!-- <td>
 									{{customer.fechasistema | date: 'MM/dd/yyyy'}}
@@ -339,9 +340,8 @@
     </div>
 </p-dialog>
 
-
 <!-- modal para Añadir Usuarios -->
-<p-dialog [modal]="true" [(visible)]="displayAddUser" [style]="{ width: '50vw' }" [maximizable]="true" [draggable]="false">
+<p-dialog [modal]="true" [(visible)]="displayAddUser" [style]="{ width: '70vw' , height: '42rem'}" [maximizable]="true" [draggable]="false">
     <div class="modalCustomer flex align-items-center justify-content-center">
       
             <div class="flex flex-column">
@@ -357,33 +357,148 @@
 				<div class="formgrid grid">
 					<div class="field col">
 						<span class="p-float-label">
-							<input id="float-input" type="text" [(ngModel)]="putDataRole.nombreRol" pInputText> 
-							<label for="float-input">Nombre del rol</label>
+							<input id="float-input" type="text" [(ngModel)]="DataRegUser.identificacion" pInputText> 
+							<label for="float-input">Identificación</label>
 						</span>
 					</div>
 					<div class="field col">
-						<h6>Proximamente los menus estaran disponibles</h6>
+						<span class="p-float-label">
+							<input id="float-input" type="text" [(ngModel)]="DataRegUser.nombres" pInputText> 
+							<label for="float-input">Nombre</label>
+						</span>
+					</div>
+					<div class="field col">
+						<p-multiSelect [options]="proyects" [(ngModel)]="selectedProyects" optionLabel="nombre" optionValue="id" defaultLabel="Proyecto" [style]="{ width: '16rem'}" display="chip" [virtualScroll]="true" [virtualScrollItemSize]="10"></p-multiSelect>
+					</div>
+				</div>
+					<br>
+				<div class="formgrid grid">
+					<div class="field col">
+						<span class="p-float-label">
+							<input id="float-input" type="text" [(ngModel)]="Apellido1" pInputText> 
+							<label for="float-input">Primer apellido</label>
+						</span>
+					</div>
+					<div class="field col">
+						<span class="p-float-label">
+							<input id="float-input" type="text" [(ngModel)]="Apellido2" pInputText> 
+							<label for="float-input">Segundo apellido</label>
+						</span>
+					</div>
+					<div class="field col">
+						<span class="p-float-label">
+							<input id="float-input" type="text" [(ngModel)]="DataRegUser.correo" pInputText> 
+							<label for="float-input">Correo</label>
+						</span>
 					</div>
 
-					<p-messages [(value)]="msgs"></p-messages>
-
+					
 				</div>
+					<br>
 
+					<div class="formgrid grid">
+						<div class="field col">
+							<p-multiSelect [options]="role" [(ngModel)]="selectedRole" optionLabel="tipo" optionValue="id" defaultLabel="Rol" [style]="{ width: '16rem'}" display="chip" selectionLimit="1" [virtualScroll]="true" [virtualScrollItemSize]="10"></p-multiSelect>
+						</div>
+						<div class="field col">
+		
+						</div>
+						<div class="field col">
+					
+						</div>
+						<p-messages [(value)]="msgs"></p-messages>	
+					</div>
+					
 
+				<br>
             <div class="flex align-items-center justify-content-center">
                 <button pButton pRipple type="button" icon="pi pi-arrow-left" (click)="triggerModal(false)" iconPos="left" label="Atras"  class="p-button-success cust_l"></button>
-                <button pButton pRipple type="button" icon="pi pi-check" (click)="SendServer()" iconPos="left" label="Guardar"   class="p-button-success cust_r"></button>
+                <button pButton pRipple type="button" icon="pi pi-check" (click)="SendServerAddUser()" iconPos="left" label="Guardar"   class="p-button-success cust_r"></button>
             </div>
             </div>
-
-
-
-
-
     </div>
 </p-dialog>
 
+<!-- modal para Editar Usuarios -->
+<p-dialog [modal]="true" [(visible)]="displayEditUser" [style]="{ width: '70vw' , height: '42rem'}" [maximizable]="true" [draggable]="false">
+    <div class="modalCustomer flex align-items-center justify-content-center">
+      
+            <div class="flex flex-column">
+                <div class="flex align-items-center justify-content-center h-4rem  m-2">
+                    <div class="flex overflow-hidden">
+                        <div class="flex-grow-1 flex align-items-center justify-content-center">
+                            <h4 class="texReco">EDITAR USUARIO</h4>
+                        </div>
+                    </div>
+                </div>
+   
+				<!-- [ngClass]="{ 'invisble':otpView === false, 'visble':otpView === true} -->
+				<div class="formgrid grid">
+					<div class="field col">
+						<span class="p-float-label">
+							<input id="float-input" type="text" [(ngModel)]="DataRegUser.identificacion" pInputText> 
+							<label for="float-input">Identificación</label>
+						</span>
+					</div>
+					<div class="field col">
+						<span class="p-float-label">
+							<input id="float-input" type="text" [(ngModel)]="DataRegUser.nombres" pInputText> 
+							<label for="float-input">Nombre</label>
+						</span>
+					</div>
+					<div class="field col">
+						<!-- <p-multiSelect [options]="proyects" [(ngModel)]="selectedProyectEdit" optionLabel="nombre" optionValue="id" defaultLabel="Proyecto" [style]="{ width: '16rem'}" display="chip" [virtualScroll]="true" [virtualScrollItemSize]="10"></p-multiSelect> -->
+						<p-multiSelect [options]="proyects" [(ngModel)]="selectedProyectEdit" optionLabel="nombre" defaultLabel="Proyecto" [style]="{ width: '16rem'}" display="chip" [virtualScroll]="true" [virtualScrollItemSize]="10"></p-multiSelect>
 
+					</div>
+				</div>
+					<br>
+				<div class="formgrid grid">
+					<div class="field col">
+						<span class="p-float-label">
+							<input id="float-input" type="text" [(ngModel)]="Apellido1" pInputText> 
+							<label for="float-input">Primer apellido</label>
+						</span>
+					</div>
+					<div class="field col">
+						<span class="p-float-label">
+							<input id="float-input" type="text" [(ngModel)]="Apellido2" pInputText> 
+							<label for="float-input">Segundo apellido</label>
+						</span>
+					</div>
+					<div class="field col">
+						<span class="p-float-label">
+							<input id="float-input" type="text" [(ngModel)]="DataRegUser.correo" pInputText> 
+							<label for="float-input">Correo</label>
+						</span>
+					</div>
+
+					
+				</div>
+					<br>
+
+					<div class="formgrid grid">
+						<div class="field col">
+							<p-multiSelect [options]="role" [(ngModel)]="selectedRoleEdit" optionLabel="tipo" optionValue="id" defaultLabel="Rol" [style]="{ width: '16rem'}" display="chip" selectionLimit="1" [virtualScroll]="true" [virtualScrollItemSize]="10"></p-multiSelect>
+						</div>
+						<div class="field col">
+		
+						</div>
+						<div class="field col">
+					
+						</div>
+						<p-messages [(value)]="msgs"></p-messages>	
+					</div>
+					
+
+				<br>
+            <div class="flex align-items-center justify-content-center">
+                <button pButton pRipple type="button" icon="pi pi-arrow-left" (click)="triggerModal(false)" iconPos="left" label="Atras"  class="p-button-success cust_l"></button>
+                <button pButton pRipple type="button" icon="pi pi-check" (click)="SendServerAddUser()" iconPos="left" label="Guardar"   class="p-button-success cust_r"></button>
+            </div>
+            </div>
+    </div>
+</p-dialog>
 
 <p-dialog [(visible)]="displayPro" >
 	<p-table #dtp [value]="Proyect" dataKey="proyecto_id" [rows]="15" [loading]="loading3" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['proyecto_id','nombre']" responsiveLayout="scroll">
@@ -398,7 +513,7 @@
 				</th> -->
 				<th style="min-width: 12rem">
 					<div class="flex justify-content-between align-items-center">
-						Proyecto
+						<b>Proyecto</b>
 						<!-- <p-columnFilter type="text" field="tipo" display="menu" placeholder="Buscar por menu"></p-columnFilter> -->
 					</div>
 				</th>
@@ -411,7 +526,7 @@
 					{{Proyect.proyecto_id}}
 				</td> -->
 				<td>
-					<b>{{Proyect.nombre}}</b>
+					{{Proyect.nombre}}
 				</td>
 
 

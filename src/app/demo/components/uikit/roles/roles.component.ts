@@ -5,9 +5,10 @@ import { DataRoleService } from 'src/app/services/data-role.service';
 
 // importacion de interfaz
 
-import { RolGeneralData, RolSetData, RolStatus, RolPutData,UserData } from "../../../api/datarole.module";
+import { RolGeneralData, RolSetData, RolStatus, RolPutData,UserData, UserDataRegister,DataProyect } from "../../../api/datarole.module";
 import { OverlayPanel } from 'primeng/overlaypanel';
 import Swal from 'sweetalert2';
+
 
 
 @Component({
@@ -19,6 +20,16 @@ export class RolesComponent implements OnInit {
 
     customers1:  RolGeneralData;
     DataUser: UserData;
+    DataRegUser: UserDataRegister = {
+        apellidos: null,
+        correo: null,
+        identificacion: null,
+        idProyecto:null,
+        idRol:null,
+        nombres:null
+    };
+    Apellido1: string;
+    Apellido2: string;
 
     isExpanded: boolean = false;
 
@@ -47,10 +58,20 @@ export class RolesComponent implements OnInit {
     display: boolean = false;
     displayEdit: boolean =  false; 
     displayAddUser: boolean = false;
+    displayEditUser: boolean = false;
     displayPro: boolean = false;
+    Proyect: any;
+    loading3: boolean = false;
 
 
-    constructor(private server: DataRoleService, private messageService: MessageService) {  }
+    proyects: DataProyect[];
+    role: RolGeneralData[];
+
+    selectedProyects: DataProyect[];
+    selectedRole: RolGeneralData[];
+
+    constructor(private server: DataRoleService, private messageService: MessageService) { 
+     }
 
     ngOnInit() {
        this.RenderDatosRolesUser();
@@ -106,7 +127,7 @@ export class RolesComponent implements OnInit {
     msgs: [];
     onSetDataRole() {
         this.server.PostSetDataRol(this.setData).subscribe((res)=>{
-            console.log(res);
+
 
             var response = res
             if (response['status'] === 'ok') {
@@ -139,7 +160,7 @@ export class RolesComponent implements OnInit {
             estado: status
         }
         this.server.PutStatusRole(this.putStatus).subscribe((res)=>{
-            console.log(res);
+
       
 
              if (res['status'] === 'ok') {
@@ -159,14 +180,13 @@ export class RolesComponent implements OnInit {
             nombreRol : rol
         }
         this.displayEdit = true;
-        console.log(this.putDataRole);
-    }
 
+    }
 
     SendServer(){
   
         this.server.PutDataRole(this.putDataRole).subscribe((res)=>{
-            console.log(res);
+
             this.displayEdit = false;
             this.RenderDatosRoles()
         });
@@ -174,13 +194,59 @@ export class RolesComponent implements OnInit {
 
 
 
-//    ver proyectos asociados 
-    Proyect: any;
-    loading3: boolean = false;
+    // Añadir usuarios
+    onAddUsers(e: boolean): void{
+        this.displayAddUser = e; 
+        this.server.GetUserProyectAll().subscribe((res)=>{
+            const response: any = res
+            this.proyects = response;
+        });
+
+        setTimeout(() => {
+            this.server.GetDataRole().subscribe((res)=>{
+                const response: any = res
+                this.role = response;
+            });
+        }, 900);
+    }
+
+    //enviar datos a servidor 
+    SendServerAddUser():void{
+
+        const idRole: any = this.selectedRole[0];
+        this.DataRegUser = {
+            apellidos: this.Apellido1 +' '+this.Apellido2,
+            identificacion: this.DataRegUser.identificacion,
+            correo:this.DataRegUser.correo,
+            idProyecto: this.selectedProyects,
+            idRol:idRole,
+            nombres: this.DataRegUser.nombres
+        }
+
+
+       this.server.PostAddUser(this.DataRegUser).subscribe((res)=>{
+
+
+                var response = res
+                if (response['status'] === 'ok') {
+                    this.messageService.add({severity:'success', summary:response['mensaje']});
+                    
+                    setTimeout(() => {
+                        this.displayAddUser = false;
+                        this.RenderDatosRolesUser()
+                    }, 3000);
+                }else{
+                    this.messageService.add({severity:'error', summary:response['mensaje']});
+                }
+                
+       })
+      
+    }
+
+    //  ver proyectos asociados 
     onViewDataProyect(id: number):void {
         this.displayPro = true;
         this.server.GetUserProyect(id).subscribe((res)=>{
-            // console.log(res['status']);
                 this.loading3 = false;
             if (res['status']=== 'ok') {
 
@@ -191,17 +257,63 @@ export class RolesComponent implements OnInit {
                         "nombre": "Sin Proyecto Asociado"
                     }
                 ]
-                this.Proyect = data;
-                console.log(this.Proyect);
-                
-
+                this.Proyect = data;  
             }else{
                 this.Proyect = res;
-                console.log(this.Proyect);
             }
         },(error) => {
         console.error('Error en la solicitud GetUserProyect:', error);
         // Puedes manejar el error de manera adecuada aquí, por ejemplo, mostrando un mensaje al usuario.
     } );
     }
+
+
+    DataEdit: any;
+    DataRoleEdit: any;
+
+    selectedProyectEdit: DataProyect[];
+    selectedRoleEdit: RolGeneralData[];
+    onPutDataUser(id: any){
+
+        this.SendDataSetRolesProyectos()
+        this.displayEditUser = true;   
+        this.server.GetUserProyect(id).subscribe((res) => {
+            console.log('Data', res);
+            var resb: any = res;
+            const DataRes: DataProyect[] = [];
+            for (let i = 0; i < resb.length; i++) {
+                const element = resb[i];
+                 DataRes.push({
+                    id: element.proyecto_id,
+                    nombre:  element.nombre
+                });
+            }
+            this.selectedProyectEdit = DataRes;
+          
+            console.log('Seleccion: ', this.selectedProyectEdit);
+          });
+          
+          
+          
+          
+                  
+
+    }
+
+    SendDataSetRolesProyectos(){
+        this.server.GetUserProyectAll().subscribe((res)=>{
+            
+            const response: any = res
+            this.proyects = response;
+        });
+
+        setTimeout(() => {
+            this.server.GetDataRole().subscribe((res)=>{
+                const response: any = res
+                this.role = response;
+            });
+        }, 900);
+        
+    }
+    
 }

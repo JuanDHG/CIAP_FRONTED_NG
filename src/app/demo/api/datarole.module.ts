@@ -32,3 +32,17 @@ export interface UserData {
     rol: number;
     estado: number;
 }
+
+export interface UserDataRegister {
+    nombres: string;
+    apellidos: string;
+    identificacion: string;
+    idRol: number;
+    correo: string;
+    idProyecto: any;
+}
+
+export interface DataProyect {
+    nombre: string,
+    id: string
+}
