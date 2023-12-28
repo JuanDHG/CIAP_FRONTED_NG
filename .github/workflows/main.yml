@@ -21,23 +21,8 @@ jobs:
     - name: Install dependencies
       run: npm install
 
+    - name: Pull latest changes from main
+      run: git pull origin main
 
     - name: Start Angular development server
-      run: npm start -- --host=0.0.0.0 --port=8080 --disable-host-check &
-
-    - name: Wait for Angular server to start
-      run: sleep 5
-
-    - name: Deploy to GitHub Pages
-      run: |
-        mkdir gh-pages
-        mv dist/CIAP_FRONTED_NG/* gh-pages/
-        cp -r node_modules gh-pages/
-        git clone --branch=gh-pages https://github.com/rmolina29/CIAP_FRONTED_NG.git gh-pages-repo
-        cp -r gh-pages/* gh-pages-repo/
-        cd gh-pages-repo
-        git config --global user.email "rmolina@ises.com.co"
-        git config --global user.name "rmolina29"
-        git add .
-        git commit -m "Deploy Test"
-        git push origin gh-pages
+      run: npm start -- --host=0.0.0.0 --port=8080 --disable-host-check
