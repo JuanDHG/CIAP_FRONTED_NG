@@ -9,7 +9,7 @@ import { RolGeneralData, RolSetData, RolStatus, RolPutData,UserData, UserDataReg
 import { OverlayPanel } from 'primeng/overlaypanel';
 import Swal from 'sweetalert2';
 
-
+import  * as data  from '../../../../../assets/demo/data/countries.json';
 
 @Component({
     templateUrl: './roles.component.html',
@@ -32,9 +32,7 @@ export class RolesComponent implements OnInit {
     Apellido2: string;
 
     isExpanded: boolean = false;
-
     idFrozen: boolean = false;
-
     loading: boolean = true;
     loading2: boolean = true;
 
@@ -63,7 +61,6 @@ export class RolesComponent implements OnInit {
     Proyect: any;
     loading3: boolean = false;
 
-
     proyects: DataProyect[];
     role: RolGeneralData[];
 
@@ -84,7 +81,14 @@ export class RolesComponent implements OnInit {
     };
 
     DaoEdit: UserDataEdit;
+    DataEdit: any;
+    DataRoleEdit: any;
 
+    selectedProyectEdit: DataProyect[];
+    selectedRoleEdit: RolGeneralData[];    
+    UserStatus: UserStatus;
+
+    DaoMenu: any;
     constructor(private server: DataRoleService, private messageService: MessageService) { 
      }
 
@@ -94,9 +98,16 @@ export class RolesComponent implements OnInit {
        setTimeout(() => {
         this.RenderDatosRoles()
        },1500);
+
+
+        const dao = data['default'].data
+        this.DaoMenu = dao;
+       console.log(this.DaoMenu);
+       
        
     }
 
+    // maenja y pinta las petiones para mostar los roles
     RenderDatosRoles(){
             this.server.GetDataRole().subscribe((response)=>{
                 const res = response;
@@ -105,22 +116,25 @@ export class RolesComponent implements OnInit {
             });
 
     }
-
+     // maenja y pinta las petiones para mostar los roles
     RenderDatosRolesUser(){
         this.server.GetUserList().subscribe((res)=>{
             const resp = res;                
             this.DataUser = resp;
-            console.log(this.DataUser);
             
             this.loading2 = false;
         });
+    }
+
+
+    valuesCheck(im: any, p: number){
+        console.log('op menu: ',im, 'permiso;', p );
     }
 
     onGlobalFilter(table: Table, event: Event) {
         
         table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
     }
-
 
     onGlobalFilter2(table: Table, event: Event) {
         
@@ -132,15 +146,19 @@ export class RolesComponent implements OnInit {
     }
 
     triggerModal(e: boolean){
-            this.display = e;
             this.displayEdit = e;
+    }
+
+
+    triggerModaladd(e: boolean){
+        this.display = e;
+
     }
 
     clear(table : Table) {
         table.clear();
         this.filter.nativeElement.value = '';
     }
-    
     msgs: [];
     onSetDataRole() {
         this.server.PostSetDataRol(this.setData).subscribe((res)=>{
@@ -208,8 +226,6 @@ export class RolesComponent implements OnInit {
             this.RenderDatosRoles()
         });
     }
-
-
 
     // Añadir usuarios
     onAddUsers(e: boolean): void{
@@ -284,17 +300,8 @@ export class RolesComponent implements OnInit {
     } );
     }
 
-
-    DataEdit: any;
-    DataRoleEdit: any;
-
-    selectedProyectEdit: DataProyect[];
-    selectedRoleEdit: RolGeneralData[];
-
     onPutDataUser(Dao: any){
 
-        
-        console.log('Dao: ',Dao);
         
         const id = Dao.id_usuario; 
         this.SendDataSetRolesProyectos()
@@ -357,7 +364,6 @@ export class RolesComponent implements OnInit {
     }
 
     SendServerEditUser(){
-            //console.log(this.selectedProyectEdit);
 
                 let VecPro: string[] = [];
 
@@ -375,10 +381,8 @@ export class RolesComponent implements OnInit {
                 nombres: this.DataUserEdit.nombre
             }
 
-            console.log(this.DaoEdit);
 
             this.server.PutEditUSer(this.DaoEdit).subscribe((res)=>{
-                    console.log(res);
                     const response  = res['success'];
                         if (response === false) {
                             this.messageService.add({severity:'error', summary:res['message']});
@@ -412,13 +416,10 @@ export class RolesComponent implements OnInit {
             this.server.GetDataRole().subscribe((res)=>{
                 const response: any = res
                 this.role = response;
-                console.log('rol: ', this.role);
             });
         }, 900);
         
     }
-
-    UserStatus: UserStatus;
 
     onPutStatususER(id: number, status: string) {
          this.UserStatus = {
@@ -439,5 +440,6 @@ export class RolesComponent implements OnInit {
             }
         });
     }
+
     
 }
