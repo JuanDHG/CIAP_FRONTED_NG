@@ -16,6 +16,8 @@ jobs:
 
     - name: Install dependencies
       run: npm install
+    - name: Install dependencies Angular
+      run: npm install -g @angular/cli
 
     - name: Pull latest changes from main
       run: git pull origin main
