@@ -253,6 +253,8 @@
     </div>
 </div>
 
+<!-- prueba -->
+
 
 <!-- modal para Añadir Roles -->
 <p-dialog [modal]="true" [(visible)]="display" [style]="{ width: '50vw' }" [maximizable]="true" [draggable]="false">
@@ -436,6 +438,12 @@
 				<div class="formgrid grid">
 					<div class="field col">
 						<span class="p-float-label">
+							<input id="float-input" type="text" [(ngModel)]="DataUserEdit.usuario" pInputText readonly> 
+							<label for="float-input">usuario</label>
+						</span>
+					</div>
+					<div class="field col">
+						<span class="p-float-label">
 							<input id="float-input" type="text" [(ngModel)]="DataUserEdit.identificacion" pInputText> 
 							<label for="float-input">Identificación</label>
 						</span>
@@ -468,10 +476,10 @@
 					</div>
 
 					<div class="field col">
-							<p-multiSelect [options]="role" [(ngModel)]="selectedRoleEdit" optionLabel="tipo"  defaultLabel="Rol" [style]="{ width: '16rem'}" display="chip"  [virtualScroll]="true" [virtualScrollItemSize]="10"></p-multiSelect>
+							<p-multiSelect [options]="role" selectionLimit="1" [(ngModel)]="selectedRoleEdit" optionLabel="tipo"  defaultLabel="Rol" [style]="{ width: '16rem'}" display="chip"  [virtualScroll]="true" [virtualScrollItemSize]="10"></p-multiSelect>
 					</div>
 				</div>
-				<!-- selectionLimit="1" -->
+				<!--  -->
 					<br>
 
 					<div class="formgrid grid">
@@ -489,12 +497,14 @@
 				<br>
             <div class="flex align-items-center justify-content-center">
                 <button pButton pRipple type="button" icon="pi pi-arrow-left" (click)="triggerModal(false)" iconPos="left" label="Atras"  class="p-button-success cust_l"></button>
-                <button pButton pRipple type="button" icon="pi pi-check" (click)="SendServerAddUser()" iconPos="left" label="Guardar"   class="p-button-success cust_r"></button>
+                <button pButton pRipple type="button" icon="pi pi-check" (click)="SendServerEditUser()" iconPos="left" label="Guardar"   class="p-button-success cust_r"></button>
             </div>
             </div>
     </div>
 </p-dialog>
 
+
+<!-- modal para ver proyectos -->
 <p-dialog [(visible)]="displayPro" >
 	<p-table #dtp [value]="Proyect" dataKey="proyecto_id" [rows]="15" [loading]="loading3" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['proyecto_id','nombre']" responsiveLayout="scroll">
 

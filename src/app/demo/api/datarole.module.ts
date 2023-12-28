@@ -34,6 +34,18 @@ export interface UserData {
 }
 
 export interface UserDataRegister {
+    
+    nombres: string;
+    apellidos: string;
+    identificacion: string;
+    idRol: number;
+    correo: string;
+    idProyecto: any;
+}
+
+
+export interface UserDataEdit {
+    idUsuario: number;
     nombres: string;
     apellidos: string;
     identificacion: string;

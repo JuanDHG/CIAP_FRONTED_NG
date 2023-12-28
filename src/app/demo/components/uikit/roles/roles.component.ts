@@ -5,7 +5,7 @@ import { DataRoleService } from 'src/app/services/data-role.service';
 
 // importacion de interfaz
 
-import { RolGeneralData, RolSetData, RolStatus, RolPutData,UserData, UserDataRegister,DataProyect } from "../../../api/datarole.module";
+import { RolGeneralData, RolSetData, RolStatus, RolPutData,UserData, UserDataRegister,DataProyect, UserDataEdit } from "../../../api/datarole.module";
 import { OverlayPanel } from 'primeng/overlaypanel';
 import Swal from 'sweetalert2';
 
@@ -82,6 +82,8 @@ export class RolesComponent implements OnInit {
         rol: null,
         estado: null
     };
+
+    DaoEdit: UserDataEdit;
 
     constructor(private server: DataRoleService, private messageService: MessageService) { 
      }
@@ -286,9 +288,9 @@ export class RolesComponent implements OnInit {
 
     selectedProyectEdit: DataProyect[];
     selectedRoleEdit: RolGeneralData[];
+
     onPutDataUser(Dao: any){
 
-        
         
         console.log('Dao: ',Dao);
         
@@ -312,10 +314,10 @@ export class RolesComponent implements OnInit {
             }
             this.selectedProyectEdit = DataRes;
 
-          });
+        });
 
 
-                  
+        //coloca el check en la lista de rolres      
         const DataRes: RolGeneralData[] = [];
 
         var rol : string = Dao.rol;
@@ -332,7 +334,41 @@ export class RolesComponent implements OnInit {
         DataRes.push(data);
 
         this.selectedRoleEdit = DataRes;
+        var ire: any =  this.selectedRoleEdit[0].id;
+        
 
+        // Setea la data en el formulario para ser enviada al endponit
+        this.DataUserEdit = {
+            apellidos : Dao.apellidos,
+            correo:  Dao.correo,
+            estado: Dao.estado_cuenta,
+            id_rol: parseInt(ire),
+            id_usuario: Dao.id_usuario,
+            identificacion: Dao.identificacion,
+            nombre: Dao.nombre,
+            rol: parseInt(ire),
+            usuario: Dao.usuario
+        }
+  
+        
+
+    }
+
+    SendServerEditUser(){
+            console.log(this.selectedProyectEdit);
+            
+            this.DaoEdit = {
+                apellidos: this.DataUserEdit.apellidos,
+                correo: this.DataUserEdit.correo,
+                identificacion:this.DataUserEdit.identificacion.toString(),
+                idProyecto: this.selectedProyectEdit,
+                idRol: this.selectedRoleEdit[0].id,
+                idUsuario: this.DataUserEdit.id_usuario,
+                nombres: this.DataUserEdit.nombre
+            }
+
+            console.log(this.DaoEdit);
+            
     }
 
     SendDataSetRolesProyectos(){
