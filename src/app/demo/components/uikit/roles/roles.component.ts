@@ -5,7 +5,7 @@ import { DataRoleService } from 'src/app/services/data-role.service';
 
 // importacion de interfaz
 
-import { RolGeneralData, RolSetData, RolStatus, RolPutData,UserData, UserDataRegister,DataProyect, UserDataEdit } from "../../../api/datarole.module";
+import { RolGeneralData, RolSetData, RolStatus, RolPutData,UserData, UserDataRegister,DataProyect, UserDataEdit, UserStatus } from "../../../api/datarole.module";
 import { OverlayPanel } from 'primeng/overlaypanel';
 import Swal from 'sweetalert2';
 
@@ -110,6 +110,8 @@ export class RolesComponent implements OnInit {
         this.server.GetUserList().subscribe((res)=>{
             const resp = res;                
             this.DataUser = resp;
+            console.log(this.DataUser);
+            
             this.loading2 = false;
         });
     }
@@ -355,20 +357,48 @@ export class RolesComponent implements OnInit {
     }
 
     SendServerEditUser(){
-            console.log(this.selectedProyectEdit);
-            
+            //console.log(this.selectedProyectEdit);
+
+                let VecPro: string[] = [];
+
+                for (let i = 0; i < this.selectedProyectEdit.length; i++) {
+                    const element = this.selectedProyectEdit[i].id;
+                    VecPro.push(element);
+                }
             this.DaoEdit = {
                 apellidos: this.DataUserEdit.apellidos,
                 correo: this.DataUserEdit.correo,
                 identificacion:this.DataUserEdit.identificacion.toString(),
-                idProyecto: this.selectedProyectEdit,
+                idProyecto: VecPro,
                 idRol: this.selectedRoleEdit[0].id,
                 idUsuario: this.DataUserEdit.id_usuario,
                 nombres: this.DataUserEdit.nombre
             }
 
             console.log(this.DaoEdit);
+
+            this.server.PutEditUSer(this.DaoEdit).subscribe((res)=>{
+                    console.log(res);
+                    const response  = res['success'];
+                        if (response === false) {
+                            this.messageService.add({severity:'error', summary:res['message']});
+                        } else {
+                            this.messageService.add({severity:'success', summary:res['mensaje']});
+                    
+                            setTimeout(() => {
+                                this.displayEditUser = false;
+                                this.RenderDatosRolesUser()
+                            }, 5000);
+                        }
+            },  (error) => {
+                const ms = error['error'].message[0];
+                this.messageService.add({severity:'error', summary:ms});
+              });
             
+    }
+
+    triggerModal2(e: boolean){
+        this.displayEditUser = e;
     }
 
     SendDataSetRolesProyectos(){
@@ -386,6 +416,28 @@ export class RolesComponent implements OnInit {
             });
         }, 900);
         
+    }
+
+    UserStatus: UserStatus;
+
+    onPutStatususER(id: number, status: string) {
+         this.UserStatus = {
+            idUsuario : id,
+            idEstado: status
+        }
+        this.server.PutStatusRolUser(this.UserStatus).subscribe((res)=>{
+
+      
+
+             if (res['status'] === 'ok') {
+                // this.messageService.add({severity:'success', summary:res['mensaje']});
+                this.onAlertMessage("Exito!!!", res['message'], "success");
+                this.RenderDatosRolesUser()
+            }else{
+                this.onAlertMessage("Error", res['message'], "warning");
+                this.RenderDatosRolesUser()
+            }
+        });
     }
     
 }

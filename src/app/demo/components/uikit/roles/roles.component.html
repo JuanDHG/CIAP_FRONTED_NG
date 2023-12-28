@@ -134,7 +134,7 @@
 									{{DataUser.rol}}
 								</td>
 								<td>
-									<p-inputSwitch class="cus" [ngModel]="DataUser.estado === 1" (ngModelChange)="DataUser.estado = $event ? 1 : 0"  (click)="onPutStatus(customer.id,customer.estado)" inputId="customerSwitch"></p-inputSwitch>
+									<p-inputSwitch class="cus" [ngModel]="DataUser.estado_cuenta === 1" (ngModelChange)="DataUser.estado_cuenta = $event ? 1 : 0"  (click)="onPutStatususER(DataUser.id_usuario, DataUser.estado_cuenta)" inputId="customerSwitch"></p-inputSwitch>
 								</td>
 								<td>
 									<button pButton pRipple type="button"  icon="pi pi-pencil" (click)="onPutDataUser(DataUser)" class="p-button-outlined p-button-info cus"></button>
@@ -456,7 +456,7 @@
 					</div>
 					<div class="field col">
 						<!-- <p-multiSelect [options]="proyects" [(ngModel)]="selectedProyectEdit" optionLabel="nombre" optionValue="id" defaultLabel="Proyecto" [style]="{ width: '16rem'}" display="chip" [virtualScroll]="true" [virtualScrollItemSize]="10"></p-multiSelect> -->
-						<p-multiSelect [options]="proyects" [(ngModel)]="selectedProyectEdit" optionLabel="nombre" defaultLabel="Proyecto" [style]="{ width: '16rem'}" display="chip" [virtualScroll]="true" [virtualScrollItemSize]="10"></p-multiSelect>
+						<p-multiSelect [options]="proyects" [(ngModel)]="selectedProyectEdit" optionLabel="nombre"    defaultLabel="Proyecto" [style]="{ width: '16rem'}" display="chip" [virtualScroll]="true" [virtualScrollItemSize]="10"></p-multiSelect>
 
 					</div>
 				</div>
@@ -496,7 +496,7 @@
 
 				<br>
             <div class="flex align-items-center justify-content-center">
-                <button pButton pRipple type="button" icon="pi pi-arrow-left" (click)="triggerModal(false)" iconPos="left" label="Atras"  class="p-button-success cust_l"></button>
+                <button pButton pRipple type="button" icon="pi pi-arrow-left" (click)="triggerModal2(false)" iconPos="left" label="Atras"  class="p-button-success cust_l"></button>
                 <button pButton pRipple type="button" icon="pi pi-check" (click)="SendServerEditUser()" iconPos="left" label="Guardar"   class="p-button-success cust_r"></button>
             </div>
             </div>

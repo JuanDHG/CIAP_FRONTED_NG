@@ -15,6 +15,10 @@ export interface RolStatus {
     estado: number
 }
 
+export interface UserStatus {
+    idUsuario: number,
+    idEstado: string
+}
 
 export interface RolPutData {
     idRol: number,
