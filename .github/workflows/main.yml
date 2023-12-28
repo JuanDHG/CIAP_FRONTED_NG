@@ -36,8 +36,8 @@ jobs:
         git clone --branch=gh-pages https://github.com/rmolina29/CIAP_FRONTED_NG.git gh-pages-repo
         cp -r gh-pages/* gh-pages-repo/
         cd gh-pages-repo
-        git config --global user.email "you@example.com"
-        git config --global user.name "Your Name"
+        git config --global user.email "rmolina@ises.com.co"
+        git config --global user.name "rmolina29"
         git add .
-        git commit -m "Deploy to GitHub Pages"
+        git commit -m "Deploy Test"
         git push origin gh-pages
