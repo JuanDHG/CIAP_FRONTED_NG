@@ -22,6 +22,7 @@ import {MessageModule} from 'primeng/message';
 import {AvatarModule} from 'primeng/avatar';
 import {AvatarGroupModule} from 'primeng/avatargroup';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import {TooltipModule} from 'primeng/tooltip';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 		MessageModule,
 		AvatarModule,
 		AvatarGroupModule,
-		OverlayPanelModule
+		OverlayPanelModule,
+		TooltipModule
 	],
 	declarations: [RolesComponent]
 })

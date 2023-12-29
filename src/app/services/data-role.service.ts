@@ -75,5 +75,16 @@ export class DataRoleService {
     return this.http.put<UserDataEdit>(url, data, this.httpOptions)
 
   }
+
+  SetMenus() {
+    const url = `${this.baseUrl}/usuario/rol/menu`;
+    return this.http.get(url, this.httpOptions);
+  }
+
+  GetMenus(id: number) {
+    // La URL para incluir el parámetro 'id'
+    const url = `${this.baseUrl}/usuario/rol/permisos?id=${id}`;
+    return this.http.get(url, this.httpOptions);
+  }
   
 }

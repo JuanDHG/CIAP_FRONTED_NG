@@ -8,6 +8,7 @@ export interface RolGeneralData {
 
 export interface RolSetData {
     nombreRol: string;
+    menus?: any;
 }
 
 export interface RolStatus {

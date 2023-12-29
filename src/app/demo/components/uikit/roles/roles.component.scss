@@ -1,7 +1,8 @@
-.cus{
+.cus {
     padding: 6px;
 }
-.cust_l{
+
+.cust_l {
     margin: 3px;
     background-color: #ff3131c9;
 }
@@ -11,7 +12,7 @@
 }
 
 
-.cust_r{
+.cust_r {
     margin: 3px;
     background-color: #5FBB3A;
 }
@@ -30,4 +31,53 @@
     font-size: 19px;
     font-weight: 500;
     margin-bottom: 50px;
+}
+
+.boldClass {
+    font-weight: bold !important;
+}
+
+.arow {
+    display: flex;
+    align-items: center;
+}
+
+table {
+    border-collapse: collapse;
+    /* Asegura que no haya espacios entre las celdas */
+
+}
+
+#thirdTable table {
+    border: none;
+    width: 25rem;
+}
+#thirdTable td {
+    padding: 8px;
+    color: #000;
+    border: none;
+    margin-left: 105px;
+
+}
+#thirdTable th {
+    color: #000;
+    border: none;
+
+}
+#thirdTable thead {
+
+    height: 35px;
+    background: #B3DB7D !important;
+    border-radius: 8px !important;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+}
+
+.btnCustonCRUD {
+    background-color: #D9D9D9 !important;
+    width: 18px;
+    height: 18px !important;
+    text-align: center;
+    color: white;
+    border-radius: 3px;
 }
