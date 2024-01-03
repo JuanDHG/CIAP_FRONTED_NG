@@ -19,4 +19,4 @@ export class IconService {
             return this.icons;
         }));
     }
-}
+} 

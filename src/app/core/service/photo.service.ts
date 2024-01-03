@@ -14,3 +14,4 @@ export class PhotoService {
             .then(data => data);
     }
 }
+

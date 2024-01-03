@@ -5649,12 +5649,12 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   box-shadow: 0 0 0 1px #6366F1;
 }
 .p-steps .p-steps-item.p-highlight .p-steps-number {
-  background: #EEF2FF;
-  color: #312E81;
-}
+  background: #B3DB7D ;
+  color: #fff;
+}  
 .p-steps .p-steps-item.p-highlight .p-steps-title {
   font-weight: 600;
-  color: #3f3f46;
+  color: #B3DB7D;
 }
 .p-steps .p-steps-item:before {
   content: " ";

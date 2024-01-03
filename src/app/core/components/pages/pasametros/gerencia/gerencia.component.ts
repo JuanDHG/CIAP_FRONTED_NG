@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Table } from 'primeng/table';
 import { MessageService, ConfirmationService } from 'primeng/api';;
 import Swal from 'sweetalert2';
+import { DataGerenciaService } from 'src/app/services/data-gerencia.service';
+
 
 
 
@@ -12,18 +14,59 @@ import Swal from 'sweetalert2';
     styleUrls:['./gerencia.component.scss']
 })
 export class GerenciaComponent implements OnInit {
-
-    customers1:  any;
+    @ViewChild('filter') filter!: ElementRef;
+    customers1: any;
+    loading: boolean = true;
     isExpanded: boolean = false;
     idFrozen: boolean = false;
-    loading: boolean = true;
+
     display: boolean = false;
+    steps = [
+        { label: 'Gerencia' },
+        { label: 'Dirección' },
+        { label: 'Ceco' },
+        { label: 'Cliente' },
+        { label: 'Estados' }
+    ];
+    indice: number = 0;
+    activeIndex = 0;
+    
+      // Función para cambiar el paso al hacer clic en el Steps
+ 
+    constructor(
+        private serve: DataGerenciaService,
+        private messageService: MessageService) {}
 
-    constructor(private messageService: MessageService) {}
+    ngOnInit(){ 
+        this.GetGerencias()
+    }
 
-    ngOnInit(){}
+    GetGerencias():void {
+        this.serve.GetDataRole().subscribe(response =>{
+            console.log(response);
+            const res = response;
+            this.customers1 = res;
+            this.loading = false;
+        }, err=>{
+            console.log(err);
+        })
+    }
 
+    // Función para cambiar el paso al hacer clic en el Steps
+    changeTab(index: number) {
+      this.activeIndex = index;
+    }
 
+    onGlobalFilter(table: Table, event: Event) {
+        table.filterGlobal(
+            (event.target as HTMLInputElement).value,
+            'contains'
+        );
+    }
+    clear(table: Table) {
+        table.clear();
+        this.filter.nativeElement.value = '';
+    }
 
     
 }
