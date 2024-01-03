@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { DataLogin, DataValueEmail, DataOptSend, DataSendEmail, DataSendChangePassword } from "../demo/api/auth.module";
+import { DataLogin, DataValueEmail, DataOptSend, DataSendEmail, DataSendChangePassword } from "../core/api/auth.module";
 import { environment  as env} from 'src/environments/environment.prod';
 
 @Injectable({

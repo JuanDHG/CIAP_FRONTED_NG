@@ -4,7 +4,7 @@ import { environment  as env} from 'src/environments/environment.prod';
 import { Observable, catchError, throwError } from 'rxjs';
 
 // importacion de modelocion de datos
-import { RolGeneralData, RolSetData, RolStatus, RolPutData, UserData , UserDataRegister, UserDataEdit, UserStatus} from "./../demo/api/datarole.module";
+import { RolGeneralData, RolSetData, RolStatus, RolPutData, UserData , UserDataRegister, UserDataEdit, UserStatus, DataRolePermison} from "./../core/api/datarole.module";
 @Injectable({
   providedIn: 'root'
 })
@@ -85,6 +85,11 @@ export class DataRoleService {
     // La URL para incluir el parámetro 'id'
     const url = `${this.baseUrl}/usuario/rol/permisos?id=${id}`;
     return this.http.get(url, this.httpOptions);
+  }
+
+  PostPutPermison(data: DataRolePermison) : Observable<DataRolePermison>{
+    const url = `${this.baseUrl}/usuario/rol/permisos`;
+    return this.http.post<DataRolePermison>(url, data, this.httpOptions)
   }
   
 }

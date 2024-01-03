@@ -4,12 +4,12 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppLayoutModule } from './layout/app.layout.module';
-import { NotfoundComponent } from './demo/components/notfound/notfound.component';
-import { CountryService } from './demo/service/country.service';
-import { EventService } from './demo/service/event.service';
-import { IconService } from './demo/service/icon.service';
-import { NodeService } from './demo/service/node.service';
-import { PhotoService } from './demo/service/photo.service';
+import { NotfoundComponent } from './core/components/notfound/notfound.component';
+import { CountryService } from './core/service/country.service';
+import { EventService } from './core/service/event.service';
+import { IconService } from './core/service/icon.service';
+import { NodeService } from './core/service/node.service';
+import { PhotoService } from './core/service/photo.service';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 

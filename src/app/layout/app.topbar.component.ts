@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { LayoutService } from "./service/app.layout.service";
-import { userDataGeneral } from "./../demo/api/user.module";
+import { userDataGeneral } from "./../core/api/user.module";
 @Component({
     selector: 'app-topbar',
     templateUrl: './app.topbar.component.html'
