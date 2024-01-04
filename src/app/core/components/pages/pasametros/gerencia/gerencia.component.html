@@ -114,13 +114,14 @@
 
 
 <!-- modal  -->
-<p-dialog [modal]="true" [(visible)]="display" [style]="{ width: '35vw' }" [maximizable]="false" [draggable]="true">
+<p-dialog [modal]="true" [(visible)]="display" [style]="{ width: '30vw' }" [maximizable]="false" [draggable]="false">
 	<div class="modalCustomer p-fluid">
-		<br><br><br>
+		<br>
+		<h4 class="texReco"> CREAR GERENCIA</h4>
 	  <div class="field">
 		<span class="p-input-icon-left p-float-label lg:mb-5 ">
 		  <!-- <i class="pi pi-lock"></i> -->
-		  <input id="float-input1" type="number" min="0" class="customerInput" name="Cpass" pInputText />
+		  <input id="float-input1" type="text" [(ngModel)]="Dao.idGerenciaErp" min="0" class="customerInput" name="Cpass" pInputText />
 		  <label for="float-input1">ID Gerencia (ERP)</label>
 		</span>
 	  </div>
@@ -128,15 +129,21 @@
 	  <div class="field">
 		<span class="p-input-icon-left p-float-label lg:mb-5 ">
 		  <!-- <i class="pi pi-lock"></i> -->
-		  <input id="float-input2" type="text" class="customerInput" name="Cpass" pInputText />
+		  <input id="float-input2" type="text" [(ngModel)]="Dao.nombre" class="customerInput" name="Cpass" pInputText />
 		  <label for="float-input2">Gerencia</label>
 		</span>
 	  </div>
   
 	  <div class="field">
-
 		<p-multiSelect [options]="responsables" [(ngModel)]="responsable" [selectionLimit]="1" optionLabel="nombreUsuario"  optionValue="id" defaultLabel="Responsable"  display="chip" [virtualScroll]="false" [virtualScrollItemSize]="6"></p-multiSelect>
 	  </div>
+	  <br>
+	  		<p-messages [(value)]="msgs"></p-messages>	 
+	  <br>
+	  <div class="flex align-items-center justify-content-center">
+		<button pButton pRipple type="button" icon="pi pi-arrow-left" (click)="display = false" iconPos="left" label="Atras"  class="p-button-success cust_l"></button>
+		<button pButton pRipple type="button" icon="pi pi-check" (click)="SendEndPoind()" iconPos="left" label="Guardar"   class="p-button-success cust_r"></button>
+	</div>
 	</div>
   </p-dialog>
   

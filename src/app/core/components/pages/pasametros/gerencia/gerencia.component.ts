@@ -4,7 +4,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';;
 import Swal from 'sweetalert2';
 import { DataGerenciaService } from 'src/app/services/data-gerencia.service';
 
-import { DataResponsabe } from "./../../../../api/gerencia.module";
+import { DataResponsabe, DataSendGerencia } from "./../../../../api/gerencia.module";
 
 
 
@@ -33,8 +33,13 @@ export class GerenciaComponent implements OnInit {
     
     responsables: DataResponsabe;
     responsable: DataResponsabe[];
-      // Función para cambiar el paso al hacer clic en el Steps
- 
+     
+    Dao: DataSendGerencia = {
+        idGerenciaErp: null,
+        idResponsable: null,
+        nombre: null
+    }; 
+    msgs: [];
     constructor(
         private serve: DataGerenciaService,
         private messageService: MessageService) {}
@@ -78,5 +83,44 @@ export class GerenciaComponent implements OnInit {
         this.filter.nativeElement.value = '';
     }
 
+
+    // funcion alertas del sistema metodo 1
+    // this.onAlertMessage('Exito!!!', res['mensaje'], 'success'); // ejemplo
+
+    // metodo 2 mensaje services 
+    // this.messageService.add({ severity: 'error', summary: error['error'].mensaje[0], });  // ejemplo
+    SendEndPoind():void{
+     
+        if (this.Dao.idGerenciaErp === null) {
+            
+            this.messageService.add({ severity: 'error', summary: 'ID ERP no puede irse vacio', });
+
+        } else{
+            if (this.Dao.nombre === null) {
+            
+                this.messageService.add({ severity: 'error', summary: `Debe ingresar nombre de gerencia`, });
+            }else{
+                var res_id: any = this.responsable?.[0];       
+                this.Dao.idResponsable = res_id;
+        
+                if (this.Dao.idResponsable === null ||  res_id === 0 || res_id === undefined || res_id === null || res_id === '') {
+            
+                    this.messageService.add({ severity: 'error', summary: `Debe seleccionar un responsable de la gerencia: ${this.Dao.nombre}`, });
+                
+                }else{
+                    console.log(this.Dao) 
+                    this.serve.PostDataGerencia(this.Dao).subscribe( res=>{
+
+                    }, err => {
+                        console.log(err);
+                        
+                    })
+                }
+            }
+        }
+
+
+        
+    }
     
 }

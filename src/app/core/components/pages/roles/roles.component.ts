@@ -105,17 +105,18 @@ export class RolesComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.RenderDatosRolesUser();
-
-        setTimeout(() => {
-            this.RenderDatosRoles();
-        }, 1000);
+        this.RenderDatosRoles()
     }
 
     // maenja y pinta las petiones para mostar los roles
     RenderDatosRoles() {
         this.server.GetDataRole().subscribe((response) => {
             const res = response;
+            this.server.GetUserList().subscribe((res) => {
+                const resp = res;
+                this.DataUser = resp;
+                this.loading2 = false;
+            });
         });
     }
     // maenja y pinta las petiones para mostar los roles
@@ -123,7 +124,6 @@ export class RolesComponent implements OnInit {
         this.server.GetUserList().subscribe((res) => {
             const resp = res;
             this.DataUser = resp;
-
             this.loading2 = false;
         });
     }
