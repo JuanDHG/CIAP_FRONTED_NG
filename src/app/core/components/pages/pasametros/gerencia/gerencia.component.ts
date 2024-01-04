@@ -4,7 +4,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';;
 import Swal from 'sweetalert2';
 import { DataGerenciaService } from 'src/app/services/data-gerencia.service';
 
-
+import { DataResponsabe } from "./../../../../api/gerencia.module";
 
 
 
@@ -31,6 +31,8 @@ export class GerenciaComponent implements OnInit {
     indice: number = 0;
     activeIndex = 0;
     
+    responsables: DataResponsabe;
+    responsable: DataResponsabe[];
       // Función para cambiar el paso al hacer clic en el Steps
  
     constructor(
@@ -47,6 +49,14 @@ export class GerenciaComponent implements OnInit {
             const res = response;
             this.customers1 = res;
             this.loading = false;
+
+            // lanza peticion para obterner la lista de usuarios activos con el 
+            // objetivo de ser seleccionado como responsables
+            this.serve.GetDataResponsableAct().subscribe( (res) =>{
+                console.log(res);
+                
+                this.responsables = res;
+            })
         }, err=>{
             console.log(err);
         })

@@ -5,3 +5,8 @@ export interface DataGerencia {
     fecha_creacion: any
 }
 
+export interface DataResponsabe {
+    	
+    id:number;
+    nombreUsuario:string;
+}

@@ -113,34 +113,29 @@
 </div>
 
 
-
-
 <!-- modal  -->
-<p-dialog [modal]="true" [(visible)]="display" [style]="{ width: '35vw' }" [maximizable]="true" [draggable]="false">
+<p-dialog [modal]="true" [(visible)]="display" [style]="{ width: '35vw' }" [maximizable]="false" [draggable]="true">
 	<div class="modalCustomer p-fluid">
 		<br><br><br>
 	  <div class="field">
 		<span class="p-input-icon-left p-float-label lg:mb-5 ">
-		  <i class="pi pi-lock"></i>
-		  <input id="float-input1" type="text" class="customerInput" name="Cpass" pInputText />
+		  <!-- <i class="pi pi-lock"></i> -->
+		  <input id="float-input1" type="number" min="0" class="customerInput" name="Cpass" pInputText />
 		  <label for="float-input1">ID Gerencia (ERP)</label>
 		</span>
 	  </div>
   
 	  <div class="field">
 		<span class="p-input-icon-left p-float-label lg:mb-5 ">
-		  <i class="pi pi-lock"></i>
+		  <!-- <i class="pi pi-lock"></i> -->
 		  <input id="float-input2" type="text" class="customerInput" name="Cpass" pInputText />
 		  <label for="float-input2">Gerencia</label>
 		</span>
 	  </div>
   
 	  <div class="field">
-		<span class="p-input-icon-left p-float-label lg:mb-5 ">
-		  <i class="pi pi-lock"></i>
-		  <input id="float-input3" type="text" class="customerInput" name="Cpass" pInputText />
-		  <label for="float-input3">Responsable</label>
-		</span>
+
+		<p-multiSelect [options]="responsables" [(ngModel)]="responsable" [selectionLimit]="1" optionLabel="nombreUsuario"  optionValue="id" defaultLabel="Responsable"  display="chip" [virtualScroll]="false" [virtualScrollItemSize]="6"></p-multiSelect>
 	  </div>
 	</div>
   </p-dialog>
