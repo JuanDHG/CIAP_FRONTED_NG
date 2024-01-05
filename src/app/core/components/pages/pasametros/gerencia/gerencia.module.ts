@@ -23,6 +23,7 @@ import {AvatarModule} from 'primeng/avatar';
 import {AvatarGroupModule} from 'primeng/avatargroup';
 import {TooltipModule} from 'primeng/tooltip';
 import { StepsModule } from 'primeng/steps';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
 	imports: [
@@ -48,7 +49,8 @@ import { StepsModule } from 'primeng/steps';
 		AvatarModule,
 		AvatarGroupModule,
 		TooltipModule,
-		StepsModule
+		StepsModule,
+		FileUploadModule
 	],
 	declarations: [GerenciaComponent]
 })

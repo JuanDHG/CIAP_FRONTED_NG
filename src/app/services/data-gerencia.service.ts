@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { environment  as env} from 'src/environments/environment.prod';
 import { Observable, catchError, throwError } from 'rxjs';
-import {  DataEditGerencia, DataGerencia,DataResponsabe, DataSendGerencia } from "../core/api/gerencia.module";
+import {  DataEditGerencia, DataGerencia,DataResponsabe, DataSendGerencia, DataStatus } from "../core/api/gerencia.module";
 @Injectable({
   providedIn: 'root'
 })
@@ -37,4 +37,16 @@ export class DataGerenciaService {
     const url = `${this.baseUrl}/gerencia/actualizar`;
     return this.http.put<DataEditGerencia>(url,Data, this.httpOptions);
   }
+
+  PutStatus(Data: DataStatus) : Observable<DataStatus> {
+    const url = `${this.baseUrl}/gerencia/actualizar-estado`;
+    return this.http.put<DataStatus>(url,Data, this.httpOptions);
+  }
+
+
+  descargarExcel(): Observable<Blob> {
+    const url = 'assets/documents/templates/Plantilla de cargue - Parametros.xlsx';
+    return this.http.get(url, { responseType: 'blob' });
+  }
+
 }

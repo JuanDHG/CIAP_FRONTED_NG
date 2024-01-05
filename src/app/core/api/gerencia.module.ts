@@ -23,3 +23,8 @@ export interface DataEditGerencia {
     nombre: string,
     idResponsable: number
 }
+
+export interface DataStatus {
+    idGerencia: number ,
+    estadoGerencia: number ,
+  }

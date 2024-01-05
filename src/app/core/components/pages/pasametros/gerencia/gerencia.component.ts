@@ -4,7 +4,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';;
 import Swal from 'sweetalert2';
 import { DataGerenciaService } from 'src/app/services/data-gerencia.service';
 
-import { DataEditGerencia, DataResponsabe, DataSendGerencia } from "./../../../../api/gerencia.module";
+import { DataEditGerencia, DataResponsabe, DataSendGerencia, DataStatus } from "./../../../../api/gerencia.module";
 
 @Component({
     templateUrl: './gerencia.component.html',
@@ -20,6 +20,8 @@ export class GerenciaComponent implements OnInit {
 
     display: boolean = false;
     displayEdit: boolean = false;
+    displayView: boolean = false;
+    displayTempl: boolean = false;
     steps = [
         { label: 'Gerencia' },
         { label: 'Dirección' },
@@ -47,6 +49,15 @@ export class GerenciaComponent implements OnInit {
         nombre: null
     }
     msgs: [];
+
+    Status: DataStatus = {
+        estadoGerencia : null,
+        idGerencia: null
+    };
+    
+    responsableSelectEd: DataResponsabe[] = [];
+
+    uploadedFiles: any[] = [];
     constructor(
         private serve: DataGerenciaService,
         private messageService: MessageService) {}
@@ -143,7 +154,7 @@ export class GerenciaComponent implements OnInit {
     }
     
 
-    responsableSelectEd: DataResponsabe[] = [];
+
     // edittar
     onPutDataGErencia(Dao: any) {
         this.displayEdit = true;
@@ -182,7 +193,66 @@ export class GerenciaComponent implements OnInit {
         })
         
       }
+
+      onViewData(Dao: any){
+        this.displayView = true;
+
+        this.DaoEdit = {
+          idGerenciaErp: Dao.ceco,
+          idResponsable: Dao.responsable,
+          id: Dao.idGerencia,
+          nombre: Dao.gerencia
+        };
       
+        const selectedResponsable: DataResponsabe = {
+          id: Dao.id_responsable,
+          nombreUsuario: Dao.responsable,
+        };
+      
+        // Asigna un array que contiene el objeto seleccionado
+        this.responsableSelectEd = [selectedResponsable];
+      }
+
+
+    //   funcion para actuliza el estado de una gerencia
+      onPutStatususER(ids: number, status: number) {
+        this.Status = {
+            idGerencia: ids,
+            estadoGerencia: status,
+            
+        };
+
+        console.log(this.Status);
+        
+        this.serve.PutStatus(this.Status).subscribe((res) => {
+            if (res['status'] === 'ok') {
+                // this.messageService.add({severity:'success', summary:res['mensaje']});
+                this.onAlertMessage('Exito!!!', res['message'], 'success');
+                this.GetGerencias();
+            } else {
+                this.onAlertMessage('Error', res['message'], 'warning');
+                this.GetGerencias();
+            }
+        }, (err) => {
+            console.log(err);
+            this.onAlertMessage('Error', 'Error', 'warning');
+        });
+    }
+
+
+    onBasicUpload() {
+        this.messageService.add({ severity: 'info', summary: 'Success', detail: 'Archibo añadido' });
+    }
+
+    DecargarExcel(){
+        this.serve.descargarExcel().subscribe((blob: Blob) => {
+            const enlace = document.createElement('a');
+            enlace.href = window.URL.createObjectURL(blob);
+            enlace.download = 'Plantilla_de_cargue_Parametros.xlsx';
+            enlace.click();
+            window.URL.revokeObjectURL(enlace.href);
+          });
+    }
     
     
 }
