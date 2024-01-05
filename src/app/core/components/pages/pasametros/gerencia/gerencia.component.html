@@ -79,9 +79,9 @@
 								  
 								<td>
 									
-									<!-- <button pButton pRipple type="button"  icon="pi pi-eye" (click)="onViewDataRole(customer.id, customer.tipo)" class="p-button-outlined p-button-success cus" style="margin-right: 4px;"></button>
-									<button pButton pRipple type="button"  icon="pi pi-pencil" (click)="onPutDataRole(customer.id, customer.tipo)" class="p-button-outlined p-button-info cus"></button>
-									<p-inputSwitch class="cus" [ngModel]="customer.estado === 1" (ngModelChange)="customer.estado = $event ? 1 : 0"  (click)="onPutStatus(customer.id,customer.estado)" inputId="customerSwitch"></p-inputSwitch> -->
+									<!-- <button pButton pRipple type="button"  icon="pi pi-eye" (click)="onViewDataRole(customer.id, customer.tipo)" class="p-button-outlined p-button-success cus" style="margin-right: 4px;"></button>-->
+									<button pButton pRipple type="button"  icon="pi pi-pencil" (click)="onPutDataGErencia(customer)" class="p-button-outlined p-button-info cus"></button>
+									<p-inputSwitch class="cus" [ngModel]="customer.estado === 1" (ngModelChange)="customer.estado = $event ? 1 : 0"  (click)="onPutStatus(customer.id,customer.estado)" inputId="customerSwitch"></p-inputSwitch> 									
 									<button pButton pRipple type="button"  icon="pi pi-copy" class="p-button-outlined p-button-warning cus"></button>
 								</td>
 							
@@ -113,7 +113,7 @@
 </div>
 
 
-<!-- modal  -->
+<!-- modal  Añadir Gererencia-->
 <p-dialog [modal]="true" [(visible)]="display" [style]="{ width: '30vw' }" [maximizable]="false" [draggable]="false">
 	<div class="modalCustomer p-fluid">
 		<br>
@@ -145,5 +145,40 @@
 		<button pButton pRipple type="button" icon="pi pi-check" (click)="SendEndPoind()" iconPos="left" label="Guardar"   class="p-button-success cust_r"></button>
 	</div>
 	</div>
-  </p-dialog>
+</p-dialog>
+
+
+<!-- modal  Editar Gererencia-->
+<p-dialog [modal]="true" [(visible)]="displayEdit" [style]="{ width: '30vw' }" [maximizable]="false" [draggable]="false">
+	<div class="modalCustomer p-fluid">
+		<br>
+		<h4 class="texReco"> CREAR GERENCIA</h4>
+	  <div class="field">
+		<span class="p-input-icon-left p-float-label lg:mb-5 ">
+		  <!-- <i class="pi pi-lock"></i> -->
+		  <input id="float-input1" type="text" [(ngModel)]="DaoEdit.idGerenciaErp" min="0" class="customerInput" name="Cpass" pInputText />
+		  <label for="float-input1">ID Gerencia (ERP)</label>
+		</span>
+	  </div>
+  
+	  <div class="field">
+		<span class="p-input-icon-left p-float-label lg:mb-5 ">
+		  <!-- <i class="pi pi-lock"></i> -->
+		  <input id="float-input2" type="text" [(ngModel)]="DaoEdit.nombre" class="customerInput" name="Cpass" pInputText />
+		  <label for="float-input2">Gerencia</label>
+		</span>
+	  </div>
+  
+	  <div class="field">
+		<p-multiSelect [options]="responsables" [(ngModel)]="responsableSelectEd" [selectionLimit]="1"  optionLabel="nombreUsuario"  defaultLabel="Responsable" display="chip" [virtualScroll]="false" [virtualScrollItemSize]="6"></p-multiSelect>
+	  </div>
+	  <br>
+	  		<p-messages [(value)]="msgs"></p-messages>	 
+	  <br>
+	  <div class="flex align-items-center justify-content-center">
+		<button pButton pRipple type="button" icon="pi pi-arrow-left" (click)="displayEdit = false" iconPos="left" label="Atras"  class="p-button-success cust_l"></button>
+		<button pButton pRipple type="button" icon="pi pi-check" (click)="SendEndPoindEd()" iconPos="left" label="Guardar"   class="p-button-success cust_r"></button>
+	</div>
+	</div>
+</p-dialog>
   

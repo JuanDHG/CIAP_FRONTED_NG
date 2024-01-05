@@ -4,9 +4,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';;
 import Swal from 'sweetalert2';
 import { DataGerenciaService } from 'src/app/services/data-gerencia.service';
 
-import { DataResponsabe, DataSendGerencia } from "./../../../../api/gerencia.module";
-
-
+import { DataEditGerencia, DataResponsabe, DataSendGerencia } from "./../../../../api/gerencia.module";
 
 @Component({
     templateUrl: './gerencia.component.html',
@@ -21,6 +19,7 @@ export class GerenciaComponent implements OnInit {
     idFrozen: boolean = false;
 
     display: boolean = false;
+    displayEdit: boolean = false;
     steps = [
         { label: 'Gerencia' },
         { label: 'Dirección' },
@@ -39,6 +38,14 @@ export class GerenciaComponent implements OnInit {
         idResponsable: null,
         nombre: null
     }; 
+
+
+    DaoEdit: DataEditGerencia =  {
+        idGerenciaErp: null,
+        id: null,
+        idResponsable: null,
+        nombre: null
+    }
     msgs: [];
     constructor(
         private serve: DataGerenciaService,
@@ -51,6 +58,8 @@ export class GerenciaComponent implements OnInit {
     GetGerencias():void {
         this.serve.GetDataRole().subscribe(response =>{
             console.log(response);
+            console.log('ejecutado');
+            
             const res = response;
             this.customers1 = res;
             this.loading = false;
@@ -58,9 +67,7 @@ export class GerenciaComponent implements OnInit {
             // lanza peticion para obterner la lista de usuarios activos con el 
             // objetivo de ser seleccionado como responsables
             this.serve.GetDataResponsableAct().subscribe( (res) =>{
-                console.log(res);
-                
-                this.responsables = res;
+               this.responsables = res;
             })
         }, err=>{
             console.log(err);
@@ -83,7 +90,15 @@ export class GerenciaComponent implements OnInit {
         this.filter.nativeElement.value = '';
     }
 
-
+    onAlertMessage(t: string, sms: string, i: any): void {
+        Swal.fire({
+            title: t,
+            text: sms,
+            icon: i,
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#5fbb3a',
+        });
+    }
     // funcion alertas del sistema metodo 1
     // this.onAlertMessage('Exito!!!', res['mensaje'], 'success'); // ejemplo
 
@@ -93,27 +108,31 @@ export class GerenciaComponent implements OnInit {
      
         if (this.Dao.idGerenciaErp === null) {
             
-            this.messageService.add({ severity: 'error', summary: 'ID ERP no puede irse vacio', });
+            this.messageService.add({ severity: 'error', summary: 'ID ERP no puede irse vacio' });
 
         } else{
             if (this.Dao.nombre === null) {
             
-                this.messageService.add({ severity: 'error', summary: `Debe ingresar nombre de gerencia`, });
+                this.messageService.add({ severity: 'error', summary: `Debe ingresar nombre de gerencia` });
             }else{
+                console.log('vec: -->',this.responsable);
+                
                 var res_id: any = this.responsable?.[0];       
                 this.Dao.idResponsable = res_id;
         
                 if (this.Dao.idResponsable === null ||  res_id === 0 || res_id === undefined || res_id === null || res_id === '') {
             
-                    this.messageService.add({ severity: 'error', summary: `Debe seleccionar un responsable de la gerencia: ${this.Dao.nombre}`, });
+                    this.messageService.add({ severity: 'error', summary: `Debe seleccionar un responsable de la gerencia: ${this.Dao.nombre}` });
                 
                 }else{
                     console.log(this.Dao) 
-                    this.serve.PostDataGerencia(this.Dao).subscribe( res=>{
-
+                    this.serve.PostDataGerencia(this.Dao).subscribe( res => {
+                        this.onAlertMessage('Exito!!!', res['mensaje'], 'success');
+                        this.display = false;
+                        this.GetGerencias();
                     }, err => {
                         console.log(err);
-                        
+                        this.messageService.add({ severity: 'error', summary: `Error interno, intentelo nuevamente en unos minutos`});
                     })
                 }
             }
@@ -122,5 +141,48 @@ export class GerenciaComponent implements OnInit {
 
         
     }
+    
+
+    responsableSelectEd: DataResponsabe[] = [];
+    // edittar
+    onPutDataGErencia(Dao: any) {
+        this.displayEdit = true;
+
+        this.DaoEdit = {
+          idGerenciaErp: Dao.ceco,
+          idResponsable: Dao.responsable,
+          id: Dao.idGerencia,
+          nombre: Dao.gerencia
+        };
+      
+        const selectedResponsable: DataResponsabe = {
+          id: Dao.id_responsable,
+          nombreUsuario: Dao.responsable,
+        };
+      
+        // Asigna un array que contiene el objeto seleccionado
+        this.responsableSelectEd = [selectedResponsable];
+      }
+
+
+      SendEndPoindEd(){
+        this.DaoEdit.idResponsable = this.responsableSelectEd[0].id;
+        this.serve.PutDataGerencia(this.DaoEdit).subscribe( (res) => {
+
+            setTimeout(() => {
+                            this.GetGerencias();
+            this.onAlertMessage('Exito!!!', res['mensaje'], 'success');
+            this.displayEdit = false;
+            }, 500);
+
+            
+        }, (err) => {
+            console.log(err);
+            this.messageService.add({ severity: 'error', summary: `Error interno, intentelo nuevamente en unos minutos`});
+        })
+        
+      }
+      
+    
     
 }

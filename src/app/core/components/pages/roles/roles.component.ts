@@ -112,11 +112,9 @@ export class RolesComponent implements OnInit {
     RenderDatosRoles() {
         this.server.GetDataRole().subscribe((response) => {
             const res = response;
-            this.server.GetUserList().subscribe((res) => {
-                const resp = res;
-                this.DataUser = resp;
-                this.loading2 = false;
-            });
+            this.customers1 = res;
+            this.loading = false;
+            this.RenderDatosRolesUser()
         });
     }
     // maenja y pinta las petiones para mostar los roles

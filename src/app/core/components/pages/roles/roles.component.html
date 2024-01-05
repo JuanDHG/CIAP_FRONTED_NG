@@ -69,7 +69,7 @@
 										<!-- <p-columnFilter type="text" field="estado" display="menu" placeholder="Buscar por correo"></p-columnFilter> -->
 									</div>
 								</th>
-								<th style="min-width: 7rem">
+								<th style="min-width: 12rem">
 									<div class="flex justify-content-between align-items-center">
 										Acciones
 										<!-- <p-columnFilter type="text" field="estado" display="menu" placeholder="Buscar por correo"></p-columnFilter> -->
@@ -103,10 +103,16 @@
 									{{DataUser.rol}}
 								</td>
 								<td>
-									<p-inputSwitch class="cus" [ngModel]="DataUser.estado_cuenta === 1" (ngModelChange)="DataUser.estado_cuenta = $event ? 1 : 0"  (click)="onPutStatususER(DataUser.id_usuario, DataUser.estado_cuenta)" inputId="customerSwitch"></p-inputSwitch>
+									<ng-container *ngIf="DataUser.estado_cuenta === 0; else activeStatus">
+										Inactivo
+									</ng-container>
+									<ng-template #activeStatus>
+										Activo
+									</ng-template>
 								</td>
 								<td>
 									<button pButton pRipple type="button"  icon="pi pi-pencil" (click)="onPutDataUser(DataUser)" class="p-button-outlined p-button-info cus"></button>
+									<p-inputSwitch class="cus" [ngModel]="DataUser.estado_cuenta === 1" (ngModelChange)="DataUser.estado_cuenta = $event ? 1 : 0"  (click)="onPutStatususER(DataUser.id_usuario, DataUser.estado_cuenta)" inputId="customerSwitch"></p-inputSwitch>
 								</td>
 								<!-- <td>
 									{{customer.fechasistema | date: 'MM/dd/yyyy'}}

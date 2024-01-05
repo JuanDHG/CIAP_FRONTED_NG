@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { environment  as env} from 'src/environments/environment.prod';
 import { Observable, catchError, throwError } from 'rxjs';
-import {  DataGerencia,DataResponsabe, DataSendGerencia } from "../core/api/gerencia.module";
+import {  DataEditGerencia, DataGerencia,DataResponsabe, DataSendGerencia } from "../core/api/gerencia.module";
 @Injectable({
   providedIn: 'root'
 })
@@ -29,7 +29,12 @@ export class DataGerenciaService {
   }
 
   PostDataGerencia(Data: DataSendGerencia) : Observable<DataSendGerencia>{
-    const url = `${this.baseUrl}/gerencia/registrars`;
+    const url = `${this.baseUrl}/gerencia/registrar`;
     return this.http.post<DataSendGerencia>(url,Data, this.httpOptions);
+  }
+
+  PutDataGerencia(Data: DataEditGerencia) : Observable<DataEditGerencia> {
+    const url = `${this.baseUrl}/gerencia/actualizar`;
+    return this.http.put<DataEditGerencia>(url,Data, this.httpOptions);
   }
 }
