@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Table } from 'primeng/table';
 import { MessageService, ConfirmationService } from 'primeng/api';
-import { DataRoleService } from 'src/app/services/data-role.service';
+import { DataRoleService } from 'src/app/services/roles/data-role.service';
 
 // importacion de interfaz
 

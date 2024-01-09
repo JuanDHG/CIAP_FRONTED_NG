@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { environment  as env} from 'src/environments/environment.prod';
 import { Observable, catchError, throwError } from 'rxjs';
-import {  DataEditGerencia, DataGerencia,DataResponsabe, DataSendGerencia, DataStatus } from "../core/api/gerencia.module";
+import {  DataEditGerencia, DataGerencia,DataResponsabe, DataSendGerencia, DataStatus } from "../../core/api/gerencia.module";
 @Injectable({
   providedIn: 'root'
 })

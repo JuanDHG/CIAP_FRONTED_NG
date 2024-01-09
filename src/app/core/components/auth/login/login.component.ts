@@ -1,15 +1,12 @@
 import { Component } from '@angular/core';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
-import {
-    NameSw, DataLogin, DataValueEmail, DataOptNumberVale,
-    DataOptSend, DataSendEmail, DataSendChangePassword
-} from '../../../api/auth.module';
+import { NameSw, DataLogin, DataValueEmail, DataOptNumberVale, DataOptSend, DataSendEmail, DataSendChangePassword} from '../../../api/auth.module';
 import { Router } from '@angular/router';
-import { AuthService as Services } from './../../../../services/auth.service';
+import { AuthService as Services } from '../../../../services/auth/consulting.service';
 import { sha256 } from "js-sha256";
 import Swal from 'sweetalert2';
 import { Message } from 'primeng/api';
-
+import { LoginService } from './../../../../guards/login.service';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -85,7 +82,8 @@ export class LoginComponent {
     constructor(
         public layoutService: LayoutService,
         private rute: Router,
-        private server: Services
+        private server: Services,
+        private loginService: LoginService
     ) { }
 
     ViewPassword(): void {
@@ -156,25 +154,35 @@ export class LoginComponent {
         this.server.postData(this.dapp).subscribe((res) => {
             const response = res.response;
             const data = res.data;
+            const menu = res.permisos;
+            console.log(res);
+            
             if (response.status === 'ok') {
-                // var ifl = this.authService.login();
-                var ifl = true
-                if (ifl === true) {
+                this.loginService.setAuthenticated(true, 1);
+                var ifl = this.loginService.isAuthenticated();
+                console.log(ifl);
+                
+                // var ifl = true
+                if (ifl) {
                     localStorage.setItem('dataUSer', JSON.stringify(data));
+                    localStorage.setItem('dataPermisos', JSON.stringify(menu));
+
                     this.rute.navigate(['/']);
                 } else {
                     this.onAlertMessage("Error", "La informacion ingresada no es correcta", "question");
                 }
+
+                
             } else {
                 if (response.status === 'ca') {
                     localStorage.setItem('DataOpt', JSON.stringify(data));
                     this.onAlertMessageCustonCahnPass("Error", response.mensaje, "error");
                 }
                 if (response.status === 'bl') {
-                    this.onAlertMessage("Error", response.mensaje, "error");
+                    this.onAlertMessage("error", response.mensaje, "error");
                 }
                 if (response.status === 'no') {
-                    this.onAlertMessage("Error", response.mensaje, "Datos erroneos");
+                    this.onAlertMessage("error", response.mensaje, "Datos erroneos");
                 }
                 if (response.status === 'pr') {
                     localStorage.setItem('DataOpt', JSON.stringify(data));

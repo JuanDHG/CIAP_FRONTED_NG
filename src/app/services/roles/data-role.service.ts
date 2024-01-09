@@ -4,7 +4,7 @@ import { environment  as env} from 'src/environments/environment.prod';
 import { Observable, catchError, throwError } from 'rxjs';
 
 // importacion de modelocion de datos
-import { RolGeneralData, RolSetData, RolStatus, RolPutData, UserData , UserDataRegister, UserDataEdit, UserStatus, DataRolePermison} from "./../core/api/datarole.module";
+import { RolGeneralData, RolSetData, RolStatus, RolPutData, UserData , UserDataRegister, UserDataEdit, UserStatus, DataRolePermison} from "../../core/api/datarole.module";
 @Injectable({
   providedIn: 'root'
 })

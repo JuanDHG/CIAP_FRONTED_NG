@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Table } from 'primeng/table';
 import { MessageService, ConfirmationService } from 'primeng/api';;
 import Swal from 'sweetalert2';
-import { DataGerenciaService } from 'src/app/services/data-gerencia.service';
+import { DataGerenciaService } from 'src/app/services/gerencia/data-gerencia.service';
 
 import { DataEditGerencia, DataResponsabe, DataSendGerencia, DataStatus } from "./../../../../api/gerencia.module";
 

@@ -12,6 +12,9 @@ import { NodeService } from './core/service/node.service';
 import { PhotoService } from './core/service/photo.service';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginGuard } from './guards/login.guard';
+import { LoginService } from './guards/login.service';
+import { CardModule } from 'primeng/card';
 
 
 @NgModule({
@@ -21,12 +24,14 @@ import { HttpClientModule } from '@angular/common/http';
     imports: [
         HttpClientModule,
         AppRoutingModule,
-        AppLayoutModule
+        AppLayoutModule,
+        CardModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         CountryService, EventService, IconService, NodeService,
-        PhotoService, FormsModule
+        PhotoService, FormsModule,
+        LoginGuard, LoginService  
     ],
     bootstrap: [AppComponent]
 })
