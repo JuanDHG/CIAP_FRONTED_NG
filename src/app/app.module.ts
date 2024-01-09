@@ -15,7 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginGuard } from './guards/login.guard';
 import { LoginService } from './guards/login.service';
 import { CardModule } from 'primeng/card';
-
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
     declarations: [
@@ -25,7 +25,8 @@ import { CardModule } from 'primeng/card';
         HttpClientModule,
         AppRoutingModule,
         AppLayoutModule,
-        CardModule
+        CardModule,
+        ButtonModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },

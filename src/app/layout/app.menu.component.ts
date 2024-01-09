@@ -7,38 +7,61 @@ import { LayoutService } from './service/app.layout.service';
     templateUrl: './app.menu.component.html'
 })
 export class AppMenuComponent implements OnInit {
-
+    menu: any = localStorage.getItem('dataPermisos');
     model: any[] = [];
 
-    constructor(public layoutService: LayoutService) { }
+    constructor(public layoutService: LayoutService) {
+
+    }
 
     ngOnInit() {
+        console.log(this.menu);
+        
         this.model = [
             {
-                label: 'Home',
+                label: 'Inicio',
                 items: [
-                    { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] }
+                    { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] },
+                    { label: 'Icon', icon: 'pi pi-microsoft', routerLink: ['/utilities/icons'], routerLinkActiveOptions: { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' } }
                 ]
             },
-            {
-                label: 'Configuración',
-                items: [
+            JSON.parse(this.menu)
+        ] 
+    }
 
-                    { label: 'roles', icon: 'pi pi-tags', routerLink: ['/home/roles'] },
-                    { label: 'Icon', icon: 'pi pi-microsoft', routerLink: ['/utilities/icons'], routerLinkActiveOptions: { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' } },
+    GetMenuPermison(){
 
-                ]
-            },
-            {
-                label: 'Parametrización',
-                items: [
+    }
+}
+// [
+//     {
+//         label: 'Home',
+//         items: [
+//             { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] }
+//         ]
+//     },
+//     {
+//         label: 'Configuración',
+//         items: [
 
-                    { label: 'gerencia', icon: 'pi pi-briefcase', routerLink: ['/home/gerencia'] },
-                ]
-            },
+//             { label: 'roles', icon: 'pi pi-tags', routerLink: ['/home/roles'] },
+//             { label: 'Icon', icon: 'pi pi-microsoft', routerLink: ['/utilities/icons'], routerLinkActiveOptions: { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' } },
+
+//         ]
+//     },
+//     {
+//         label: 'Parametrización',
+//         items: [
+
+//             { label: 'gerencia', icon: 'pi pi-briefcase', routerLink: ['/home/gerencia'] },
+//         ]
+//     },
 
 
-            // {
+   
+// ];
+
+ // {
             //     label: 'Pages',
             //     icon: 'pi pi-fw pi-briefcase',
             //     items: [
@@ -76,6 +99,3 @@ export class AppMenuComponent implements OnInit {
       
             //     ]
             // },
-        ];
-    }
-}

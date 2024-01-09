@@ -1,3 +1,35 @@
 .bg {
     background: linear-gradient(122.25deg, #ABD749 10.53%, #01A89C 94.89%); 
 }
+
+.logo {
+    margin-left: 25px;
+}
+
+.box{
+    margin-left: 15px;
+    margin-top: 9rem;
+}
+
+.title {
+    font-size: 33px;
+    font-weight: 600;
+}
+
+.parr {
+    width: 90%;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.cust_btn {
+    width: 16rem;
+    background: linear-gradient(187deg, #C6DF3B 7.42%, #01A89C 147.31%);
+}
+
+.cust_btn:hover {
+    background: white !important;
+    color: #C6DF3B !important;
+    font-weight: 800 !important;
+    border: 1px solid #ABD749 !important;
+}

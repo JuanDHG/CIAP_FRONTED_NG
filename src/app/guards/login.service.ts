@@ -33,18 +33,18 @@ export class LoginService {
   updateExpirationTime() {
     const isAuthenticated = this.isAuthenticated();
     if (isAuthenticated) {
-      this.setAuthenticated(true); // Actualiza la marca de tiempo de expiración
-      console.log('actulizado');
-      
+      this.setAuthenticated(true); // Actualiza la marca de tiempo de expiración      
     }
   }
 
 
   isSessionExpiringSoon(): boolean {
     const currentTime = Date.now();
-    const sessionDuration = currentTime - this.lastInteractionTimestamp;
+    var lastTimeReal:any = localStorage.getItem('expirationTime');
+    const sessionDuration = currentTime - lastTimeReal;
     const threeMinutesInMillis = 3 * 60 * 1000; // 3 minutos en milisegundos
-
+    console.log(sessionDuration >= threeMinutesInMillis);
+    
     return sessionDuration >= threeMinutesInMillis;
   }
 

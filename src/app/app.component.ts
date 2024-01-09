@@ -44,7 +44,12 @@ export class AppComponent implements OnInit {
             setInterval(() => {
                 if (this.loginService.isSessionExpiringSoon()) {
                 // Muestra la notificación al usuario
+                console.log('timeaot => ',this.loginService.isSessionExpiringSoon());
+                
                 this.showSessionExpiringAlert();
+                }else{
+                console.log('timeaot => ',this.loginService.isSessionExpiringSoon());
+
                 }
             }, 60000); // Verifica cada minuto (ajusta según tus necesidades)
             
