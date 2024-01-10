@@ -13,17 +13,17 @@ import { AppMenuComponent } from './app.menu.component';
 import { AppMenuitemComponent } from './app.menuitem.component';
 import { RouterModule } from '@angular/router';
 import { AppTopBarComponent } from './app.topbar.component';
-import { AppFooterComponent } from './app.footer.component';
-import { AppConfigModule } from './config/config.module';
+
 import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppLayoutComponent } from "./app.layout.component";
 import {AvatarModule} from 'primeng/avatar';
 import {AvatarGroupModule} from 'primeng/avatargroup';
+import {ButtonModule} from 'primeng/button';
+
 @NgModule({
     declarations: [
         AppMenuitemComponent,
         AppTopBarComponent,
-        AppFooterComponent,
         AppMenuComponent,
         AppSidebarComponent,
         AppLayoutComponent,
@@ -40,7 +40,7 @@ import {AvatarGroupModule} from 'primeng/avatargroup';
         InputSwitchModule,
         RippleModule,
         RouterModule,
-        AppConfigModule,
+        ButtonModule,
         AvatarModule,AvatarGroupModule
     ],
     exports: [AppLayoutComponent]

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Table } from 'primeng/table';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { DataRoleService } from 'src/app/services/roles/data-role.service';
-
+import { ActivatedRoute } from '@angular/router';
 // importacion de interfaz
 
 import {
@@ -99,14 +99,28 @@ export class RolesComponent implements OnInit {
     UserStatus: UserStatus;
     indice: number = 0;
     DaoMenu: any;
+    miVariable: string = ''; // o 'rol'
     constructor(
+        private route: ActivatedRoute,
         private server: DataRoleService,
         private messageService: MessageService
     ) {}
 
     ngOnInit() {
         this.RenderDatosRoles()
+
+        this.route.queryParamMap
+            .subscribe((params) => {
+              console.log(params);
+              this.miVariable = params.get('md')
+              this.getTabIndex(this.miVariable);
+        });
     }
+
+
+    getTabIndex(e: string): number {
+        return this.miVariable === 'Usuario' ? 0 : this.miVariable === 'Roles' ? 1 : 0;
+      }
 
     // maenja y pinta las petiones para mostar los roles
     RenderDatosRoles() {
