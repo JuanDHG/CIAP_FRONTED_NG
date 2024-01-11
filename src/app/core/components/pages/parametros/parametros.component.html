@@ -1,0 +1,43 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+
+
+            <!-- Utiliza el evento (click) para cambiar el paso al hacer clic en cada elemento del Steps -->
+            <p-steps [model]="steps" [(activeIndex)]="activeIndex" [readonly]="false">
+                <ng-template let-item pTemplate="item">
+                    <div (click)="changeTab(item.index)">
+                        <b>{{ item.label }}</b>
+                    </div>
+                </ng-template>
+            </p-steps>
+            <br>
+            <p-tabView [(activeIndex)]="activeIndex" (onChange)="onTabChange($event)">
+                <p-tabPanel header="Gerencia" [headerStyle]="{'display': 'none'}">
+                    <!-- Tabla de gerencias -->
+                    <p>Contenido de  Gerencia</p>
+                    <app-gerencia></app-gerencia>
+                    <!-- fin de tabla -->
+                </p-tabPanel>
+                <p-tabPanel header="Dirección" [headerStyle]="{'display': 'none'}">
+                    <!-- Contenido del segundo paso/tab -->
+                    <p>Contenido de  Dirección</p>
+                </p-tabPanel>
+                <p-tabPanel header="Ceco" [headerStyle]="{'display': 'none'}">
+                    <!-- Contenido del segundo paso/tab -->
+                    <p>Contenido de Ceco</p>
+                </p-tabPanel>
+                <p-tabPanel header="Cliente" [headerStyle]="{'display': 'none'}">
+                    <!-- Contenido del segundo paso/tab -->
+                    <p>Contenido de Cliente</p>
+                </p-tabPanel>
+                <p-tabPanel header="Estados" [headerStyle]="{'display': 'none'}">
+                    <!-- Contenido del segundo paso/tab -->
+                    <p>Contenido de Estados</p>
+                </p-tabPanel>
+                <!-- Agrega más p-tabPanel según sea necesario -->
+            </p-tabView>
+
+
+        </div>
+    </div>

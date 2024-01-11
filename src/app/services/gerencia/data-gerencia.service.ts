@@ -7,17 +7,19 @@ import {  DataEditGerencia, DataGerencia,DataResponsabe, DataSendGerencia, DataS
   providedIn: 'root'
 })
 export class DataGerenciaService {
-  private baseUrl = env.endPoint; // Reemplaza con la URL de tu backend
-  
+  private baseUrl = env.endPoint; // Reemplaza con la URL de tu backend nest
+  private baseUrlPy = env.endPointPy; // Reemplaza con la URL de tu backend
+
+
   httpOptions = {
-    headers: new HttpHeaders({ 
+    headers: new HttpHeaders({
       'Access-Control-Allow-Origin':'*',
     })
   };
   constructor(private http: HttpClient) { }
 
 
-  // funcion para obtner de las  gerencias 
+  // funcion para obtner de las  gerencias
   GetDataRole() : Observable<DataGerencia> {
     const url = `${this.baseUrl}/gerencia`;
     return this.http.get<DataGerencia>(url, this.httpOptions);
@@ -48,5 +50,17 @@ export class DataGerenciaService {
     const url = 'assets/documents/templates/Plantilla de cargue - Parametros.xlsx';
     return this.http.get(url, { responseType: 'blob' });
   }
+
+  PostDataGerenciaUpload(file: any): Observable<any> {
+    const url = `${this.baseUrlPy}/parametros/gerencia/subir-archivo`;
+    return this.http.post<any>(url, file, this.httpOptions).pipe(
+      catchError(error => {
+        console.error('Error al enviar el archivo:', error);
+        // Puedes manejar errores aquí, por ejemplo, enviando un objeto con información sobre el error
+        return throwError({ error: 'Ocurrió un error al subir el archivo.' });
+      })
+    );
+  }
+
 
 }

@@ -15,11 +15,11 @@ export class AppMenuComponent implements OnInit {
     model: any[];
 
     constructor(public layoutService: LayoutService) {
-        
+
     }
 
     ngOnInit() {
-        this.model = 
+        this.model =
         [
                     {
                         label: 'Inicio',
@@ -27,41 +27,41 @@ export class AppMenuComponent implements OnInit {
                             { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] },
                             { label: 'Icon', icon: 'pi pi-microsoft', routerLink: ['/utilities/icons'], routerLinkActiveOptions: { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' } }
                         ]
-                    }        
+                    }
 
             ]
-        const MenuItem = JSON.parse(this.menu); 
+        const MenuItem = JSON.parse(this.menu);
 
-        
+
 
         for (const menuItem of MenuItem) {
             const modelItem = {
                 label: menuItem.label,
                 items: []
             };
-        
+
             for (const subItem of menuItem.items) {
-                
+
                 modelItem.items.push({
                     label: subItem.label,
                     icon: subItem.icon,
                     routerLink:  subItem.routerLink,
-                    queryParams: { md: subItem.label }              
+                    queryParams: { md: subItem.label }
                 });
-                console.log(subItem.routerLink)
+                // console.log(subItem.routerLink)
             }
 
 
-        
+
             this.model.push(modelItem);
         }
 
 
 
-        
-    console.log(this.model);
-    
-        
+
+    // console.log(this.model);
+
+
     }
 
 }

@@ -10,7 +10,6 @@ const routes: Routes = [
         children: [
             { path: '', loadChildren: () => import('./core/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
             { path: 'home', loadChildren: () => import('./core/components/pages/uikit.module').then(m => m.UIkitModule) },
-            { path: 'utilities', loadChildren: () => import('./core/components/utilities/utilities.module').then(m => m.UtilitiesModule) },
         ]
     },
     { path: 'auth', loadChildren: () => import('./core/components/auth/auth.module').then(m => m.AuthModule) },

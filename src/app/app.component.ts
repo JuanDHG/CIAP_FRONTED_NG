@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
     templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-    
+
     constructor(private primengConfig: PrimeNGConfig,
                 private interactionService: InteractionService,
                 private loginService: LoginService
@@ -43,17 +43,20 @@ export class AppComponent implements OnInit {
             // Inicia un temporizador para verificar la expiración de la sesión cada minuto
             setInterval(() => {
                 if (this.loginService.isSessionExpiringSoon()) {
-                // Muestra la notificación al usuario
-                console.log('timeaot => ',this.loginService.isSessionExpiringSoon());
-                
-                this.showSessionExpiringAlert();
-                }else{
-                console.log('timeaot => ',this.loginService.isSessionExpiringSoon());
+                    // Muestra la notificación al usuario
+                    this.showSessionExpiringAlert();
 
-                }
-            }, 60000); // Verifica cada minuto (ajusta según tus necesidades)
-            
-  
+                    // Borra el localStorage si la sesión está a punto de expirar
+                    // this.clearLocalStorageOnSessionExpiry();
+
+                    console.log('Tiempo ==>', this.loginService.isSessionExpiringSoon());
+
+                  }else{
+                      console.log('Tiempo ==>', this.loginService.isSessionExpiringSoon());
+                  }
+            }, 10000); // Verifica cada minuto (ajusta según tus necesidades)
+
+
     }
 
     @HostListener('window:mousemove', ['$event'])
@@ -79,11 +82,11 @@ export class AppComponent implements OnInit {
           }
         });
       }
-      
+
       private extendSession() {
         // Actualiza la marca de tiempo de la última interacción
         this.loginService.updateLastInteractionTimestamp();
-        
+
         // Puedes realizar otras acciones necesarias para extender la sesión
         // En este ejemplo, simplemente mostramos un mensaje de éxito
         Swal.fire('¡Sesión extendida!', 'Tu sesión ha sido extendida por una hora más.', 'success');

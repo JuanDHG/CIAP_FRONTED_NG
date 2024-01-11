@@ -150,18 +150,17 @@ export class LoginComponent {
     }
 
     ServicesValueData(): void {
-        console.log(this.dapp);
+
         this.server.postData(this.dapp).subscribe((res) => {
             const response = res.response;
             const data = res.data;
             const menu = res.permisos;
-            console.log(res);
-            
+
+
             if (response.status === 'ok') {
                 this.loginService.setAuthenticated(true, 1);
                 var ifl = this.loginService.isAuthenticated();
-                console.log(ifl);
-                
+
                 // var ifl = true
                 if (ifl) {
                     localStorage.setItem('dataUSer', JSON.stringify(data));
@@ -172,7 +171,7 @@ export class LoginComponent {
                     this.onAlertMessage("Error", "La informacion ingresada no es correcta", "question");
                 }
 
-                
+
             } else {
                 if (response.status === 'ca') {
                     localStorage.setItem('DataOpt', JSON.stringify(data));
@@ -228,9 +227,9 @@ export class LoginComponent {
                     }
 
                     this.server.postDataSendCorreo(this.dappEmail).subscribe((res) => {
-                        console.log(res);
-
+                        // console.log(res);
                     });
+
                 } else {
                     setTimeout(() => {
                         this.anima = false;
@@ -294,15 +293,10 @@ export class LoginComponent {
                 contrasena: sha256.hex(this.dappResPass.contrasena),
             }
 
-            console.log(this.dappResPass);
 
 
             this.server.postDataChangePass(this.dappResPass).subscribe((res) => {
                 const response = res;
-
-                console.log(res);
-                
-
                 if (response['status'] === 'ok') {
                     alert(response['mensaje']);
                     this.onAlertMessage("éxito", response['mensaje'],"success");
@@ -330,7 +324,6 @@ export class LoginComponent {
             tokenUsuario: tk
         }
         this.server.posDataValueOpt(this.dappotp).subscribe((res) => {
-            console.log(res);
             const response = res;
 
             if (response['status'] === 'no') {

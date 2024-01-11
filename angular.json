@@ -28,8 +28,7 @@
                         "aot": true,
                         "assets": [
                             "src/favicon.ico",
-                            "src/assets",
-                            "src/assets/demo/data/countries.json"
+                            "src/assets"
                         ],
                         "styles": [
                             "src/styles.scss"
