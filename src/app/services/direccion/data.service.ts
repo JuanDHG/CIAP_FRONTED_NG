@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { environment  as env} from '../../../environments/environment.prod';
 import { Observable, catchError, throwError } from 'rxjs';
-import { DataDireccion } from "src/app/core/api/direccion.module";
+import { DataDireccion, DataEdit, DataList, DataSend, DataStatus } from "src/app/core/api/direccion.module";
 @Injectable({
   providedIn: 'root'
 })
@@ -25,25 +25,27 @@ export class DataService {
     return this.http.get<DataDireccion>(url, this.httpOptions);
   }
 
-  // GetDataResponsableAct() : Observable<DataResponsabe>{
-  //   const url = `${this.baseUrl}/gerencia/responsables`;
-  //   return this.http.get<DataResponsabe>(url, this.httpOptions);
-  // }
+  GetDataList() : Observable<DataList>{
+    const url = `${this.baseUrl}/unidad-organizativa/gerencia`;
+    return this.http.get<DataList>(url, this.httpOptions);
+  }
 
-  // PostDataGerencia(Data: DataSendGerencia) : Observable<DataSendGerencia>{
-  //   const url = `${this.baseUrl}/gerencia/registrar`;
-  //   return this.http.post<DataSendGerencia>(url,Data, this.httpOptions);
-  // }
+  PostData(Data: DataSend) : Observable<DataSend>{
+    const url = `${this.baseUrl}/unidad-organizativa/registrar`;
+    return this.http.post<DataSend>(url,Data, this.httpOptions);
+  }
 
-  // PutDataGerencia(Data: DataEditGerencia) : Observable<DataEditGerencia> {
-  //   const url = `${this.baseUrl}/gerencia/actualizar`;
-  //   return this.http.put<DataEditGerencia>(url,Data, this.httpOptions);
-  // }
+  PutData(Data: DataEdit) : Observable<DataEdit> {
+    const url = `${this.baseUrl}/unidad-organizativa/actualizar`;
+    return this.http.put<DataEdit>(url,Data, this.httpOptions);
+  }
 
-  // PutStatus(Data: DataStatus) : Observable<DataStatus> {
-  //   const url = `${this.baseUrl}/gerencia/actualizar-estado`;
-  //   return this.http.put<DataStatus>(url,Data, this.httpOptions);
-  // }
+  PutStatus(Data: DataStatus) : Observable<DataStatus> {
+    console.log(Data);
+
+    const url = `${this.baseUrl}/unidad-organizativa/actualizar-estado`;
+    return this.http.put<DataStatus>(url,Data, this.httpOptions);
+  }
 
 
   descargarExcel(): Observable<Blob> {

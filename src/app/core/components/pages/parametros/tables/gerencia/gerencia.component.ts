@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {DataEditGerencia,    DataResponsabe,    DataSendGerencia,    DataStatus,} from '../../../../../api/gerencia.module';
 import { DataGerenciaService } from 'src/app/services/gerencia/data-gerencia.service';
 import { MessageService } from 'primeng/api';
@@ -8,7 +8,8 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-gerencia',
   templateUrl: './gerencia.component.html',
-  styleUrls: ['./gerencia.component.scss']
+  styleUrls: ['./gerencia.component.scss'],
+
 })
 
 
@@ -59,10 +60,13 @@ export class GerenciaComponent  implements OnInit {
         private serve: DataGerenciaService,
         private messageService: MessageService,
         private el: ElementRef
-    ) {}
+    ) {
+        this.GetGerencias();
+    }
 
     ngOnInit() {
-        this.GetGerencias();
+
+        console.log('Lazy Component Initialized!');
     }
 // gerencias init
         GetGerencias(): void {
@@ -272,11 +276,10 @@ export class GerenciaComponent  implements OnInit {
         uploadFile() {
           if (this.selectedFile) {
             // Aquí puedes implementar la lógica para enviar el archivo al servidor
-            console.log('Archivo seleccionado:', this.selectedFile);
             // Puedes usar servicios HttpClient para enviar el archivo al servidor
             // Ejemplo: this.http.post('url_del_servidor', formData).subscribe(response => console.log(response));
-            const formData = new FormData();
-            formData.append('file', this.selectedFile);
+            // const formData = new FormData();
+            // formData.append('file', this.selectedFile);
 
 
             // this.serve.PostDataGerenciaUpload(formData).subscribe((res)=>{

@@ -57,15 +57,15 @@
                 {{customer.gerencia}}
             </td>
             <td>
-                {{customer.fecha_creacion}}
+                {{customer.fecha_crearcion}}
               </td>
 
             <td>
 
                 <button pButton pRipple type="button"  icon="pi pi-eye" (click)="onViewData(customer)" class="p-button-outlined p-button-success cus" style="margin-right: 4px;"></button>
                 <button pButton pRipple type="button"  icon="pi pi-pencil" (click)="onPutDataGErencia(customer)" class="p-button-outlined p-button-info cus"></button>
-                <button pButton pRipple type="button"  icon="pi pi-copy" class="p-button-outlined p-button-warning cus"></button>
-                <p-inputSwitch  [ngModel]="customer.estado === 1" (ngModelChange)="customer.estado = $event ? 1 : 0"  (click)="onPutStatususER(customer.idGerencia,customer.estado)" inputId="customerSwitch"></p-inputSwitch>
+                <!-- <button pButton pRipple type="button"  icon="pi pi-copy" class="p-button-outlined p-button-warning cus"></button> -->
+                <p-inputSwitch  [ngModel]="customer.estado === 1" (ngModelChange)="customer.estado = $event ? 1 : 0"  (click)="onPutStatususER(customer.idDireccion,customer.estado)" inputId="customerSwitch"></p-inputSwitch>
             </td>
 
         </tr>
@@ -86,12 +86,12 @@
 <p-dialog [modal]="true" [(visible)]="display" [style]="{ width: '30vw' }" [maximizable]="false" [draggable]="false">
 	<div class="modalCustomer p-fluid">
 		<br>
-		<h4 class="texReco"> CREAR GERENCIA</h4>
+		<h4 class="texReco"> CREAR DIRECCIÓN </h4>
 	  <div class="field">
 		<span class="p-input-icon-left p-float-label lg:mb-5 ">
 		  <!-- <i class="pi pi-lock"></i> -->
-		  <input id="float-input1" type="text" [(ngModel)]="Dao.idGerenciaErp" min="0" class="customerInput" name="Cpass" pInputText />
-		  <label for="float-input1">ID Gerencia (ERP)</label>
+		  <input id="float-input1" type="text" [(ngModel)]="Dao.idDireccionErp" min="0" class="customerInput" name="Cpass" pInputText />
+		  <label for="float-input1">ID Dirección (ERP)</label>
 		</span>
 	  </div>
 
@@ -99,12 +99,12 @@
 		<span class="p-input-icon-left p-float-label lg:mb-5 ">
 		  <!-- <i class="pi pi-lock"></i> -->
 		  <input id="float-input2" type="text" [(ngModel)]="Dao.nombre" class="customerInput" name="Cpass" pInputText />
-		  <label for="float-input2">Gerencia</label>
+		  <label for="float-input2">Dirección</label>
 		</span>
 	  </div>
 
 	  <div class="field">
-		<p-multiSelect [options]="responsables" [(ngModel)]="responsable" [selectionLimit]="1" optionLabel="nombreUsuario"  optionValue="id" defaultLabel="Responsable"  display="chip" [virtualScroll]="false" [virtualScrollItemSize]="6"></p-multiSelect>
+		<p-multiSelect [options]="Datalisty" [(ngModel)]="datalistSelect" [selectionLimit]="1" optionLabel="nombreGerencia" optionValue="id" defaultLabel="Gerencia" display="chip" [virtualScroll]="false" [virtualScrollItemSize]="6"></p-multiSelect>
 	  </div>
 	  <br>
 	  		<p-messages [(value)]="msgs"></p-messages>
@@ -121,11 +121,11 @@
 <p-dialog [modal]="true" [(visible)]="displayEdit" [style]="{ width: '30vw' }" [maximizable]="false" [draggable]="false">
 	<div class="modalCustomer p-fluid">
 		<br>
-		<h4 class="texReco"> CREAR GERENCIA</h4>
+		<h4 class="texReco"> EDITAR DIRECCIÓN</h4>
 	  <div class="field">
 		<span class="p-input-icon-left p-float-label lg:mb-5 ">
 		  <!-- <i class="pi pi-lock"></i> -->
-		  <input id="float-input1" type="text" [(ngModel)]="DaoEdit.idGerenciaErp" min="0" class="customerInput" name="Cpass" pInputText />
+		  <input id="float-input1" type="text" [(ngModel)]="DaoEdit.idDireccionErp" min="0" class="customerInput" name="Cpass" pInputText />
 		  <label for="float-input1">ID Gerencia (ERP)</label>
 		</span>
 	  </div>
@@ -139,7 +139,7 @@
 	  </div>
 
 	  <div class="field">
-		<p-multiSelect [options]="responsables" [(ngModel)]="responsableSelectEd" [selectionLimit]="1"  optionLabel="nombreUsuario"  defaultLabel="Responsable" display="chip" [virtualScroll]="false" [virtualScrollItemSize]="6"></p-multiSelect>
+		<p-multiSelect [options]="Datalisty" [(ngModel)]="responsableSelectEd" [selectionLimit]="1"  optionLabel="nombreGerencia" defaultLabel="Responsable" display="chip" [virtualScroll]="false" [virtualScrollItemSize]="6"></p-multiSelect>
 	  </div>
 	  <br>
 	  		<p-messages [(value)]="msgs"></p-messages>
@@ -160,8 +160,8 @@
 	  <div class="field">
 		<span class="p-input-icon-left p-float-label lg:mb-5 ">
 		  <!-- <i class="pi pi-lock"></i> -->
-		  <input id="float-input1" type="text" [(ngModel)]="DaoEdit.idGerenciaErp" min="0" class="customerInput" name="Cpass"  readonly pInputText />
-		  <label for="float-input1">ID Gerencia (ERP)</label>
+		  <input id="float-input1" type="text" [(ngModel)]="DaoEdit.idDireccionErp" min="0" class="customerInput" name="Cpass"  readonly pInputText />
+		  <label for="float-input1">ID direccion (ERP)</label>
 		</span>
 	  </div>
 
@@ -169,12 +169,12 @@
 		<span class="p-input-icon-left p-float-label lg:mb-5 ">
 		  <!-- <i class="pi pi-lock"></i> -->
 		  <input id="float-input2" type="text" [(ngModel)]="DaoEdit.nombre" class="customerInput" readonly name="Cpass" pInputText />
-		  <label for="float-input2">Gerencia</label>
+		  <label for="float-input2">Direccion</label>
 		</span>
 	  </div>
 
 	  <div class="field">
-		<p-multiSelect [options]="responsables" [(ngModel)]="responsableSelectEd" [selectionLimit]="1" disabled="true" optionLabel="nombreUsuario"  defaultLabel="Responsable" display="chip" [virtualScroll]="false" [virtualScrollItemSize]="6"></p-multiSelect>
+		<p-multiSelect [options]="Datalisty" [(ngModel)]="responsableSelectEd" [selectionLimit]="1" disabled="true"  optionLabel="nombreGerencia"  defaultLabel="Responsable" display="chip" [virtualScroll]="false" [virtualScrollItemSize]="6"></p-multiSelect>
 	  </div>
 	  <br>
 	  		<p-messages [(value)]="msgs"></p-messages>
@@ -190,8 +190,6 @@
 	<div class="modalCustomer p-fluid">
 		<br>
 		<h4 class="texReco"> PLANTILLA </h4>
-
-
 
 		<div class="flex align-items-center justify-content-center">
 			<button pButton pRipple type="button" icon="pi pi-download" (click)="DecargarExcel()"  class="p-button-success cus" style="margin-top: 0px; width: 50px;margin-right: 17rem; background: #B3DB7D;"></button>

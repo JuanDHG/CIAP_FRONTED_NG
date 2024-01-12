@@ -1,14 +1,15 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import {DataEditGerencia,    DataResponsabe,    DataSendGerencia,    DataStatus,} from '../../../../../api/gerencia.module';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+
 import { DataService } from 'src/app/services/direccion/data.service';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import Swal from 'sweetalert2';
+import { DataEdit, DataList,DataSend,DataStatus } from 'src/app/core/api/direccion.module';
 
 @Component({
   selector: 'app-direccion',
   templateUrl: './direccion.component.html',
-  styleUrls: ['./direccion.component.scss']
+  styleUrls: ['./direccion.component.scss'],
 })
 
 
@@ -29,29 +30,29 @@ export class DireccionComponent  implements OnInit {
     indice: number = 0;
 
 
-    responsables: DataResponsabe;
-    responsable: DataResponsabe[];
+    Datalisty: DataList;
+    datalistSelect: DataList[];
 
-    Dao: DataSendGerencia = {
-        idGerenciaErp: null,
-        idResponsable: null,
+    Dao: DataSend = {
+        idDireccionErp: null,
+        idGerencia: null,
         nombre: null,
     };
 
-    DaoEdit: DataEditGerencia = {
-        idGerenciaErp: null,
+    DaoEdit: DataEdit = {
         id: null,
-        idResponsable: null,
+        idDireccionErp: null,
+        idGerencia: null,
         nombre: null,
     };
     msgs: [];
 
     Status: DataStatus = {
-        estadoGerencia: null,
-        idGerencia: null,
+        idDireccion: null,
+        estadoDireccion: null,
     };
 
-    responsableSelectEd: DataResponsabe[] = [];
+    responsableSelectEd: DataList[] = [];
 
     uploadedFiles: any[] = [];
 
@@ -59,25 +60,28 @@ export class DireccionComponent  implements OnInit {
         private serve: DataService,
         private messageService: MessageService,
         private el: ElementRef
-    ) {}
+    ) {        this.GatData();}
 
     ngOnInit() {
-        this.GetGerencias();
+
+        console.log('Lazy Component Initialized 2!');
     }
 // gerencias init
-        GetGerencias(): void {
+        GatData(): void {
             this.serve.GetData().subscribe(
                 (response) => {
-                    console.log(response);
-                    
+                    console.log('Direccion: ', response);
+
                     const res = response;
                     this.customers1 = res;
                     this.loading = false;
                     // lanza peticion para obterner la lista de usuarios activos con el
                     // objetivo de ser seleccionado como responsables
-                    // this.serve.GetDataResponsableAct().subscribe((res) => {
-                    //     this.responsables = res;
-                    // });
+                    this.serve.GetDataList().subscribe((res) => {
+                        this.Datalisty = res;
+                        console.log(res);
+
+                    });
                 },
                 (err) => {
                     console.error(err);
@@ -112,27 +116,28 @@ export class DireccionComponent  implements OnInit {
 
         // metodo 2 mensaje services
         // this.messageService.add({ severity: 'error', summary: error['error'].mensaje[0], });  // ejemplo
-       
-       
+
+
         SendEndPoind(): void {
-            if (this.Dao.idGerenciaErp === null) {
+            if (this.Dao.idDireccionErp === null) {
                 this.messageService.add({
                     severity: 'error',
-                    summary: 'ID ERP no puede irse vacio',
+                    summary: 'ID Dirección no puede irse vacio',
                 });
             } else {
                 if (this.Dao.nombre === null) {
                     this.messageService.add({
                         severity: 'error',
-                        summary: `Debe ingresar nombre de gerencia`,
+                        summary: `Debe ingresar nombre de dirreción`,
                     });
                 } else {
 
-                    var res_id: any = this.responsable?.[0];
-                    this.Dao.idResponsable = res_id;
 
-                    if (
-                        this.Dao.idResponsable === null ||
+                    var res_id: any = this.datalistSelect?.[0];
+                    this.Dao.idGerencia = res_id;
+
+
+                    if (  this.Dao.idGerencia === null ||
                         res_id === 0 ||
                         res_id === undefined ||
                         res_id === null ||
@@ -140,27 +145,29 @@ export class DireccionComponent  implements OnInit {
                     ) {
                         this.messageService.add({
                             severity: 'error',
-                            summary: `Debe seleccionar un responsable de la gerencia: ${this.Dao.nombre}`,
+                            summary: `Debe seleccionar una gerencia para`,
                         });
                     } else {
-                        // this.serve.PostDataGerencia(this.Dao).subscribe(
-                        //     (res) => {
-                        //         this.onAlertMessage(
-                        //             'Exito!!!',
-                        //             res['mensaje'],
-                        //             'success'
-                        //         );
-                        //         this.display = false;
-                        //         this.GetGerencias();
-                        //     },
-                        //     (err) => {
-                        //         console.error(err);
-                        //         this.messageService.add({
-                        //             severity: 'error',
-                        //             summary: `Error interno, intentelo nuevamente en unos minutos`,
-                        //         });
-                        //     }
-                        // );
+                        console.log(this.Dao);
+
+                        this.serve.PostData(this.Dao).subscribe(
+                            (res) => {
+                                this.onAlertMessage(
+                                    'Exito!!!',
+                                    res['mensaje'],
+                                    'success'
+                                );
+                                this.display = false;
+                                this.GatData();
+                            },
+                            (err) => {
+                                console.error(err);
+                                this.messageService.add({
+                                    severity: 'error',
+                                    summary: `Error interno, intentelo nuevamente en unos minutos`,
+                                });
+                            }
+                        );
                     }
                 }
             }
@@ -169,17 +176,18 @@ export class DireccionComponent  implements OnInit {
         // edittar
         onPutDataGErencia(Dao: any) {
             this.displayEdit = true;
+            console.log(Dao);
 
             this.DaoEdit = {
-                idGerenciaErp: Dao.ceco,
-                idResponsable: Dao.responsable,
-                id: Dao.idGerencia,
-                nombre: Dao.gerencia,
+                idDireccionErp: Dao.id_direccion,
+                nombre: Dao.direccion,
+                idGerencia: Dao.idGerencia,
+                id: Dao.idDireccion
             };
 
-            const selectedResponsable: DataResponsabe = {
-                id: Dao.id_responsable,
-                nombreUsuario: Dao.responsable,
+            const selectedResponsable: DataList = {
+                id: Dao.idGerencia,
+                nombreGerencia: Dao.gerencia,
             };
 
             // Asigna un array que contiene el objeto seleccionado
@@ -187,67 +195,71 @@ export class DireccionComponent  implements OnInit {
         }
 
         SendEndPoindEd() {
-            this.DaoEdit.idResponsable = this.responsableSelectEd[0].id;
-            // this.serve.PutDataGerencia(this.DaoEdit).subscribe(
-            //     (res) => {
-            //         setTimeout(() => {
-            //             this.GetGerencias();
-            //             this.onAlertMessage('Exito!!!', res['mensaje'], 'success');
-            //             this.displayEdit = false;
-            //         }, 500);
-            //     },
-            //     (err) => {
-            //         console.error(err);
-            //         this.messageService.add({
-            //             severity: 'error',
-            //             summary: `Error interno, intentelo nuevamente en unos minutos`,
-            //         });
-            //     }
-            // );
+            this.DaoEdit.idGerencia = this.responsableSelectEd[0].id;
+            console.log(this.DaoEdit);
+
+            this.serve.PutData(this.DaoEdit).subscribe(
+                (res) => {
+                    setTimeout(() => {
+                        this.GatData();
+                        this.onAlertMessage('Exito!!!', res['mensaje'], 'success');
+                        this.displayEdit = false;
+                    }, 500);
+                },
+                (err) => {
+                    console.error(err);
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: `Error interno, intentelo nuevamente en unos minutos`,
+                    });
+                }
+            );
         }
 
         onViewData(Dao: any) {
             this.displayView = true;
+            console.log(Dao);
 
             this.DaoEdit = {
-                idGerenciaErp: Dao.ceco,
-                idResponsable: Dao.responsable,
-                id: Dao.idGerencia,
-                nombre: Dao.gerencia,
+                idDireccionErp: Dao.id_direccion,
+                nombre: Dao.direccion,
+                idGerencia: Dao.idGerencia,
+                id: Dao.idDireccion
             };
 
-            const selectedResponsable: DataResponsabe = {
-                id: Dao.id_responsable,
-                nombreUsuario: Dao.responsable,
+            const selectedResponsable: DataList = {
+                id: Dao.idGerencia,
+                nombreGerencia: Dao.gerencia,
             };
 
             // Asigna un array que contiene el objeto seleccionado
             this.responsableSelectEd = [selectedResponsable];
         }
-
-        //   funcion para actuliza el estado de una gerencia
+        //   funcion para actuliza el estado de una direccion
         onPutStatususER(ids: number, status: number) {
             this.Status = {
-                idGerencia: ids,
-                estadoGerencia: status,
+                idDireccion: ids,
+                estadoDireccion: status,
             };
 
-            // this.serve.PutStatus(this.Status).subscribe(
-            //     (res) => {
-            //         if (res['status'] === 'ok') {
-            //             // this.messageService.add({severity:'success', summary:res['mensaje']});
-            //             this.onAlertMessage('Exito!!!', res['message'], 'success');
-            //             this.GetGerencias();
-            //         } else {
-            //             this.onAlertMessage('Error', res['message'], 'warning');
-            //             this.GetGerencias();
-            //         }
-            //     },
-            //     (err) => {
-            //         console.error(err);
-            //         this.onAlertMessage('Error', 'Error', 'warning');
-            //     }
-            // );
+            this.serve.PutStatus(this.Status).subscribe(
+                (res) => {
+                    console.log(res);
+
+                    if (res['status'] === 'ok') {
+                        // this.messageService.add({severity:'success', summary:res['mensaje']});
+                        this.onAlertMessage('Exito!!!', res['message'], 'success');
+                        this.GatData();
+                    } else {
+                        this.onAlertMessage('Error', res['message'], 'warning');
+                        this.GatData();
+                    }
+                },
+                (err) => {
+                    console.error(err);
+                    this.onAlertMessage('Error', 'Error', 'warning');
+                }
+            );
         }
 
 
@@ -283,7 +295,7 @@ export class DireccionComponent  implements OnInit {
 
             // this.serve.PostDataGerenciaUpload(formData).subscribe((res)=>{
             //     console.log(res);
-            //     this.GetGerencias();
+            //     this.GatData();
             //     this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Archivo enviado correctamente.' });
 
             //   }, (err)=>{
