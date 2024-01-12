@@ -1,0 +1,41 @@
+
+
+.texReco {
+    font-size: 19px;
+    font-weight: 500;
+    margin-bottom: 50px;
+    text-align: center;
+}
+.cust_l {
+    width: 10rem;
+    margin: 3px;
+    background-color: #ff3131c9;
+}
+
+.cust_l:enabled:hover {
+    background-color: #FF3131 !important;
+}
+
+.cus {
+    margin-top: 22px;
+    width: 50px;
+    background-color: #5FBB3A;
+}
+.cust_r {
+    width: 10rem;
+    margin: 3px;
+    background-color: #5FBB3A;
+}
+
+.cust_r_cus {
+    width: 10rem;
+    margin: 3px;
+    background-color: #B3DB7D;
+    color: #fff;
+}
+
+.cust_r_cus:enabled:hover {
+    background-color: #5FBB3A;
+}
+
+

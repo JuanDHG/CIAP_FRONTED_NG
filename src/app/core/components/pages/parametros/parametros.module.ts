@@ -27,6 +27,7 @@ import { ChipsModule } from 'primeng/chips';
 import { GerenciaComponent } from './tables/gerencia/gerencia.component';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { DireccionComponent } from './tables/direccion/direccion.component';
+import { cecoComponent } from './tables/ceco/ceco.component';
 
 @NgModule({
     imports: [
@@ -56,6 +57,6 @@ import { DireccionComponent } from './tables/direccion/direccion.component';
         OverlayPanelModule,
         ChipsModule
     ],
-    declarations: [ParametrosComponent, GerenciaComponent, DireccionComponent],
+    declarations: [ParametrosComponent, GerenciaComponent, DireccionComponent, cecoComponent],
 })
 export class gerenciaModule {}
