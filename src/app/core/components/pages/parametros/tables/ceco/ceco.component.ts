@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
-import { DataService } from 'src/app/services/direccion/data.service';
+import { DataService } from 'src/app/services/ceco/data.service';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import Swal from 'sweetalert2';
@@ -75,13 +75,6 @@ export class cecoComponent  implements OnInit {
                     const res = response;
                     this.customers1 = res;
                     this.loading = false;
-                    // lanza peticion para obterner la lista de usuarios activos con el
-                    // objetivo de ser seleccionado como responsables
-                    this.serve.GetDataList().subscribe((res) => {
-                        this.Datalisty = res;
-                        console.log(res);
-
-                    });
                 },
                 (err) => {
                     console.error(err);
