@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
-import { DataService } from 'src/app/services/direccion/data.service';
+import { DataService } from 'src/app/services/cliente/data.service';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import Swal from 'sweetalert2';
-import { DataEdit, DataList,DataSend,DataStatus } from 'src/app/core/api/direccion.module';
+import { DataEdit, DataSend,DataStatus } from 'src/app/core/api/cliente.module';
 
 @Component({
   selector: 'app-cliente',
@@ -29,30 +29,26 @@ export class clienteComponent  implements OnInit {
 
     indice: number = 0;
 
-
-    Datalisty: DataList;
-    datalistSelect: DataList[];
-
     Dao: DataSend = {
-        idDireccionErp: null,
-        idGerencia: null,
-        nombre: null,
+        identificacion: null,
+        razonSocial: null,
+        clienteIdErp: null,
     };
 
     DaoEdit: DataEdit = {
         id: null,
-        idDireccionErp: null,
-        idGerencia: null,
-        nombre: null,
+        identificacion: null,
+        razonSocial: null,
+        clienteIdErp: null,
     };
     msgs: [];
 
     Status: DataStatus = {
-        idDireccion: null,
-        estadoDireccion: null,
+        id: null,
+        estado: null
     };
 
-    responsableSelectEd: DataList[] = [];
+
 
     uploadedFiles: any[] = [];
 
@@ -63,33 +59,20 @@ export class clienteComponent  implements OnInit {
     ) {        this.GatData();}
 
     ngOnInit() {
-
-        console.log('Lazy Component Initialized 2!');
     }
 // gerencias init
         GatData(): void {
             this.serve.GetData().subscribe(
                 (response) => {
-                    console.log('Direccion: ', response);
-
                     const res = response;
                     this.customers1 = res;
                     this.loading = false;
-                    // lanza peticion para obterner la lista de usuarios activos con el
-                    // objetivo de ser seleccionado como responsables
-                    this.serve.GetDataList().subscribe((res) => {
-                        this.Datalisty = res;
-                        console.log(res);
-
-                    });
                 },
                 (err) => {
                     console.error(err);
                 }
             );
         }
-
-
 
         onGlobalFilter(table: Table, event: Event) {
             table.filterGlobal(
@@ -119,37 +102,25 @@ export class clienteComponent  implements OnInit {
 
 
         SendEndPoind(): void {
-            if (this.Dao.idDireccionErp === null) {
+            if (this.Dao.clienteIdErp === null) {
                 this.messageService.add({
                     severity: 'error',
-                    summary: 'ID Dirección no puede irse vacio',
+                    summary: 'ID Cliente no puede ser vacio',
                 });
             } else {
-                if (this.Dao.nombre === null) {
+                if (this.Dao.razonSocial === null) {
                     this.messageService.add({
                         severity: 'error',
-                        summary: `Debe ingresar nombre de dirreción`,
+                        summary: `Debe ingresar nombre de cliente`,
                     });
                 } else {
 
-
-                    var res_id: any = this.datalistSelect?.[0];
-                    this.Dao.idGerencia = res_id;
-
-
-                    if (  this.Dao.idGerencia === null ||
-                        res_id === 0 ||
-                        res_id === undefined ||
-                        res_id === null ||
-                        res_id === ''
-                    ) {
+                       if (  this.Dao.identificacion === null) {
                         this.messageService.add({
                             severity: 'error',
-                            summary: `Debe seleccionar una gerencia para`,
+                            summary: `Debe ingresar nit del cliente`,
                         });
                     } else {
-                        console.log(this.Dao);
-
                         this.serve.PostData(this.Dao).subscribe(
                             (res) => {
                                 this.onAlertMessage(
@@ -176,28 +147,18 @@ export class clienteComponent  implements OnInit {
         // edittar
         onPutDataGErencia(Dao: any) {
             this.displayEdit = true;
-            console.log(Dao);
 
             this.DaoEdit = {
-                idDireccionErp: Dao.id_direccion,
-                nombre: Dao.direccion,
-                idGerencia: Dao.idGerencia,
-                id: Dao.idDireccion
+                clienteIdErp: Dao.cliente,
+                identificacion: Dao.NIT,
+                razonSocial: Dao.razon_social,
+                id: Dao.id
             };
 
-            const selectedResponsable: DataList = {
-                id: Dao.idGerencia,
-                nombreGerencia: Dao.gerencia,
-            };
-
-            // Asigna un array que contiene el objeto seleccionado
-            this.responsableSelectEd = [selectedResponsable];
         }
 
         SendEndPoindEd() {
-            this.DaoEdit.idGerencia = this.responsableSelectEd[0].id;
-            console.log(this.DaoEdit);
-
+            this.DaoEdit.identificacion = parseInt(this.DaoEdit.identificacion.toString())
             this.serve.PutData(this.DaoEdit).subscribe(
                 (res) => {
                     setTimeout(() => {
@@ -218,40 +179,30 @@ export class clienteComponent  implements OnInit {
 
         onViewData(Dao: any) {
             this.displayView = true;
-            console.log(Dao);
-
             this.DaoEdit = {
-                idDireccionErp: Dao.id_direccion,
-                nombre: Dao.direccion,
-                idGerencia: Dao.idGerencia,
-                id: Dao.idDireccion
+                clienteIdErp: Dao.cliente,
+                identificacion: Dao.NIT,
+                razonSocial: Dao.razon_social,
+                id: Dao.id
             };
 
-            const selectedResponsable: DataList = {
-                id: Dao.idGerencia,
-                nombreGerencia: Dao.gerencia,
-            };
 
-            // Asigna un array que contiene el objeto seleccionado
-            this.responsableSelectEd = [selectedResponsable];
+
         }
         //   funcion para actuliza el estado de una direccion
         onPutStatususER(ids: number, status: number) {
             this.Status = {
-                idDireccion: ids,
-                estadoDireccion: status,
+                id: ids,
+                estado: status,
             };
 
             this.serve.PutStatus(this.Status).subscribe(
                 (res) => {
-                    console.log(res);
-
                     if (res['status'] === 'ok') {
-                        // this.messageService.add({severity:'success', summary:res['mensaje']});
-                        this.onAlertMessage('Exito!!!', res['message'], 'success');
+                        this.onAlertMessage('Actulizado', res['mensaje'], 'success');
                         this.GatData();
                     } else {
-                        this.onAlertMessage('Error', res['message'], 'warning');
+                        this.onAlertMessage('Error', res['mensaje'], 'warning');
                         this.GatData();
                     }
                 },
@@ -279,14 +230,11 @@ export class clienteComponent  implements OnInit {
           this.values = [
             this.selectedFile.name
           ]
-          console.log(this.selectedFile.name);
-
         }
 
         uploadFile() {
           if (this.selectedFile) {
             // Aquí puedes implementar la lógica para enviar el archivo al servidor
-            console.log('Archivo seleccionado:', this.selectedFile);
             // Puedes usar servicios HttpClient para enviar el archivo al servidor
             // Ejemplo: this.http.post('url_del_servidor', formData).subscribe(response => console.log(response));
             const formData = new FormData();
@@ -350,7 +298,6 @@ export class clienteComponent  implements OnInit {
             if (res.log_transaccion_excel.Status === 1) {
                 const miBoton: HTMLElement | null = this.el.nativeElement.querySelector('#miBoton');
                 miBoton.click();
-                console.log(res);
             }
 
 

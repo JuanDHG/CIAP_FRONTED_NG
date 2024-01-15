@@ -9,7 +9,7 @@ import { DataDireccion, DataEdit, DataList, DataSend, DataStatus } from "src/app
 export class DataService {
   private baseUrl = env.endPoint; // Reemplaza con la URL de tu backend nest
   private baseUrlPy = env.endPointPy; // Reemplaza con la URL de tu backend
-
+  private module:string  = '/unidad-organizativa'
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -21,29 +21,29 @@ export class DataService {
 
   // funcion para obtner de las  gerencias
   GetData() : Observable<DataDireccion> {
-    const url = `${this.baseUrl}/unidad-organizativa`;
+    const url = `${this.baseUrl}${this.module}`;
     return this.http.get<DataDireccion>(url, this.httpOptions);
   }
 
   GetDataList() : Observable<DataList>{
-    const url = `${this.baseUrl}/unidad-organizativa/gerencia`;
+    const url = `${this.baseUrl}${this.module}/gerencia`;
     return this.http.get<DataList>(url, this.httpOptions);
   }
 
   PostData(Data: DataSend) : Observable<DataSend>{
-    const url = `${this.baseUrl}/unidad-organizativa/registrar`;
+    const url = `${this.baseUrl}${this.module}/registrar`;
     return this.http.post<DataSend>(url,Data, this.httpOptions);
   }
 
   PutData(Data: DataEdit) : Observable<DataEdit> {
-    const url = `${this.baseUrl}/unidad-organizativa/actualizar`;
+    const url = `${this.baseUrl}${this.module}/actualizar`;
     return this.http.put<DataEdit>(url,Data, this.httpOptions);
   }
 
   PutStatus(Data: DataStatus) : Observable<DataStatus> {
     console.log(Data);
 
-    const url = `${this.baseUrl}/unidad-organizativa/actualizar-estado`;
+    const url = `${this.baseUrl}${this.module}/actualizar-estado`;
     return this.http.put<DataStatus>(url,Data, this.httpOptions);
   }
 

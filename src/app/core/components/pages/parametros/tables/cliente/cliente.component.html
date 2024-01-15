@@ -1,5 +1,5 @@
 <!-- Tabla de gerencia componets -->
-<p-table #dt1 [value]="customers1" dataKey="id" [rows]="15" [loading]="loading" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['idDireccion','direccion','idGerencia','gerencia','fecha_crearcion','estado']" responsiveLayout="scroll">
+<p-table #dt1 [value]="customers1" dataKey="id" [rows]="15" [loading]="loading" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['id','cliente','NIT','fecha_creacion','estado']" responsiveLayout="scroll">
     <ng-template pTemplate="caption">
         <div class="flex justify-content-between flex-column sm:flex-row">
             <span class="p-input-icon-left mb-2">
@@ -22,13 +22,13 @@
             </th>
             <th style="min-width: 12rem">
                 <div class="flex justify-content-between align-items-center" style="text-transform: uppercase;">
-                    consecutivo
+                    cliente
                     <p-columnFilter type="text" field="gerencia" display="menu" placeholder="Buscar por gerencia"></p-columnFilter>
                 </div>
             </th>
             <th style="min-width: 12rem">
                 <div class="flex justify-content-between align-items-center">
-                    DESCRIPCIÓN
+                    NIT
                     <p-columnFilter type="text" field="responsable" display="menu" placeholder="Buscar por responsable"></p-columnFilter>
                 </div>
             </th>
@@ -51,13 +51,13 @@
                 {{ i + 1 }}
             </td>
             <td>
-                {{customer.direccion}}
+                {{customer.cliente}}
             </td>
             <td>
-                {{customer.gerencia}}
+                {{customer.NIT}}
             </td>
             <td>
-                {{customer.fecha_crearcion}}
+                {{customer.fecha_creacion}}
               </td>
 
             <td>
@@ -65,7 +65,7 @@
                 <button pButton pRipple type="button"  icon="pi pi-eye" (click)="onViewData(customer)" class="p-button-outlined p-button-success cus" style="margin-right: 4px;"></button>
                 <button pButton pRipple type="button"  icon="pi pi-pencil" (click)="onPutDataGErencia(customer)" class="p-button-outlined p-button-info cus"></button>
                 <!-- <button pButton pRipple type="button"  icon="pi pi-copy" class="p-button-outlined p-button-warning cus"></button> -->
-                <p-inputSwitch  [ngModel]="customer.estado === 1" (ngModelChange)="customer.estado = $event ? 1 : 0"  (click)="onPutStatususER(customer.idDireccion,customer.estado)" inputId="customerSwitch"></p-inputSwitch>
+                <p-inputSwitch  [ngModel]="customer.estado === 1" (ngModelChange)="customer.estado = $event ? 1 : 0"  (click)="onPutStatususER(customer.id,customer.estado)" inputId="customerSwitch"></p-inputSwitch>
             </td>
 
         </tr>
@@ -82,29 +82,33 @@
     </ng-template>
   </p-table>
 
-<!-- modal  Añadir Gererencia-->
+<!-- modal  Añadir -->
 <p-dialog [modal]="true" [(visible)]="display" [style]="{ width: '30vw' }" [maximizable]="false" [draggable]="false">
 	<div class="modalCustomer p-fluid">
 		<br>
-		<h4 class="texReco"> CREAR DIRECCIÓN </h4>
+		<h4 class="texReco"> CREAR CLIENTE </h4>
 	  <div class="field">
 		<span class="p-input-icon-left p-float-label lg:mb-5 ">
 		  <!-- <i class="pi pi-lock"></i> -->
-		  <input id="float-input1" type="text" [(ngModel)]="Dao.idDireccionErp" min="0" class="customerInput" name="Cpass" pInputText />
-		  <label for="float-input1">ID Dirección (ERP)</label>
+		  <input id="float-input1" type="text" [(ngModel)]="Dao.clienteIdErp" min="0" class="customerInput" name="Cpass" pInputText />
+		  <label for="float-input1">ID Cliente (ERP)</label>
 		</span>
 	  </div>
 
 	  <div class="field">
 		<span class="p-input-icon-left p-float-label lg:mb-5 ">
 		  <!-- <i class="pi pi-lock"></i> -->
-		  <input id="float-input2" type="text" [(ngModel)]="Dao.nombre" class="customerInput" name="Cpass" pInputText />
-		  <label for="float-input2">Dirección</label>
+		  <input id="float-input2" type="text" [(ngModel)]="Dao.razonSocial" class="customerInput" name="Cpass" pInputText />
+		  <label for="float-input2">Cliente</label>
 		</span>
 	  </div>
 
 	  <div class="field">
-		<p-multiSelect [options]="Datalisty" [(ngModel)]="datalistSelect" [selectionLimit]="1" optionLabel="nombreGerencia" optionValue="id" defaultLabel="Gerencia" display="chip" [virtualScroll]="false" [virtualScrollItemSize]="6"></p-multiSelect>
+        <span class="p-input-icon-left p-float-label lg:mb-5 ">
+            <!-- <i class="pi pi-lock"></i> -->
+            <input id="float-input2" type="number"  maxlength="11" min="1" minlength="4" [(ngModel)]="Dao.identificacion" class="customerInput" name="Cpass" pInputText />
+            <label for="float-input2">NIT</label>
+          </span>
 	  </div>
 	  <br>
 	  		<p-messages [(value)]="msgs"></p-messages>
@@ -117,15 +121,15 @@
 </p-dialog>
 
 
-<!-- modal  Editar Gererencia-->
+<!-- modal  Editar -->
 <p-dialog [modal]="true" [(visible)]="displayEdit" [style]="{ width: '30vw' }" [maximizable]="false" [draggable]="false">
 	<div class="modalCustomer p-fluid">
 		<br>
-		<h4 class="texReco"> EDITAR DIRECCIÓN</h4>
+		<h4 class="texReco"> EDITAR Cliente</h4>
 	  <div class="field">
 		<span class="p-input-icon-left p-float-label lg:mb-5 ">
 		  <!-- <i class="pi pi-lock"></i> -->
-		  <input id="float-input1" type="text" [(ngModel)]="DaoEdit.idDireccionErp" min="0" class="customerInput" name="Cpass" pInputText />
+		  <input id="float-input1" type="text" [(ngModel)]="DaoEdit.clienteIdErp" min="0" class="customerInput" name="Cpass" pInputText />
 		  <label for="float-input1">ID Gerencia (ERP)</label>
 		</span>
 	  </div>
@@ -133,13 +137,17 @@
 	  <div class="field">
 		<span class="p-input-icon-left p-float-label lg:mb-5 ">
 		  <!-- <i class="pi pi-lock"></i> -->
-		  <input id="float-input2" type="text" [(ngModel)]="DaoEdit.nombre" class="customerInput" name="Cpass" pInputText />
-		  <label for="float-input2">Gerencia</label>
+		  <input id="float-input2" type="text" [(ngModel)]="DaoEdit.razonSocial" class="customerInput" name="Cpass" pInputText />
+		  <label for="float-input2">Cliente</label>
 		</span>
 	  </div>
 
 	  <div class="field">
-		<p-multiSelect [options]="Datalisty" [(ngModel)]="responsableSelectEd" [selectionLimit]="1"  optionLabel="nombreGerencia" defaultLabel="Responsable" display="chip" [virtualScroll]="false" [virtualScrollItemSize]="6"></p-multiSelect>
+        <span class="p-input-icon-left p-float-label lg:mb-5 ">
+            <!-- <i class="pi pi-lock"></i> -->
+            <input id="float-input2" type="text" [(ngModel)]="DaoEdit.identificacion" class="customerInput" name="Cpass" pInputText />
+            <label for="float-input2">NIT</label>
+          </span>
 	  </div>
 	  <br>
 	  		<p-messages [(value)]="msgs"></p-messages>
@@ -152,7 +160,7 @@
 </p-dialog>
 
 
-<!-- modal  Ver Gererencia-->
+<!-- modal  Ver -->
 <p-dialog [modal]="true" [(visible)]="displayView" [style]="{ width: '30vw' }" [maximizable]="false" [draggable]="false">
 	<div class="modalCustomer p-fluid">
 		<br>
@@ -160,7 +168,7 @@
 	  <div class="field">
 		<span class="p-input-icon-left p-float-label lg:mb-5 ">
 		  <!-- <i class="pi pi-lock"></i> -->
-		  <input id="float-input1" type="text" [(ngModel)]="DaoEdit.idDireccionErp" min="0" class="customerInput" name="Cpass"  readonly pInputText />
+		  <input id="float-input1" type="text" [(ngModel)]="DaoEdit.clienteIdErp" min="0" class="customerInput" name="Cpass"  readonly pInputText />
 		  <label for="float-input1">ID direccion (ERP)</label>
 		</span>
 	  </div>
@@ -168,13 +176,17 @@
 	  <div class="field">
 		<span class="p-input-icon-left p-float-label lg:mb-5 ">
 		  <!-- <i class="pi pi-lock"></i> -->
-		  <input id="float-input2" type="text" [(ngModel)]="DaoEdit.nombre" class="customerInput" readonly name="Cpass" pInputText />
-		  <label for="float-input2">Direccion</label>
+		  <input id="float-input2" type="text" [(ngModel)]="DaoEdit.razonSocial" class="customerInput" readonly name="Cpass" pInputText />
+		  <label for="float-input2">Cliente</label>
 		</span>
 	  </div>
 
 	  <div class="field">
-		<p-multiSelect [options]="Datalisty" [(ngModel)]="responsableSelectEd" [selectionLimit]="1" disabled="true"  optionLabel="nombreGerencia"  defaultLabel="Responsable" display="chip" [virtualScroll]="false" [virtualScrollItemSize]="6"></p-multiSelect>
+        <span class="p-input-icon-left p-float-label lg:mb-5 ">
+            <!-- <i class="pi pi-lock"></i> -->
+            <input id="float-input2" type="text" [(ngModel)]="DaoEdit.identificacion" class="customerInput" readonly name="Cpass" pInputText />
+            <label for="float-input2">NIT</label>
+          </span>
 	  </div>
 	  <br>
 	  		<p-messages [(value)]="msgs"></p-messages>

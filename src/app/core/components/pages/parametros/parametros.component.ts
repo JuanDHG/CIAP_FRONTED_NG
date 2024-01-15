@@ -26,7 +26,7 @@ export class ParametrosComponent implements OnInit {
                 this.steps.push(
                     {label: e.label},
                     { label: 'Dirección' },
-                    { label: 'Ceco' },
+                    { label: 'ID proyecto' },
                     { label: 'Cliente' },
                     { label: 'Estados' }
                     )
@@ -43,6 +43,8 @@ export class ParametrosComponent implements OnInit {
             if(md){
                   // Si md tiene un valor, intenta establecerlo como activeIndex
                 this.activeIndex = this.steps.findIndex(step => step.label === md);
+            }else{
+                this.activeIndex = 0
             }
 
              // Si md no se encuentra en los steps, establece el índice predeterminado

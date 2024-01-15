@@ -25,7 +25,6 @@ export class AppMenuComponent implements OnInit {
                         label: 'Inicio',
                         items: [
                             { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] },
-                            { label: 'Icon', icon: 'pi pi-microsoft', routerLink: ['/utilities/icons'], routerLinkActiveOptions: { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' } }
                         ]
                     }
 
@@ -54,6 +53,7 @@ export class AppMenuComponent implements OnInit {
 
 
             this.model.push(modelItem);
+            localStorage.setItem('Menu_System', JSON.stringify(this.model));
         }
 
 

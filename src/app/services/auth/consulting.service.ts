@@ -8,11 +8,11 @@ import { environment  as env} from 'src/environments/environment.prod';
   providedIn: 'root'
 })
 export class AuthService {
-  
+
   private baseUrl = env.endPoint; // Reemplaza con la URL de tu backend
-  
+  private module: string = '/auth'
   httpOptions = {
-    headers: new HttpHeaders({ 
+    headers: new HttpHeaders({
       'Access-Control-Allow-Origin':'*',
     })
   };
@@ -21,28 +21,28 @@ export class AuthService {
 
 
   postData(data: DataLogin): Observable<any> {
-    const url = `${this.baseUrl}/auth/login`;
+    const url = `${this.baseUrl}${this.module}/login`;
     return this.http.post(url, data, this.httpOptions);
   }
 
   postDataValCorre(data: DataValueEmail){
-      const url = `${this.baseUrl}/auth/email_verificacion`;
-      return this.http.post(url, data, this.httpOptions); 
+      const url = `${this.baseUrl}${this.module}/email_verificacion`;
+      return this.http.post(url, data, this.httpOptions);
   }
 
   postDataSendCorreo(data: DataSendEmail){
-    const url = `${this.baseUrl}/auth/olvidar_contrasena`;
-    return this.http.post(url, data, this.httpOptions); 
+    const url = `${this.baseUrl}${this.module}/olvidar_contrasena`;
+    return this.http.post(url, data, this.httpOptions);
 }
 
   posDataValueOpt(data: DataOptSend){
-    const url = `${this.baseUrl}/auth/validaToken`;
-    return this.http.post(url, data, this.httpOptions); 
+    const url = `${this.baseUrl}${this.module}/validaToken`;
+    return this.http.post(url, data, this.httpOptions);
   }
 
   postDataChangePass(data: DataSendChangePassword){
-    const url = `${this.baseUrl}/auth/cambio_contrasena`;
-    return this.http.post(url, data, this.httpOptions); 
+    const url = `${this.baseUrl}${this.module}/cambio_contrasena`;
+    return this.http.post(url, data, this.httpOptions);
   }
 
 }

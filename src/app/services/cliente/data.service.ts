@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
-import { environment  as env} from 'src/environments/environment.prod';
+import { environment  as env} from '../../../environments/environment.prod';
 import { Observable, catchError, throwError } from 'rxjs';
-import {  DataEditGerencia, DataGerencia,DataResponsabe, DataSendGerencia, DataStatus } from "../../core/api/gerencia.module";
+import { DataEdit, DataSend, DataStatus } from "src/app/core/api/cliente.module";
+import { Data } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class DataGerenciaService {
+export class DataService {
   private baseUrl = env.endPoint; // Reemplaza con la URL de tu backend nest
   private baseUrlPy = env.endPointPy; // Reemplaza con la URL de tu backend
-  private module:string = '/gerencia';
-
-
+  private module:string  = '/cliente'
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -22,27 +21,25 @@ export class DataGerenciaService {
 
 
   // funcion para obtner de las  gerencias
-  GetDataRole() : Observable<DataGerencia> {
+  GetData() : Observable<Data> {
     const url = `${this.baseUrl}${this.module}`;
-    return this.http.get<DataGerencia>(url, this.httpOptions);
+    return this.http.get<Data>(url, this.httpOptions);
   }
 
-  GetDataResponsableAct() : Observable<DataResponsabe>{
-    const url = `${this.baseUrl}${this.module}/responsables`;
-    return this.http.get<DataResponsabe>(url, this.httpOptions);
-  }
 
-  PostDataGerencia(Data: DataSendGerencia) : Observable<DataSendGerencia>{
+  PostData(Data: DataSend) : Observable<DataSend>{
     const url = `${this.baseUrl}${this.module}/registrar`;
-    return this.http.post<DataSendGerencia>(url,Data, this.httpOptions);
+    return this.http.post<DataSend>(url,Data, this.httpOptions);
   }
 
-  PutDataGerencia(Data: DataEditGerencia) : Observable<DataEditGerencia> {
+  PutData(Data: DataEdit) : Observable<DataEdit> {
     const url = `${this.baseUrl}${this.module}/actualizar`;
-    return this.http.put<DataEditGerencia>(url,Data, this.httpOptions);
+    return this.http.put<DataEdit>(url,Data, this.httpOptions);
   }
 
   PutStatus(Data: DataStatus) : Observable<DataStatus> {
+    console.log(Data);
+
     const url = `${this.baseUrl}${this.module}/actualizar-estado`;
     return this.http.put<DataStatus>(url,Data, this.httpOptions);
   }

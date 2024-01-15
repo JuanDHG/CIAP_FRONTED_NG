@@ -60,17 +60,15 @@ export class DireccionComponent  implements OnInit {
         private serve: DataService,
         private messageService: MessageService,
         private el: ElementRef
-    ) {        this.GatData();}
+    ) {}
 
     ngOnInit() {
-
-        console.log('Lazy Component Initialized 2!');
+        this.GatData();
     }
 // gerencias init
         GatData(): void {
             this.serve.GetData().subscribe(
                 (response) => {
-                    console.log('Direccion: ', response);
 
                     const res = response;
                     this.customers1 = res;
@@ -79,8 +77,6 @@ export class DireccionComponent  implements OnInit {
                     // objetivo de ser seleccionado como responsables
                     this.serve.GetDataList().subscribe((res) => {
                         this.Datalisty = res;
-                        console.log(res);
-
                     });
                 },
                 (err) => {
@@ -93,9 +89,7 @@ export class DireccionComponent  implements OnInit {
 
         onGlobalFilter(table: Table, event: Event) {
             table.filterGlobal(
-                (event.target as HTMLInputElement).value,
-                'contains'
-            );
+                (event.target as HTMLInputElement).value,'contains');
         }
         clear(table: Table) {
             table.clear();
@@ -148,8 +142,6 @@ export class DireccionComponent  implements OnInit {
                             summary: `Debe seleccionar una gerencia para`,
                         });
                     } else {
-                        console.log(this.Dao);
-
                         this.serve.PostData(this.Dao).subscribe(
                             (res) => {
                                 this.onAlertMessage(
@@ -176,8 +168,6 @@ export class DireccionComponent  implements OnInit {
         // edittar
         onPutDataGErencia(Dao: any) {
             this.displayEdit = true;
-            console.log(Dao);
-
             this.DaoEdit = {
                 idDireccionErp: Dao.id_direccion,
                 nombre: Dao.direccion,
@@ -196,8 +186,6 @@ export class DireccionComponent  implements OnInit {
 
         SendEndPoindEd() {
             this.DaoEdit.idGerencia = this.responsableSelectEd[0].id;
-            console.log(this.DaoEdit);
-
             this.serve.PutData(this.DaoEdit).subscribe(
                 (res) => {
                     setTimeout(() => {
@@ -218,8 +206,6 @@ export class DireccionComponent  implements OnInit {
 
         onViewData(Dao: any) {
             this.displayView = true;
-            console.log(Dao);
-
             this.DaoEdit = {
                 idDireccionErp: Dao.id_direccion,
                 nombre: Dao.direccion,
@@ -244,8 +230,6 @@ export class DireccionComponent  implements OnInit {
 
             this.serve.PutStatus(this.Status).subscribe(
                 (res) => {
-                    console.log(res);
-
                     if (res['status'] === 'ok') {
                         // this.messageService.add({severity:'success', summary:res['mensaje']});
                         this.onAlertMessage('Exito!!!', res['message'], 'success');
@@ -279,14 +263,12 @@ export class DireccionComponent  implements OnInit {
           this.values = [
             this.selectedFile.name
           ]
-          console.log(this.selectedFile.name);
 
         }
 
         uploadFile() {
           if (this.selectedFile) {
             // Aquí puedes implementar la lógica para enviar el archivo al servidor
-            console.log('Archivo seleccionado:', this.selectedFile);
             // Puedes usar servicios HttpClient para enviar el archivo al servidor
             // Ejemplo: this.http.post('url_del_servidor', formData).subscribe(response => console.log(response));
             const formData = new FormData();
@@ -350,7 +332,6 @@ export class DireccionComponent  implements OnInit {
             if (res.log_transaccion_excel.Status === 1) {
                 const miBoton: HTMLElement | null = this.el.nativeElement.querySelector('#miBoton');
                 miBoton.click();
-                console.log(res);
             }
 
 

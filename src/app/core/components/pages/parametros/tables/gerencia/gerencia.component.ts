@@ -60,13 +60,10 @@ export class GerenciaComponent  implements OnInit {
         private serve: DataGerenciaService,
         private messageService: MessageService,
         private el: ElementRef
-    ) {
-        this.GetGerencias();
-    }
+    ) {}
 
     ngOnInit() {
-
-        console.log('Lazy Component Initialized!');
+        this.GetGerencias();
     }
 // gerencias init
         GetGerencias(): void {
