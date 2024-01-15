@@ -2,7 +2,8 @@ import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import Swal from 'sweetalert2';
-// import Swal from 'sweetalert2';
+import { TabService } from './tables/service/tab.service';
+
 
 
 @Component({
@@ -18,7 +19,7 @@ export class ParametrosComponent implements OnInit {
     steps = [];
     activeIndex: number = 0; // Inicializa la pestaña activa
 
-    constructor(private route: ActivatedRoute) {
+    constructor(private route: ActivatedRoute, private tabService: TabService) {
         const pm =  JSON.parse(this.Permisos);
         const pmp = pm[1];
 
@@ -67,6 +68,8 @@ export class ParametrosComponent implements OnInit {
   changeTab(index: number) {
     // Cambia la pestaña activa cuando se hace clic en un paso
     this.activeIndex = index;
+
+    
   }
 
   onTabChange(event: any) {

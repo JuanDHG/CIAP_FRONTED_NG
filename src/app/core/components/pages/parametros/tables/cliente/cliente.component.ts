@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 import { DataService } from 'src/app/services/direccion/data.service';
 import { MessageService } from 'primeng/api';
@@ -7,14 +7,14 @@ import Swal from 'sweetalert2';
 import { DataEdit, DataList,DataSend,DataStatus } from 'src/app/core/api/direccion.module';
 
 @Component({
-  selector: 'app-direccion',
-  templateUrl: './direccion.component.html',
-  styleUrls: ['./direccion.component.scss'],
+  selector: 'app-cliente',
+  templateUrl: './cliente.component.html',
+  styleUrls: ['./cliente.component.scss'],
 })
 
 
 
-export class DireccionComponent  implements OnInit {
+export class clienteComponent  implements OnInit {
 
     @ViewChild('filter') filter!: ElementRef;
     customers1: any;
