@@ -1,20 +1,20 @@
 import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
-import { DataService } from 'src/app/services/ceco/data.service';
+import { DataService } from 'src/app/services/estado/data.service';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import Swal from 'sweetalert2';
-import { DataEdit, DataSend,DataStatus } from 'src/app/core/api/ceco.module';
+import { DataEdit, DataSend,DataStatus } from 'src/app/core/api/estado.module';
 
 @Component({
-  selector: 'app-ceco',
-  templateUrl: './ceco.component.html',
-  styleUrls: ['./ceco.component.scss'],
+  selector: 'app-estado',
+  templateUrl: './estado.component.html',
+  styleUrls: ['./estado.component.scss'],
 })
 
 
 
-export class cecoComponent  implements OnInit {
+export class estadoComponent  implements OnInit {
 
     @ViewChild('filter') filter!: ElementRef;
     customers1: any;
@@ -31,20 +31,20 @@ export class cecoComponent  implements OnInit {
 
 
     Dao: DataSend = {
-        idCecoErp: null,
-        nombre: null
+        descripcion: null,
+        estadoIdErp: null
     };
 
     DaoEdit: DataEdit = {
         id: null,
-        idCecoErp: null,
-        nombre: null,
+        descripcion: null,
+        estadoIdErp: null,
     };
     msgs: [];
 
     Status: DataStatus = {
-        idCeco: null,
-        estadoCeco: null,
+        id: null,
+        estado: null
     };
 
     uploadedFiles: any[] = [];
@@ -105,16 +105,16 @@ export class cecoComponent  implements OnInit {
 
 
         SendEndPoind(): void {
-            if (this.Dao.idCecoErp === null) {
+            if (this.Dao.descripcion === null) {
                 this.messageService.add({
                     severity: 'error',
-                    summary: 'Debe ingresar Id proyecto',
+                    summary: 'Debe ingresar nombre del estado',
                 });
             } else {
-                if (this.Dao.nombre === null) {
+                if (this.Dao.estadoIdErp === null) {
                     this.messageService.add({
                         severity: 'error',
-                        summary: `Debe ingresar nombre de proyect`,
+                        summary: `Debe ingresar id estado (ERP)`,
                     });
                 } else {
                         console.log(this.Dao);
@@ -148,9 +148,9 @@ export class cecoComponent  implements OnInit {
             console.log(Dao);
 
             this.DaoEdit = {
-                idCecoErp: Dao.consecutivo,
-                nombre: Dao.descripcion,
-                id: Dao.idCeco
+                descripcion: Dao.estados,
+                estadoIdErp: Dao.estado_id_erp,
+                id: Dao.id
             };
 
 
@@ -183,17 +183,17 @@ export class cecoComponent  implements OnInit {
             console.log(Dao);
 
             this.DaoEdit = {
-                idCecoErp: Dao.consecutivo,
-                nombre: Dao.descripcion,
-                id: Dao.idCeco
+                descripcion: Dao.estados,
+                estadoIdErp: Dao.estado_id_erp,
+                id: Dao.id
             };
 
         }
         //   funcion para actuliza el estado de una direccion
         onPutStatususER(ids: number, status: number) {
             this.Status = {
-                idCeco: ids,
-                estadoCeco: status,
+                id: ids,
+                estado: status,
             };
 
             this.serve.PutStatus(this.Status).subscribe(

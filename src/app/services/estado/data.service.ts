@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { environment  as env} from '../../../environments/environment.prod';
 import { Observable, catchError, throwError } from 'rxjs';
-import { Data,DataEdit, DataSend, DataStatus } from "src/app/core/api/ceco.module";
+import { Data,DataEdit, DataSend, DataStatus } from "src/app/core/api/estado.module";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ import { Data,DataEdit, DataSend, DataStatus } from "src/app/core/api/ceco.modul
 export class DataService {
   private baseUrl = env.endPoint; // Reemplaza con la URL de tu backend nest
   private baseUrlPy = env.endPointPy; // Reemplaza con la URL de tu backend
-  private module:string  = '/ceco'; //centro de costo
+  private module:string  = '/estados'; //centro de costo
 
   httpOptions = {
     headers: new HttpHeaders({

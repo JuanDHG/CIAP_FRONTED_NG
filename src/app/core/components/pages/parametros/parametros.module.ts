@@ -31,6 +31,7 @@ import { DireccionComponent } from './tables/direccion/direccion.component';
 import { cecoComponent } from './tables/ceco/ceco.component';
 import { GerenciaComponent } from './tables/gerencia/gerencia.component';
 import { clienteComponent } from './tables/cliente/cliente.component';
+import { estadoComponent } from './tables/estado/estado.component';
 
 @NgModule({
     imports: [
@@ -60,6 +61,6 @@ import { clienteComponent } from './tables/cliente/cliente.component';
         OverlayPanelModule,
         ChipsModule
     ],
-    declarations: [ParametrosComponent, GerenciaComponent, DireccionComponent, cecoComponent, clienteComponent],
+    declarations: [ParametrosComponent, GerenciaComponent, DireccionComponent, cecoComponent, clienteComponent, estadoComponent],
 })
 export class gerenciaModule {}

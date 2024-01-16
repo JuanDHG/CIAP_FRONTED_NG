@@ -1,24 +1,24 @@
 export interface Data {
-    idCeco: any;
-    consecutivo: any;
-    descripcion: any;
+    id: any;
+    estado_id_erp: any ;
+    estados: any;
     fecha_creacion: any;
     estado: any;
 
 }
 
 export interface DataStatus {
-    idCeco: any;
-    estadoCeco: any;
+    id: any;
+    estado: any;
 }
 
 export interface DataSend {
-    idCecoErp:any
-    nombre:any
+    descripcion: any;
+    estadoIdErp: any;
 }
 
 export interface DataEdit {
     id:any;
-    idCecoErp:any;
-    nombre:any;
+    descripcion: any;
+    estadoIdErp: any;
 }

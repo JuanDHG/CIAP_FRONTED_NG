@@ -1,7 +1,7 @@
 <!-- Tabla de gerencia componets -->
 <p-table #dt1 [value]="customers1" dataKey="id" [rows]="15" [loading]="loading" [rowHover]="true"
     styleClass="p-datatable-gridlines" [paginator]="true"
-    [globalFilterFields]="['idCeco','consecutivo','descripcion','fecha_creacion','estado']" responsiveLayout="scroll">
+    [globalFilterFields]="['id','estado_id_erp','estados','fecha_creacion','estados']" responsiveLayout="scroll">
     <ng-template pTemplate="caption">
         <div class="flex justify-content-between flex-column sm:flex-row">
             <span class="p-input-icon-left mb-2">
@@ -28,18 +28,12 @@
             </th>
             <th style="min-width: 12rem">
                 <div class="flex justify-content-between align-items-center" style="text-transform: uppercase;">
-                    id proyecto
+                    estados
                     <p-columnFilter type="text" field="gerencia" display="menu"
                         placeholder="Buscar por gerencia"></p-columnFilter>
                 </div>
             </th>
-            <th style="min-width: 12rem">
-                <div class="flex justify-content-between align-items-center">
-                    NOMBRE DEL PROYECTO
-                    <p-columnFilter type="text" field="responsable" display="menu"
-                        placeholder="Buscar por responsable"></p-columnFilter>
-                </div>
-            </th>
+
             <th style="min-width: 12rem">
                 <div class="flex justify-content-between align-items-center">
                     FECHA DE CREACIÓN
@@ -60,10 +54,7 @@
                 {{ i + 1 }}
             </td>
             <td>
-                {{customer.consecutivo}}
-            </td>
-            <td>
-                {{customer.descripcion}}
+                {{customer.estados}}
             </td>
             <td>
                 {{customer.fecha_creacion}}
@@ -77,7 +68,7 @@
                     class="p-button-outlined p-button-info cus"></button>
                 <!-- <button pButton pRipple type="button"  icon="pi pi-copy" class="p-button-outlined p-button-warning cus"></button> -->
                 <p-inputSwitch [ngModel]="customer.estado === 1" (ngModelChange)="customer.estado = $event ? 1 : 0"
-                    (click)="onPutStatususER(customer.idCeco,customer.estado)"
+                    (click)="onPutStatususER(customer.id,customer.estado)"
                     inputId="customerSwitch"></p-inputSwitch>
             </td>
 
@@ -99,22 +90,22 @@
 <p-dialog [modal]="true" [(visible)]="display" [style]="{ width: '30vw' }" [maximizable]="false" [draggable]="false">
     <div class="modalCustomer p-fluid">
         <br>
-        <h4 class="texReco"> CREAR ID PROYECTO </h4>
+        <h4 class="texReco"> CREAR ESTADO </h4>
         <div class="field">
             <span class="p-input-icon-left p-float-label lg:mb-5 ">
                 <!-- <i class="pi pi-lock"></i> -->
-                <input id="float-input1" type="text" [(ngModel)]="Dao.idCecoErp" min="0" class="customerInput"
+                <input id="float-input1" type="text" [(ngModel)]="Dao.estadoIdErp" min="0" class="customerInput"
                     name="Cpass" pInputText />
-                <label for="float-input1">ID proyecto</label>
+                <label for="float-input1">ID Estado (ERP)</label>
             </span>
         </div>
 
         <div class="field">
             <span class="p-input-icon-left p-float-label lg:mb-5 ">
                 <!-- <i class="pi pi-lock"></i> -->
-                <input id="float-input2" type="text" [(ngModel)]="Dao.nombre" class="customerInput" name="Cpass"
+                <input id="float-input2" type="text" [(ngModel)]="Dao.descripcion" class="customerInput" name="Cpass"
                     pInputText />
-                <label for="float-input2">Nombre proyecto</label>
+                <label for="float-input2">Estado</label>
             </span>
         </div>
 
@@ -136,22 +127,22 @@
     [draggable]="false">
     <div class="modalCustomer p-fluid">
         <br>
-        <h4 class="texReco"> EDITAR DIRECCIÓN</h4>
+        <h4 class="texReco"> EDITAR ESTADO</h4>
         <div class="field">
             <span class="p-input-icon-left p-float-label lg:mb-5 ">
                 <!-- <i class="pi pi-lock"></i> -->
-                <input id="float-input1" type="text" [(ngModel)]="DaoEdit.idCecoErp" min="0" class="customerInput"
+                <input id="float-input1" type="text" [(ngModel)]="DaoEdit.estadoIdErp" min="0" class="customerInput"
                     name="Cpass" pInputText />
-                <label for="float-input1">ID Gerencia (ERP)</label>
+                <label for="float-input1">ID Estado (ERP)</label>
             </span>
         </div>
 
         <div class="field">
             <span class="p-input-icon-left p-float-label lg:mb-5 ">
                 <!-- <i class="pi pi-lock"></i> -->
-                <input id="float-input2" type="text" [(ngModel)]="DaoEdit.nombre" class="customerInput" name="Cpass"
+                <input id="float-input2" type="text" [(ngModel)]="DaoEdit.descripcion" class="customerInput" name="Cpass"
                     pInputText />
-                <label for="float-input2">Gerencia</label>
+                <label for="float-input2">Estado</label>
             </span>
         </div>
 
@@ -177,7 +168,7 @@
         <div class="field">
             <span class="p-input-icon-left p-float-label lg:mb-5 ">
                 <!-- <i class="pi pi-lock"></i> -->
-                <input id="float-input1" type="text" [(ngModel)]="DaoEdit.idCecoErp" min="0" class="customerInput"
+                <input id="float-input1" type="text" [(ngModel)]="DaoEdit.estadoIdErp" min="0" class="customerInput"
                     name="Cpass" readonly pInputText />
                 <label for="float-input1">ID direccion (ERP)</label>
             </span>
@@ -186,7 +177,7 @@
         <div class="field">
             <span class="p-input-icon-left p-float-label lg:mb-5 ">
                 <!-- <i class="pi pi-lock"></i> -->
-                <input id="float-input2" type="text" [(ngModel)]="DaoEdit.nombre" class="customerInput" readonly
+                <input id="float-input2" type="text" [(ngModel)]="DaoEdit.descripcion" class="customerInput" readonly
                     name="Cpass" pInputText />
                 <label for="float-input2">Direccion</label>
             </span>
