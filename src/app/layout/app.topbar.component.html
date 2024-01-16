@@ -18,11 +18,11 @@
             <i class="pi pi-bell"></i>
             <span></span>
         </button>
-        <p-avatar class="p-link layout-topbar-button" label="" > {{ (DataUser.nombres.charAt(0) + DataUser.apellidos.charAt(0)).toUpperCase() }}</p-avatar>
-        <!-- <button >
-            <i class="pi pi-user"></i>
-            <span>Profile</span>
-        </button> -->
+        <!-- <p-avatar class="p-link layout-topbar-button" label="" > {{ (DataUser.nombres.charAt(0) + DataUser.apellidos.charAt(0)).toUpperCase() }}</p-avatar> -->
+        <button class="p-link layout-topbar-button" style="border: 1px #74B73B solid; font-weight: bold;">
+            <i class="pi pi-user" style="color: #74B73B;"></i>
+        </button>
+        <p class="p-link layout-topbar-button" style="padding-left: 5rem; padding-right: 5rem;">Hola, {{ (DataUser.nombres).toUpperCase() }}</p>
         <button class="p-link layout-topbar-button" (click)="onConfigButtonClick()">
             <i class="pi pi-cog"></i>
             <span></span>
