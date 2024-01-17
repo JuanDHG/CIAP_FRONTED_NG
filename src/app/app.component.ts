@@ -49,10 +49,10 @@ export class AppComponent implements OnInit {
                     // Borra el localStorage si la sesión está a punto de expirar
                     // this.clearLocalStorageOnSessionExpiry();
 
-                    console.log('Tiempo ==>', this.loginService.isSessionExpiringSoon());
+                    // console.log('Tiempo ==>', this.loginService.isSessionExpiringSoon());
 
                   }else{
-                      console.log('Tiempo ==>', this.loginService.isSessionExpiringSoon());
+                    //   console.log('Tiempo ==>', this.loginService.isSessionExpiringSoon());
                   }
             }, 10000); // Verifica cada minuto (ajusta según tus necesidades)
 

@@ -131,7 +131,7 @@ export class RolesComponent implements OnInit {
             this.RenderDatosRolesUser()
         });
     }
-    // maenja y pinta las petiones para mostar los roles
+    // maenja y pinta las petiones para mostar los usuarios
     RenderDatosRolesUser() {
         this.server.GetUserList().subscribe((res) => {
             const resp = res;
@@ -465,6 +465,8 @@ export class RolesComponent implements OnInit {
         this.displayAddUser = e;
         this.server.GetUserProyectAll().subscribe((res) => {
             const response: any = res;
+            console.log(res);
+
             this.proyects = response;
         });
 
@@ -488,23 +490,42 @@ export class RolesComponent implements OnInit {
             nombres: this.DataRegUser.nombres,
         };
 
+
+
         this.server.PostAddUser(this.DataRegUser).subscribe((res) => {
             var response = res;
+            console.log(res);
+
             if (response['status'] === 'ok') {
                 this.messageService.add({
                     severity: 'success',
-                    summary: response['mensaje'],
+                    summary: response['message'],
                 });
 
+                this.DataRegUser = {
+                    apellidos: null,
+                    correo: null,
+                    identificacion: null,
+                    idProyecto: null,
+                    idRol: null,
+                    nombres: null,
+                };
+
+                this.Apellido1 = null; this.Apellido2 = null;
+
                 setTimeout(() => {
-                    this.displayAddUser = false;
+                    //this.displayAddUser = false;
                     this.RenderDatosRolesUser();
                 }, 3000);
             } else {
                 this.messageService.add({
                     severity: 'error',
-                    summary: response['mensaje'],
+                    summary: 'Error',
+                    detail: response['message']
                 });
+
+
+
             }
         });
     }

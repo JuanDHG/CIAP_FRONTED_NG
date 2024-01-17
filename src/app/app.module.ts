@@ -10,6 +10,7 @@ import { LoginGuard } from './guards/login.guard';
 import { LoginService } from './guards/login.service';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from "primeng/dropdown";
 
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
@@ -19,6 +20,7 @@ import { ButtonModule } from 'primeng/button';
         AppLayoutModule,
         CardModule,
         ButtonModule,
+        DropdownModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },

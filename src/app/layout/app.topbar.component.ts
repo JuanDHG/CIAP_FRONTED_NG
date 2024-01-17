@@ -2,12 +2,13 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { LayoutService } from "./service/app.layout.service";
 import { userDataGeneral } from "./../core/api/user.module";
+import { Router } from '@angular/router';
 @Component({
     selector: 'app-topbar',
     templateUrl: './app.topbar.component.html'
 })
 export class AppTopBarComponent {
-    
+
     DataUser: userDataGeneral;
     DataLocal : any = localStorage.getItem('dataUSer');
     items!: MenuItem[];
@@ -22,8 +23,15 @@ export class AppTopBarComponent {
     @Input() minimal: boolean = false;
 
     scales: number[] = [12, 13, 14, 15, 16];
+    selectedState: any = null;
 
-    constructor(public layoutService: LayoutService) {
+
+    items_ = [
+        { label: 'Cerrar', icon: 'pi pi-power-off', command: () => this.salirMetod(1) }
+      ];
+
+
+    constructor(public layoutService: LayoutService, public rute: Router) {
         this.DataLocal = JSON.parse(this.DataLocal);
         this.DataUser = {
             apellidos: this.DataLocal.apellidos,
@@ -38,11 +46,30 @@ export class AppTopBarComponent {
             nombres: this.DataLocal.nombres,
             tipo_contrasena: this.DataLocal.tipo_contrasena
         }
+
+
+
      }
 
+    // funcion para  cerrar sesion
+
+    salirMetod(e: number) : void {
+
+        if (e === 1) {
+            localStorage.clear();
+            location.reload();
+            console.log('Saliendo del sistema');
+        }else{
+            console.log('En espera');
+
+        }
 
 
-    //  menu de estilos 
+    }
+
+
+
+    //  menu de estilos
 
 
     get visible(): boolean {

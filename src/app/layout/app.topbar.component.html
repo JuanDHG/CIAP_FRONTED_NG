@@ -19,10 +19,13 @@
             <span></span>
         </button>
         <!-- <p-avatar class="p-link layout-topbar-button" label="" > {{ (DataUser.nombres.charAt(0) + DataUser.apellidos.charAt(0)).toUpperCase() }}</p-avatar> -->
-        <button class="p-link layout-topbar-button" style="border: 1px #74B73B solid; font-weight: bold;">
+        <button class="p-link layout-topbar-button" (click)="menu.toggle($event)" style="border: 1px #74B73B solid; font-weight: bold;">
             <i class="pi pi-user" style="color: #74B73B;"></i>
         </button>
-        <p class="p-link layout-topbar-button" style="padding-left: 5rem; padding-right: 5rem;">Hola, {{ (DataUser.nombres).toUpperCase() }}</p>
+        <p class="p-link layout-topbar-button" style="width: 34%;     font-weight: 500;" >Hola, {{ (DataUser.nombres)}}</p>
+
+        <p-menu #menu [model]="items_" [popup]="true" ></p-menu>
+
         <button class="p-link layout-topbar-button" (click)="onConfigButtonClick()">
             <i class="pi pi-cog"></i>
             <span></span>
@@ -59,18 +62,6 @@
     </ng-container>
 
     <ng-container *ngIf="!minimal">
-        <!-- <h5>Input Style</h5>
-        <div class="flex">
-            <div class="field-radiobutton flex-1">
-                <p-radioButton name="inputStyle" value="outlined" [(ngModel)]="inputStyle" inputId="outlined_input"></p-radioButton>
-                <label for="outlined_input">Outlined</label>
-            </div>
-            <div class="field-radiobutton flex-1">
-                <p-radioButton name="inputStyle" value="filled" [(ngModel)]="inputStyle" inputId="filled_input"></p-radioButton>
-                <label for="filled_input">Filled</label>
-            </div>
-        </div> -->
-
         <h5>Efecto dominó</h5>
         <p-inputSwitch [(ngModel)]="ripple"></p-inputSwitch>
     </ng-container>
@@ -85,7 +76,7 @@
             </button>
         </div>
         <div class="col-3">
-            <button class="p-link" (click)="changeTheme('tailwind-dark', 'light')">
+            <button class="p-link" (click)="changeTheme('tailwind-dark', 'dark')">
                 <i class="pi pi-moon" style="font-size: 2rem"></i>
             </button>
         </div>

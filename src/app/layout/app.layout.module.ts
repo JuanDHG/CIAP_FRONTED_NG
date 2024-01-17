@@ -14,6 +14,7 @@ import { AppMenuitemComponent } from './app.menuitem.component';
 import { RouterModule } from '@angular/router';
 import { AppTopBarComponent } from './app.topbar.component';
 
+import { MenuModule } from 'primeng/menu';
 import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppLayoutComponent } from "./app.layout.component";
 import {AvatarModule} from 'primeng/avatar';
@@ -41,7 +42,10 @@ import {ButtonModule} from 'primeng/button';
         RippleModule,
         RouterModule,
         ButtonModule,
-        AvatarModule,AvatarGroupModule
+        AvatarModule,
+        AvatarGroupModule,
+        MenuModule,
+
     ],
     exports: [AppLayoutComponent]
 })
