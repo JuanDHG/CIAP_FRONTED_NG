@@ -37,7 +37,11 @@ export class AppComponent implements OnInit {
                 after: 'Después',
                 before: 'Antes',
                 choose: 'Elegir',
-                clear: 'Limpiar'
+                clear: 'Limpiar',
+                weak: 'Débil',
+                medium: 'Mediana',
+                strong: 'Fuerte',
+                passwordPrompt: 'Ingresa contraseña'
         });
 
             // Inicia un temporizador para verificar la expiración de la sesión cada minuto

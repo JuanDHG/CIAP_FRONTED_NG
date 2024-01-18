@@ -5,8 +5,10 @@ import { Router } from '@angular/router';
 import { AuthService as Services } from '../../../../services/auth/consulting.service';
 import { sha256 } from "js-sha256";
 import Swal from 'sweetalert2';
-import { Message } from 'primeng/api';
+import { Message, MessageService } from 'primeng/api';
 import { LoginService } from './../../../../guards/login.service';
+import { Validators } from '@angular/forms';
+
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -23,6 +25,7 @@ import { LoginService } from './../../../../guards/login.service';
     styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
+    public strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
 
     vs: NameSw = {
         mensaje: '¡Bienvenido!',
@@ -83,7 +86,8 @@ export class LoginComponent {
         public layoutService: LayoutService,
         private rute: Router,
         private server: Services,
-        private loginService: LoginService
+        private loginService: LoginService,
+        private service: MessageService
     ) { }
 
     ViewPassword(): void {
@@ -181,11 +185,11 @@ export class LoginComponent {
                     this.onAlertMessage("Error", response.mensaje, "error");
                 }
                 if (response.status === 'no') {
-                    this.onAlertMessage("Error", response.mensaje, "Datos erroneos");
+                    this.onAlertMessage("Error", response.mensaje, "error", );
                 }
                 if (response.status === 'pr') {
                     localStorage.setItem('DataOpt', JSON.stringify(data));
-                    this.onAlertMessageCustonCahnPass("Error", response.mensaje, "question");
+                    this.onAlertMessageCustonCahnPass("Error", response.mensaje, "success");
                 }
 
             }
@@ -227,7 +231,10 @@ export class LoginComponent {
                     }
 
                     this.server.postDataSendCorreo(this.dappEmail).subscribe((res) => {
-                        // console.log(res);
+                        console.log(res);
+                        this.messageOtp = [];
+                        this.messageOtp.push({ severity: 'info', summary: '', detail: 'Ingrese el código de verificación de cuatro dígitos que hemos enviado a su correo electrónico. ' });
+
                     });
 
                 } else {
@@ -280,7 +287,8 @@ export class LoginComponent {
 
     ErrPws: string;
     ErrPwsR: string;
-
+    messageOtp: Message[] = [];
+    messageOtpres: Message[] = [];
     ValidarNuevaClave() {
 
         if (this.dappResPass.Recontrasena != this.dappResPass.contrasena) {
@@ -310,11 +318,13 @@ export class LoginComponent {
                     this.dappResPass.contrasena = null;
                     //this.onAlertMessage("Error", response['mensaje'],"error");
                     this.showErrorViaMessages('Error', 'Error Message',  response['mensaje'])
+
                 }
             });
         }
 
     }
+
 
     validarOptDataSend(): void {
         var dataOpt = JSON.parse(localStorage.getItem('DataOpt'));
@@ -331,7 +341,9 @@ export class LoginComponent {
                 this.DonClass = true;
 
             } else {
-                alert(response['mensaje']);
+                this.messageOtp = [];
+                this.messageOtp.push({ severity: 'info', summary: '', detail: 'Verificación exitosa, por favor ingresa nueva contraseña.' });
+
 
                 this.DonClass = false;
                 this.otpView = false;
