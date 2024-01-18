@@ -122,10 +122,10 @@ export class LoginComponent {
 
 
     onLogin(): void {
-        if (this.dapp.user === '' || this.dapp.user === null) {
+        if (this.dapp.user.trim()  === '' || this.dapp.user === null) {
             this.onAlertMessage("Error", "debe ingresar usuario", "warning");
 
-        } else if (this.AuxPass === '' || this.AuxPass === null) {
+        } else if (this.AuxPass.trim() === '' || this.AuxPass === null) {
             this.onAlertMessage("Error", "debe ingresar contraseña", "warning");
         } else {
 
@@ -178,10 +178,10 @@ export class LoginComponent {
                     this.onAlertMessageCustonCahnPass("Error", response.mensaje, "error");
                 }
                 if (response.status === 'bl') {
-                    this.onAlertMessage("error", response.mensaje, "error");
+                    this.onAlertMessage("Error", response.mensaje, "error");
                 }
                 if (response.status === 'no') {
-                    this.onAlertMessage("error", response.mensaje, "Datos erroneos");
+                    this.onAlertMessage("Error", response.mensaje, "Datos erroneos");
                 }
                 if (response.status === 'pr') {
                     localStorage.setItem('DataOpt', JSON.stringify(data));
@@ -309,7 +309,7 @@ export class LoginComponent {
                     this.displayChangePwwCA = true;
                     this.dappResPass.contrasena = null;
                     //this.onAlertMessage("Error", response['mensaje'],"error");
-                    this.showErrorViaMessages('error', 'Error Message',  response['mensaje'])
+                    this.showErrorViaMessages('Error', 'Error Message',  response['mensaje'])
                 }
             });
         }
