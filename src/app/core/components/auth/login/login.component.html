@@ -131,23 +131,31 @@
             <div class="flex-grow-1 flex align-items-center justify-content-center">
                 <h2 class="TittleResPass">Ingresa la nueva contraseña:</h2>
             </div>
-            <p-messages [value]="messageOtp"></p-messages> <!-- despliega mensaje de cambio de clave -->
 
 
 
-        <div class="flex align-items-center justify-content-center">
-            <span class="p-input-icon-left p-float-label lg:mb-5 p-input-icon-right">
-                <i class="pi pi-lock"></i>
-                <input id="float-input" class="customerInput" [(ngModel)]="dappResPass.Recontrasena" name="Cpass"
-                    [type]="fieldChPw ? 'text' : 'password'" pInputText />
-                <i class="pi" [ngClass]="{'pi-eye-slash': !fieldChPw,     'pi-eye': fieldChPw }"
-                    (mouseenter)="fieldChPw = true" (mouseleave)="fieldChPw = false"
-                    (click)="ViewPasswordNew()"></i>
-                <label for="float-input">Confirmar contraseña</label>
-            </span>
+            <div class="flex align-items-center justify-content-center">
+                <span class="p-input-icon-left p-float-label lg:mb-5 p-input-icon-right">
+                    <i class="pi pi-lock"></i>
+                    <p-password class="customerInput" [(ngModel)]="dappResPass.contrasena" onblur="onBourNewPasss()" [toggleMask]="true" [ngModelOptions]="{ standalone: true }"
+                            [ngClass]="{'ng-invalid ng-dirty': dappResPass.contrasena && !strongRegex.test(dappResPass.contrasena)}">
+                            <ng-template pTemplate="header">
+                                <!-- <h6>Contraseña</h6> -->
+                            </ng-template>
+                            <ng-template pTemplate="footer">
+                                <p-divider></p-divider>
+                                <p class="mt-2">Sugerencias</p>
+                                <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                                    <li>Al menos una minúscula</li>
+                                    <li>Al menos una mayúscula</li>
+                                    <li>Maximo 15 caracteres</li>
+                                    <li>Mínimo 8 caracteres</li>
+                                </ul>
+                            </ng-template>
+                     </p-password>
+                </span>
+            </div>
 
-
-        </div>
 
             <div class="flex align-items-center justify-content-center">
                 <p class="err">{{ErrPws}}</p>
@@ -157,32 +165,33 @@
             <div class="flex align-items-center justify-content-center">
                 <span class="p-input-icon-left p-float-label lg:mb-5 p-input-icon-right">
                     <i class="pi pi-lock"></i>
-                    <p-password class="customerInput" [(ngModel)]="dappResPass.contrasena" [toggleMask]="true" [ngModelOptions]="{ standalone: true }"
-                    [ngClass]="{'ng-invalid ng-dirty': dappResPass.contrasena && !strongRegex.test(dappResPass.contrasena)}">
-                    <ng-template pTemplate="header">
-                        <!-- <h6>Contraseña</h6> -->
-                    </ng-template>
-                    <ng-template pTemplate="footer">
-                        <p-divider></p-divider>
-                        <p class="mt-2">Sugerencias</p>
-                        <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
-                            <li>Al menos una minúscula</li>
-                            <li>Al menos una mayúscula</li>
-                            <li>Maximo 15 caracteres</li>
-                            <li>Mínimo 8 caracteres</li>
-                        </ul>
-                    </ng-template>
-                </p-password>
+                    <p-password class="customerInput"  [(ngModel)]="dappResPass.Recontrasena" [toggleMask]="true" [ngModelOptions]="{ standalone: true }"
+                            [ngClass]="{'ng-invalid ng-dirty': dappResPass.Recontrasena != dappResPass.contrasena}">
+                            <ng-template pTemplate="header">
+                                <!-- <h6>Contraseña</h6> -->
+                            </ng-template>
+                            <ng-template pTemplate="footer">
+                                <p-divider></p-divider>
+                                <p class="mt-2">Sugerencias</p>
+                                <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                                    <li>Al menos una minúscula</li>
+                                    <li>Al menos una mayúscula</li>
+                                    <li>Maximo 15 caracteres</li>
+                                    <li>Mínimo 8 caracteres</li>
+                                </ul>
+                            </ng-template>
+                     </p-password>
                 </span>
-
-
             </div>
             <div class="flex align-items-center justify-content-center">
                 <p class="err">{{ErrPwsR}}</p>
+                <p-messages [value]="messageOtp"></p-messages> <!-- despliega mensaje de cambio de clave -->
             </div>
             <div class="flex-grow-1 flex align-items-center justify-content-center">
-                <button pButton pRipple type="button" (click)="ValidarNuevaClave()" label="Guardar" class="p-button-success cust_j_center">
+                <button pButton pRipple type="button" (click)="ValidarNuevaClave()" label="Guardar"
+                    class="p-button-success cust_j_center">
                 </button>
+
             </div>
         </div>
 

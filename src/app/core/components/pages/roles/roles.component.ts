@@ -19,6 +19,7 @@ import {
 } from '../../../api/datarole.module';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import Swal from 'sweetalert2';
+import { Message } from 'primeng/api';
 
 // import  * as data  from '../../../../../assets/demo/data/countries.json';
 
@@ -38,8 +39,8 @@ export class RolesComponent implements OnInit {
         idRol: null,
         nombres: null,
     };
-    Apellido1: string;
-    Apellido2: string;
+    Apellido1: string = null;
+    Apellido2: string = null;
 
     isExpanded: boolean = false;
     idFrozen: boolean = false;
@@ -100,6 +101,7 @@ export class RolesComponent implements OnInit {
     indice: number = 0;
     DaoMenu: any;
     miVariable: string = ''; // o 'rol'
+
     constructor(
         private route: ActivatedRoute,
         private server: DataRoleService,
@@ -231,7 +233,7 @@ export class RolesComponent implements OnInit {
         console.log('Vector actualizado:', this.vectorItems);
     }
 
-    msgs: [];
+    msgs:Message[] = [];
     onSetDataRole() {
         if (this.setData.nombreRol === null || this.setData.nombreRol === '') {
             this.messageService.add({
@@ -478,56 +480,99 @@ export class RolesComponent implements OnInit {
         }, 900);
     }
 
+    // Manejador de errores
+
+    private ManagerErr(m : string) : void {
+        console.log(m);
+        this.msgs = []
+        this.msgs.push({
+            severity: 'info',
+            summary: '',
+            detail: m,
+        });
+    }
     //enviar datos a servidor
-    SendServerAddUser(): void {
-        const idRole: any = this.selectedRole[0];
+    SendServerAddUser() {
+        console.log(this.selectedRole);
+
+        let idRole: any = this.selectedRole;
+        if (idRole === undefined) {
+            this.ManagerErr('Debe seleccionar rol');
+        }else{
+             idRole = idRole;
+        }
+
         this.DataRegUser = {
             apellidos: this.Apellido1 + ' ' + this.Apellido2,
             identificacion: this.DataRegUser.identificacion,
             correo: this.DataRegUser.correo,
             idProyecto: this.selectedProyects,
-            idRol: idRole,
+            idRol: idRole[0],
             nombres: this.DataRegUser.nombres,
         };
+        console.log('Add Info', this.DataRegUser);
+
+
+        if (this.DataRegUser.identificacion === null || this.DataRegUser.identificacion.trim() === '') {
+            this.ManagerErr('Debe ingresar identificación')
+        }else{
+            if (this.DataRegUser.nombres === null || this.DataRegUser.nombres.trim() === '') {
+                this.ManagerErr('Debe ingresar nombre')
+            }else{
+                if (this.DataRegUser.apellidos === null || this.DataRegUser.apellidos.trim() === '') {
+                    this.ManagerErr('Debe ingresar apellidos')
+                }else{
+                    if (this.DataRegUser.correo === null || this.DataRegUser.correo.trim() === '') {
+                        this.ManagerErr('Debe ingresar correo')
+                    }else{
+                        if (this.DataRegUser.idProyecto === null ||this.DataRegUser.idProyecto === undefined ||this.DataRegUser.idProyecto.trim() === '') {
+                            this.ManagerErr('Debe seleccionar proyectos')
+                        }else{
+
+                            this.server.PostAddUser(this.DataRegUser).subscribe((res) => {
+                                var response = res;
+                                console.log(res);
+
+                                if (response['status'] === 'ok') {
+                                    this.messageService.add({
+                                        severity: 'success',
+                                        summary: response['message'],
+                                    });
+
+                                    this.DataRegUser = {
+                                        apellidos: null,
+                                        correo: null,
+                                        identificacion: null,
+                                        idProyecto: null,
+                                        idRol: null,
+                                        nombres: null,
+                                    };
+                                    this.selectedRole = null;
+                                    this.selectedProyects = null;
+
+                                    this.Apellido1 = null; this.Apellido2 = null;
+
+                                    setTimeout(() => {
+                                        //this.displayAddUser = false;
+                                        this.RenderDatosRolesUser();
+                                    }, 3000);
+                                } else {
+                                    this.messageService.add({
+                                        severity: 'error',
+                                        summary: 'Error',
+                                        detail: response['message']
+                                    });
 
 
 
-        this.server.PostAddUser(this.DataRegUser).subscribe((res) => {
-            var response = res;
-            console.log(res);
+                                }
+                            });
 
-            if (response['status'] === 'ok') {
-                this.messageService.add({
-                    severity: 'success',
-                    summary: response['message'],
-                });
-
-                this.DataRegUser = {
-                    apellidos: null,
-                    correo: null,
-                    identificacion: null,
-                    idProyecto: null,
-                    idRol: null,
-                    nombres: null,
-                };
-
-                this.Apellido1 = null; this.Apellido2 = null;
-
-                setTimeout(() => {
-                    //this.displayAddUser = false;
-                    this.RenderDatosRolesUser();
-                }, 3000);
-            } else {
-                this.messageService.add({
-                    severity: 'error',
-                    summary: 'Error',
-                    detail: response['message']
-                });
-
-
-
+                        }
+                    }
+                }
             }
-        });
+        }
     }
 
     //  ver proyectos asociados

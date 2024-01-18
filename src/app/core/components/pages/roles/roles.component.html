@@ -467,29 +467,36 @@
 						</span>
 					</div>
 					<div class="field col">
-						<p-multiSelect [options]="proyects" [(ngModel)]="selectedProyects" optionLabel="nombre" optionValue="id" defaultLabel="Proyecto" [style]="{ width: '16rem'}" display="chip" [virtualScroll]="true" [virtualScrollItemSize]="10"></p-multiSelect>
-					</div>
-				</div>
-					<br>
-				<div class="formgrid grid">
-					<div class="field col">
 						<span class="p-float-label">
 							<input id="float-input" type="text" [(ngModel)]="Apellido1" pInputText>
 							<label for="float-input">Primer apellido</label>
 						</span>
 					</div>
+
+
+				</div>
+					<br>
+				<div class="formgrid grid">
+
 					<div class="field col">
 						<span class="p-float-label">
 							<input id="float-input" type="text" [(ngModel)]="Apellido2" pInputText>
 							<label for="float-input">Segundo apellido</label>
 						</span>
 					</div>
+
 					<div class="field col">
 						<span class="p-float-label">
 							<input id="float-input" type="text" [(ngModel)]="DataRegUser.correo" pInputText>
 							<label for="float-input">Correo</label>
 						</span>
 					</div>
+
+                    <div class="field col">
+						<p-multiSelect [options]="proyects" [(ngModel)]="selectedProyects" optionLabel="nombre" optionValue="id" defaultLabel="Proyecto" [style]="{ width: '16rem'}" display="chip" [virtualScroll]="true" [virtualScrollItemSize]="10"></p-multiSelect>
+					</div>
+
+
 
 
 				</div>
