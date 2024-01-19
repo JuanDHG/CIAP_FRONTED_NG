@@ -528,7 +528,7 @@ export class RolesComponent implements OnInit {
                     if (this.DataRegUser.correo === null || this.DataRegUser.correo.trim() === '') {
                         this.ManagerErr('Debe ingresar correo')
                     }else{
-                        if (this.DataRegUser.idProyecto === null ||this.DataRegUser.idProyecto === undefined ||this.DataRegUser.idProyecto.trim() === '') {
+                        if (this.DataRegUser.idProyecto === null || this.DataRegUser.idProyecto === undefined) {
                             this.ManagerErr('Debe seleccionar proyectos')
                         }else{
 
@@ -539,7 +539,7 @@ export class RolesComponent implements OnInit {
                                 if (response['status'] === 'ok') {
                                     this.messageService.add({
                                         severity: 'success',
-                                        summary: response['message'],
+                                        summary: 'Usuario creado  con exito.',
                                     });
 
                                     this.DataRegUser = {

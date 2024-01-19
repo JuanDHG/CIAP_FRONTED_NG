@@ -1,6 +1,8 @@
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { LayoutService } from './service/app.layout.service';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,7 +16,7 @@ export class AppMenuComponent implements OnInit {
     menu: any = localStorage.getItem('dataPermisos');
     model: any[];
 
-    constructor(public layoutService: LayoutService) {
+    constructor(public layoutService: LayoutService, private route: ActivatedRoute, private router: Router) {
 
     }
 
@@ -63,6 +65,31 @@ export class AppMenuComponent implements OnInit {
 
 
     }
+
+    isActive(menuItem: any): boolean {
+        const currentParams = this.route.snapshot.queryParams;
+        const currentRoute = this.router.url;
+
+        if (menuItem.routerLink === currentRoute && this.matchQueryParams(menuItem.queryParams, currentParams)) {
+          return true;
+        }
+
+        if (menuItem.items) {
+          return menuItem.items.some(subItem => this.isActive(subItem));
+        }
+
+        return false;
+      }
+
+      private matchQueryParams(expected: any, actual: any): boolean {
+        if (!expected) {
+          return true; // No se especificaron parámetros esperados
+        }
+
+        return Object.keys(expected).every(key => actual[key] === expected[key]);
+      }
+
+
 
 }
 // [

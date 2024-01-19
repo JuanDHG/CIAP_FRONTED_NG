@@ -23,13 +23,7 @@ export class ParametrosComponent implements OnInit {
         if (pmp.label === "Parametrizacion") {
             for (let i = 0; i < pmp.items.length; i++) {
                 const e = pmp.items[i];
-                this.steps.push(
-                    {label: e.label},
-                    { label: 'Dirección' },
-                    { label: 'ID proyecto' },
-                    { label: 'Cliente' },
-                    { label: 'Estados' }
-                    )
+                this.steps.push({label: e.label});
             }
         }
 
