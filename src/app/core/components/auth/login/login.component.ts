@@ -278,14 +278,40 @@ export class LoginComponent {
         return regexCorreo.test(correo);
     }
 
-    validarPassword(password: string) {
-        const expresion =
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{7,14}[^'\s]/;
-        return expresion.test(password);
+    validarPassword(password: string): boolean {
+        // Verificar longitud
+        if (password.length < 8 || password.length > 15) {
+            console.log(1);
+
+            return false;
+        }
+
+        // Verificar que comience con una letra mayúscula
+        if (password[0] !== password[0].toUpperCase()) {
+            console.log(2);
+
+            return false;
+        }
+
+        // Verificar la presencia de al menos un espacio
+        let espacioEncontrado = false;
+        for (const char of password) {
+            if (char === ' ') {
+                espacioEncontrado = true;
+                break;
+            }
+        }
+
+        // Si todas las condiciones se cumplen, la contraseña es válida
+        return espacioEncontrado;
     }
+
+
+
 
     onBourNewPass(): void {
         var valueKey = this.validarPassword(this.AuxPass);
+        console.log(valueKey);
 
         if (valueKey) {
             this.ErrPws = '';
@@ -301,14 +327,25 @@ export class LoginComponent {
     messageOtpres: Message[] = [];
     ValidarNuevaClave() {
         const segura = this.validarPassword(this.dappResPass.contrasena);
-        if (segura) {
+        if (segura != false) {
+
+            console.log(segura);
+
             this.messageOtp = [];
             this.messageOtp.push({
                 severity: 'error',
                 summary: '',
                 detail: 'La contraseña digitada no cumple con las politicas de seguridad.',
             });
-        } else {
+        }
+
+
+        else {
+
+            if (this.dappResPass.contrasena.length) {
+
+            }
+
             if (this.dappResPass.Recontrasena != this.dappResPass.contrasena) {
                 this.messageOtp = [];
                 this.messageOtp.push({

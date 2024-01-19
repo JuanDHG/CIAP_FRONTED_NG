@@ -522,7 +522,7 @@ export class RolesComponent implements OnInit {
             if (this.DataRegUser.nombres === null || this.DataRegUser.nombres.trim() === '') {
                 this.ManagerErr('Debe ingresar nombre')
             }else{
-                if (this.DataRegUser.apellidos === null || this.DataRegUser.apellidos.trim() === '') {
+                if (this.Apellido1 === null || this.Apellido1.trim() === '' || this.Apellido1 === undefined ||  this.Apellido2 === null || this.Apellido2.trim() === '' || this.Apellido2 === undefined) {
                     this.ManagerErr('Debe ingresar apellidos')
                 }else{
                     if (this.DataRegUser.correo === null || this.DataRegUser.correo.trim() === '') {
