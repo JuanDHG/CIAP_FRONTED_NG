@@ -30,6 +30,7 @@ import { Message } from 'primeng/api';
 })
 export class RolesComponent implements OnInit {
     customers1: RolGeneralData;
+
     DataUser: UserData;
     DataRegUser: UserDataRegister = {
         apellidos: null,
@@ -75,6 +76,7 @@ export class RolesComponent implements OnInit {
 
     proyects: DataProyect[];
     role: RolGeneralData[];
+
 
     selectedProyects: DataProyect[];
     selectedRole: RolGeneralData[];
@@ -139,6 +141,7 @@ export class RolesComponent implements OnInit {
             const resp = res;
             this.DataUser = resp;
             this.loading2 = false;
+
         });
     }
 
@@ -473,7 +476,7 @@ export class RolesComponent implements OnInit {
         });
 
         setTimeout(() => {
-            this.server.GetDataRole().subscribe((res) => {
+            this.server.GetDataRoleAct().subscribe((res) => {
                 const response: any = res;
                 this.role = response;
             });
@@ -558,7 +561,7 @@ export class RolesComponent implements OnInit {
                                     }, 3000);
                                 } else {
                                     this.messageService.add({
-                                        severity: 'error',
+                                        severity: 'info',
                                         summary: 'Error',
                                         detail: response['message']
                                     });

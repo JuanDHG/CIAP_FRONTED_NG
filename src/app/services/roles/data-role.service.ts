@@ -27,6 +27,11 @@ export class DataRoleService {
     return this.http.get<RolGeneralData>(url, this.httpOptions)
   }
 
+  GetDataRoleAct() : Observable<RolGeneralData> {
+    const url = `${this.baseUrl}${this.module}/rolesact`;
+    return this.http.get<RolGeneralData>(url, this.httpOptions)
+  }
+
   PostSetDataRol(data : RolSetData) : Observable<RolSetData>{
     const url = `${this.baseUrl}${this.module}/rol/registro`;
     return this.http.post<RolSetData>(url, data, this.httpOptions)
