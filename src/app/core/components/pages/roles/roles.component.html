@@ -181,7 +181,7 @@
 									<button pButton pRipple type="button"  icon="pi pi-eye" (click)="onViewDataRole(customer.id, customer.tipo)" class="p-button-outlined p-button-success cus" style="margin-right: 4px;"></button>
 									<button pButton pRipple type="button"  icon="pi pi-pencil" (click)="onPutDataRole(customer.id, customer.tipo)" class="p-button-outlined p-button-info cus"></button>
 									<p-inputSwitch class="cus" [ngModel]="customer.estado === 1" (ngModelChange)="customer.estado = $event ? 1 : 0"  (click)="onPutStatus(customer.id,customer.estado)" inputId="customerSwitch"></p-inputSwitch>
-									<button pButton pRipple type="button"  icon="pi pi-copy" class="p-button-outlined p-button-warning cus"></button>
+									<!-- <button pButton pRipple type="button"  icon="pi pi-copy" class="p-button-outlined p-button-warning cus"></button> para hacer mañana-->  
 								</td>
 								<!-- <td>
 									{{customer.fechasistema | date: 'MM/dd/yyyy'}}
