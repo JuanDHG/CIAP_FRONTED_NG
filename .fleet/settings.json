@@ -1,0 +1,44 @@
+{
+    "plugins": [
+        {
+            "type": "add",
+            "pluginName": "fleet.tailwindcss"
+        },
+        {
+            "type": "add",
+            "pluginName": "fleet.yaml"
+        },
+        {
+            "type": "add",
+            "pluginName": "fleet.python"
+        },
+        {
+            "type": "add",
+            "pluginName": "fleet.php"
+        },
+        {
+            "type": "add",
+            "pluginName": "fleet.javascript"
+        },
+        {
+            "type": "add",
+            "pluginName": "fleet.java"
+        },
+        {
+            "type": "add",
+            "pluginName": "fleet.json"
+        },
+        {
+            "type": "add",
+            "pluginName": "fleet.image.view"
+        },
+        {
+            "type": "add",
+            "pluginName": "fleet.docker"
+        },
+        {
+            "type": "add",
+            "pluginName": "fleet.css"
+        }
+    ]
+}

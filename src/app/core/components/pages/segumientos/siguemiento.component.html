@@ -1,0 +1,425 @@
+<div class="grid">
+	<div class="col-12">
+		<div class="card">
+
+					<p-table #dt2 [value]="customers1" dataKey="id" [rows]="8" scrollDirection="both" [scrollable]="true" scrollHeight="550px"  responsiveLayout="scroll" [loading]="loading" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true"
+                    [globalFilterFields]="['iDproyecto','nombreProyecto','contrato','objeto','idEtado','Estado','clienteNombre','nitClente','idGerencia','Gerencia','idDireccion','direccion','idUsuario','gerente','fecha_inicio','fecha_final','duracion','valor_inicial','valor_fina']" responsiveLayout="scroll">
+						<ng-template pTemplate="caption">
+							<div class="flex justify-content-between flex-column sm:flex-row">
+								<span class="p-input-icon-left mb-2">
+									<i class="pi pi-search"></i>
+									<input pInputText type="text" #filter (input)="onGlobalFilter2(dt2, $event)" placeholder="Buscar" class="w-full"/>
+								</span>
+								<button pButton label="Añadir" class="p-button-outlined mb-2" icon="pi pi-plus-circle" (click)="onAddUsers(true)"></button>
+								<button pButton label="Limpiar" class="p-button-outlined mb-2" icon="pi pi-filter-slash" (click)="clear(dt2)"></button>
+								<!-- <p-toggleButton [(ngModel)]="idFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Desbloquear'" offLabel="Bloquear" [style]="{'width': '12rem'}"></p-toggleButton> -->
+
+
+
+							</div>
+						</ng-template>
+						<ng-template pTemplate="header">
+							<tr>
+								<th style="min-width: 12rem">
+									<div class="flex justify-content-between align-items-center">
+										ID PROYECTO
+										<p-columnFilter type="text" field="usuario" display="menu" placeholder="Buscar por nombre de usuario"></p-columnFilter>
+									</div>
+								</th>
+								<th style="min-width: 12rem">
+									<div class="flex justify-content-between align-items-center">
+                                        ESTADO
+										<p-columnFilter type="numeric" field="identificacion" min=0 display="menu" placeholder="Buscar por Documento de identidad"></p-columnFilter>
+									</div>
+								</th>
+								<th style="min-width: 12rem">
+									<div class="flex justify-content-between align-items-center">
+										NOMBRE
+										<p-columnFilter type="text" field="nombre" display="menu" placeholder="Buscar por nombre"></p-columnFilter>
+									</div>
+								</th>
+								<th style="min-width: 12rem">
+									<div class="flex justify-content-between align-items-center">
+                                        N° CONTRATO
+										<p-columnFilter type="text" field="apellidos" display="menu" placeholder="Buscar por apellidos"></p-columnFilter>
+									</div>
+								</th>
+								<th style="min-width: 12rem">
+									<div class="flex justify-content-between align-items-center">
+                                        OBJETO
+										<p-columnFilter type="text" field="correo" display="menu" placeholder="Buscar por correo"></p-columnFilter>
+									</div>
+								</th>
+								<th style="min-width: 12rem">
+									<div class="flex justify-content-between align-items-center">
+                                        CLIENTE
+										<p-columnFilter type="text" field="correo" display="menu" placeholder="Buscar por correo"></p-columnFilter>
+									</div>
+								</th>
+								<th style="min-width: 12rem">
+									<div class="flex justify-content-between align-items-center">
+                                        GERENCIA
+										<!-- <p-columnFilter type="text" field="estado" display="menu" placeholder="Buscar por correo"></p-columnFilter> -->
+									</div>
+								</th>
+								<th style="min-width: 12rem">
+									<div class="flex justify-content-between align-items-center">
+                                        GERENTE
+										<!-- <p-columnFilter type="text" field="estado" display="menu" placeholder="Buscar por correo"></p-columnFilter> -->
+									</div>
+								</th>
+								<th style="min-width: 12rem">
+									<div class="flex justify-content-between align-items-center">
+                                        VALOR INICIAL
+										<!-- <p-columnFilter type="text" field="estado" display="menu" placeholder="Buscar por correo"></p-columnFilter> -->
+									</div>
+								</th>
+                                <th style="min-width: 12rem">
+									<div class="flex justify-content-between align-items-center">
+                                        VALOR FINAL
+										<!-- <p-columnFilter type="text" field="estado" display="menu" placeholder="Buscar por correo"></p-columnFilter> -->
+									</div>
+								</th>
+                                <th style="min-width: 12rem">
+									<div class="flex justify-content-between align-items-center">
+                                        DURACIÓN
+										<!-- <p-columnFilter type="text" field="estado" display="menu" placeholder="Buscar por correo"></p-columnFilter> -->
+									</div>
+								</th>
+                                <th style="min-width: 12rem">
+									<div class="flex justify-content-between align-items-center">
+                                        FECHA INICIO
+										<!-- <p-columnFilter type="text" field="estado" display="menu" placeholder="Buscar por correo"></p-columnFilter> -->
+									</div>
+								</th>
+                                <th style="min-width: 12rem">
+									<div class="flex justify-content-between align-items-center">
+                                        FECHA FIN
+										<!-- <p-columnFilter type="text" field="estado" display="menu" placeholder="Buscar por correo"></p-columnFilter> -->
+									</div>
+								</th>
+                                <th style="min-width: 12rem">
+									<div class="flex justify-content-between align-items-center">
+                                        ACCIONES
+										<!-- <p-columnFilter type="text" field="estado" display="menu" placeholder="Buscar por correo"></p-columnFilter> -->
+									</div>
+								</th>
+							</tr>
+						</ng-template>
+						<ng-template pTemplate="body" let-customers1>
+							<tr>
+								<td>
+									{{customers1.iDproyecto}}
+								</td>
+								<td>
+									<b>{{Customers1.Estado}}</b>
+								</td>
+								<td>
+									{{Customers1.nombreProyecto}}
+								</td>
+								<td>
+									{{Customers1.contrato}}
+								</td>
+								<td>
+									{{Customers1.objeto}}
+								</td>
+                                <td>
+									{{Customers1.clienteNombre}}
+								</td>
+                                <td>
+									{{Customers1.Gerencia}}
+								</td>
+                                <td>
+									{{Customers1.gerente}}
+								</td>
+                                <td>
+									{{Customers1.valor_inicial}}
+								</td>
+                                <td>
+									{{Customers1.valor_final}}
+								</td>
+                                <td>
+									{{Customers1.duracion}}
+								</td>
+                                <td>
+									{{Customers1.fecha_inicio}}
+								</td>
+                                <td>
+									{{Customers1.fecha_final}}
+								</td>
+
+
+								<!-- <td>
+									<button pButton pRipple type="button" (click)="onViewDataProyect(Customers1.id_usuario, $event)" icon="pi pi-send"  iconPos="left" class="p-button-success cust_r_cus"></button>
+								</td>
+								<td>
+									{{Customers1.rol}}
+								</td>
+								<td>
+									<ng-container *ngIf="Customers1.estado_cuenta === 0; else activeStatus">
+										Inactivo
+									</ng-container>
+									<ng-template #activeStatus>
+										Activo
+									</ng-template>
+								</td>
+								<td>
+									<button pButton pRipple type="button"  icon="pi pi-pencil" (click)="onPutCustomers1(Customers1)" class="p-button-outlined p-button-info cus"></button>
+									<p-inputSwitch class="cus" [ngModel]="Customers1.estado_cuenta === 1" (ngModelChange)="Customers1.estado_cuenta = $event ? 1 : 0"  (click)="onPutStatususER(Customers1.id_usuario, Customers1.estado_cuenta)" inputId="customerSwitch"></p-inputSwitch>
+								</td> -->
+<!--								 <td>
+									{{customer.fechasistema | date: 'MM/dd/yyyy'}}
+								</td> -->
+							</tr>
+						</ng-template>
+						<ng-template pTemplate="emptymessage">
+							<tr>
+								<td colspan="8">No se encontrar datos.</td>
+							</tr>
+						</ng-template>
+						<ng-template pTemplate="loadingbody">
+							<tr>
+								<td colspan="8">Cargando datos. Espere por favor.</td>
+							</tr>
+						</ng-template>
+					</p-table>
+
+
+        </div>
+    </div>
+</div>
+
+<!-- prueba -->
+
+
+<!-- modal para Añadir Roles -->
+<!--<p-dialog [modal]="true" [(visible)]="display" [style]="{ width: '60vw' }" [maximizable]="true" [draggable]="false">
+    <div class="modalCustomer flex align-items-center justify-content-center">
+
+            <div class="flex flex-column">
+                <div class="flex align-items-center justify-content-center h-4rem  m-2">
+                    <div class="flex overflow-hidden">
+                        <div class="flex-grow-1 flex align-items-center justify-content-center">
+                            <h4 class="texReco">CREAR ROL / PERMISOS</h4>
+                        </div>
+                    </div>
+                </div>
+
+				&lt;!&ndash; [ngClass]="{ 'invisble':otpView === false, 'visble':otpView === true} &ndash;&gt;
+				<div class="formgrid grid">
+					<div class="field col">
+						<span class="p-float-label">
+							<input id="float-input" type="text" [(ngModel)]="setData.nombreRol" pInputText>
+							<label for="float-input">Nombre del rol</label>
+						</span>
+					</div>
+					<div class="field col">
+						<div id="thirdTable">
+							<table>
+							<thead>
+								<tr>
+									<th style="-webkit-border-radius: 8px 0px 0px 8px">Menú</th>
+									<th style="-webkit-border-radius: 0px 8px 8px 0px;padding-left: 80px;">Permisos</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td></td>
+									<td style="display: flex;">
+										<div class="btnCustonCRUD"  tooltipPosition="top" placeholder="Top" pTooltip="Create"  tooltipPosition="top" placeholder="Top" >C</div> &nbsp;&nbsp;&nbsp;&nbsp;
+										<div class="btnCustonCRUD"  tooltipPosition="top" placeholder="Top" pTooltip="Read"    tooltipPosition="top" placeholder="Top" > R</div>&nbsp;&nbsp;&nbsp;&nbsp;
+										<div class="btnCustonCRUD"  tooltipPosition="top" placeholder="Top" pTooltip="Update"  tooltipPosition="top" placeholder="Top" >U</div>&nbsp;&nbsp;&nbsp;&nbsp;
+										<div class="btnCustonCRUD"  tooltipPosition="top" placeholder="Top" pTooltip="Delete"  tooltipPosition="top" placeholder="Top" >D</div>
+									</td>
+								</tr>
+
+								<tr *ngFor="let item of DaoMenu" style="    background: #EDEDED;">
+									<td [ngClass]="{'boldClass': item.id_menu_padre === '0'}"  style="-webkit-border-radius: 8px 0px 0px 8px">{{item.descripcion}}</td>
+
+									<td style="-webkit-border-radius: 0px 8px 8px 0px;" *ngIf=" item.id_menu_padre === '0' " [ngClass]="{'boldClass': item.id_menu_padre === '0'}"></td>
+
+									<td style="-webkit-border-radius: 0px 8px 8px 0px;" *ngIf="item.id_menu_padre !== '0' " class="arow"  >
+									  <input type="checkbox" name="" id="{{item.id}}" (click)="valuesCheck(item.id, 1,  $event.target.checked)">&nbsp;&nbsp;&nbsp;
+									  <input type="checkbox" name="" id="{{item.id}}" (click)="valuesCheck(item.id, 2,  $event.target.checked)">&nbsp;&nbsp;&nbsp;
+									  <input type="checkbox" name="" id="{{item.id}}" (click)="valuesCheck(item.id, 3,  $event.target.checked)">&nbsp;&nbsp;&nbsp;
+									  <input type="checkbox" name="" id="{{item.id}}" (click)="valuesCheck(item.id, 4,  $event.target.checked)">&nbsp;&nbsp;
+									</td>
+								</tr>
+
+							</tbody>
+						</table>
+						</div>
+
+					</div>
+					<p-messages [(value)]="msgs"></p-messages>
+
+				</div>
+
+
+            <div class="flex align-items-center justify-content-center">
+                <button pButton pRipple type="button" icon="pi pi-arrow-left" (click)="triggerModal(false)" iconPos="left" label="Atras"  class="p-button-success cust_l"></button>
+                <button pButton pRipple type="button" icon="pi pi-check" (click)="onSetDataRole()" iconPos="left" label="Guardar"   class="p-button-success cust_r"></button>
+            </div>
+            </div>
+
+
+
+
+
+    </div>
+</p-dialog>-->
+
+<!-- modal para Editar Roles -->
+<!--<p-dialog [modal]="true" [(visible)]="displayEdit" [style]="{ width: '60vw' }" [maximizable]="true" [draggable]="false">
+    <div class="modalCustomer flex align-items-center justify-content-center">
+
+            <div class="flex flex-column">
+                <div class="flex align-items-center justify-content-center h-4rem  m-2">
+                    <div class="flex overflow-hidden">
+                        <div class="flex-grow-1 flex align-items-center justify-content-center">
+                            <h4 class="texReco">EDITAR ROL / PERMISOS</h4>
+                        </div>
+                    </div>
+                </div>
+
+				&lt;!&ndash; [ngClass]="{ 'invisble':otpView === false, 'visble':otpView === true} &ndash;&gt;
+				<div class="formgrid grid">
+					<div class="field col">
+						<span class="p-float-label">
+							<input id="float-input" type="text" [(ngModel)]="putDataRole.nombreRol" pInputText>
+							<label for="float-input">Nombre del rol</label>
+						</span>
+					</div>
+					<div class="field col">
+						<div id="thirdTable">
+							<table>
+							<thead>
+								<tr>
+									<th style="-webkit-border-radius: 8px 0px 0px 8px">Menú</th>
+									<th style="-webkit-border-radius: 0px 8px 8px 0px;padding-left: 80px;">Permisos</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td></td>
+									<td style="display: flex;">
+										<div class="btnCustonCRUD"  tooltipPosition="top" placeholder="Top" pTooltip="Create"  tooltipPosition="top" placeholder="Top" >C</div> &nbsp;&nbsp;&nbsp;&nbsp;
+										<div class="btnCustonCRUD"  tooltipPosition="top" placeholder="Top" pTooltip="Read"    tooltipPosition="top" placeholder="Top" > R</div>&nbsp;&nbsp;&nbsp;&nbsp;
+										<div class="btnCustonCRUD"  tooltipPosition="top" placeholder="Top" pTooltip="Update"  tooltipPosition="top" placeholder="Top" >U</div>&nbsp;&nbsp;&nbsp;&nbsp;
+										<div class="btnCustonCRUD"  tooltipPosition="top" placeholder="Top" pTooltip="Delete"  tooltipPosition="top" placeholder="Top" >D</div>
+									</td>
+								</tr>
+
+								<tr *ngFor="let item of DaoMenu" style="    background: #EDEDED;">
+									<td [ngClass]="{'boldClass': item.id_menu_padre === '0'}"  style="-webkit-border-radius: 8px 0px 0px 8px">{{item.menu}}</td>
+
+									<td style="-webkit-border-radius: 0px 8px 8px 0px;" *ngIf=" item.id_menu_padre === '0' " [ngClass]="{'boldClass': item.id_menu_padre === '0'}"></td>
+
+									<td style="-webkit-border-radius: 0px 8px 8px 0px;" *ngIf="item.id_menu_padre !== '0'" class="arow">
+										<input type="checkbox" name="" id="{{item.id_menu}}" (click)="addRemovePermissions(item.id_menu, 1,$event.target.checked)" [checked]="item.permiso_1 === '1'">&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="" id="{{item.id_menu}}" (click)="addRemovePermissions(item.id_menu, 2,$event.target.checked)" [checked]="item.permiso_2 === '2'">&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="" id="{{item.id_menu}}" (click)="addRemovePermissions(item.id_menu, 3,$event.target.checked)" [checked]="item.permiso_3 === '3'">&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="" id="{{item.id_menu}}" (click)="addRemovePermissions(item.id_menu, 4,$event.target.checked)" [checked]="item.permiso_4 === '4'">&nbsp;&nbsp;
+									  </td>
+								</tr>
+
+							</tbody>
+						</table>
+						</div>
+					</div>
+
+					<p-messages [(value)]="msgs"></p-messages>
+
+				</div>
+
+
+            <div class="flex align-items-center justify-content-center">
+                <button pButton pRipple type="button" icon="pi pi-arrow-left" (click)="triggerModal(false)" iconPos="left" label="Atras"  class="p-button-success cust_l"></button>
+                <button pButton pRipple type="button" icon="pi pi-check" (click)="SendServer()" iconPos="left" label="Guardar"   class="p-button-success cust_r"></button>
+            </div>
+            </div>
+
+
+
+
+
+    </div>
+</p-dialog>-->
+
+<!-- modal para Solo Ver Roles -->
+<!--<p-dialog [modal]="true" [(visible)]="displayVIew" [style]="{ width: '50vw' }" [maximizable]="true" [draggable]="false">
+    <div class="modalCustomer flex align-items-center justify-content-center">
+
+            <div class="flex flex-column">
+                <div class="flex align-items-center justify-content-center h-4rem  m-2">
+                    <div class="flex overflow-hidden">
+                        <div class="flex-grow-1 flex align-items-center justify-content-center">
+                            <h4 class="texReco">EDITAR ROL / PERMISOS</h4>
+                        </div>
+                    </div>
+                </div>
+
+				&lt;!&ndash; [ngClass]="{ 'invisble':otpView === false, 'visble':otpView === true} &ndash;&gt;
+				<div class="formgrid grid">
+					<div class="field col">
+						<span class="p-float-label">
+							<input id="float-input" type="text" disabled [(ngModel)]="putDataRole.nombreRol" pInputText>
+							<label for="float-input">Nombre del rol</label>
+						</span>
+					</div>
+					<div class="field col">
+						<div id="thirdTable">
+							<table>
+							<thead>
+								<tr>
+									<th style="-webkit-border-radius: 8px 0px 0px 8px">Menú</th>
+									<th style="-webkit-border-radius: 0px 8px 8px 0px;padding-left: 80px;">Permisos</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td></td>
+									<td style="display: flex;">
+										<div class="btnCustonCRUD"  tooltipPosition="top" placeholder="Top" pTooltip="Create"  tooltipPosition="top" placeholder="Top" >C</div> &nbsp;&nbsp;&nbsp;&nbsp;
+										<div class="btnCustonCRUD"  tooltipPosition="top" placeholder="Top" pTooltip="Read"    tooltipPosition="top" placeholder="Top" > R</div>&nbsp;&nbsp;&nbsp;&nbsp;
+										<div class="btnCustonCRUD"  tooltipPosition="top" placeholder="Top" pTooltip="Update"  tooltipPosition="top" placeholder="Top" >U</div>&nbsp;&nbsp;&nbsp;&nbsp;
+										<div class="btnCustonCRUD"  tooltipPosition="top" placeholder="Top" pTooltip="Delete"  tooltipPosition="top" placeholder="Top" >D</div>
+									</td>
+								</tr>
+
+								<tr *ngFor="let item of DaoMenu" style="    background: #EDEDED;">
+									<td [ngClass]="{'boldClass': item.id_menu_padre === '0'}"  style="-webkit-border-radius: 8px 0px 0px 8px">{{item.menu}}</td>
+
+									<td style="-webkit-border-radius: 0px 8px 8px 0px;" *ngIf=" item.id_menu_padre === '0' " [ngClass]="{'boldClass': item.id_menu_padre === '0'}"></td>
+
+									<td style="-webkit-border-radius: 0px 8px 8px 0px;" *ngIf="item.id_menu_padre !== '0'" class="arow">
+										<input type="checkbox" name="" class="custom-checkbox" id="{{item.id_menu}}" (click)="addRemovePermissions(item.id_menu, 1,$event.target.checked)" [checked]="item.permiso_1 === '1'" disabled readonly>&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="" class="custom-checkbox" id="{{item.id_menu}}" (click)="addRemovePermissions(item.id_menu, 2,$event.target.checked)" [checked]="item.permiso_2 === '2'" disabled readonly>&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="" class="custom-checkbox" id="{{item.id_menu}}" (click)="addRemovePermissions(item.id_menu, 3,$event.target.checked)" [checked]="item.permiso_3 === '3'" disabled readonly>&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="" class="custom-checkbox" id="{{item.id_menu}}" (click)="addRemovePermissions(item.id_menu, 4,$event.target.checked)" [checked]="item.permiso_4 === '4'" disabled readonly>&nbsp;&nbsp;
+									  </td>
+								</tr>
+
+							</tbody>
+						</table>
+						</div>
+					</div>
+
+					<p-messages [(value)]="msgs"></p-messages>
+
+				</div>
+
+
+            <div class="flex align-items-center justify-content-center">
+                <button pButton pRipple type="button" icon="pi pi-arrow-left" (click)="displayVIew = false" iconPos="left" label="Atras"  class="p-button-success cust_l"></button>
+            </div>
+            </div>
+
+
+
+
+
+    </div>
+</p-dialog>-->
+
+<!-- modal para Añadir Usuarios -->
