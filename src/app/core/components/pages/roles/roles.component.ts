@@ -167,7 +167,12 @@ export class RolesComponent implements OnInit {
     }
 
     triggerModal(e: boolean) {
+        console.log(e);
+        
         this.displayEdit = e;
+        this.displayAddUser = e;
+        this.selectedProyects = null;
+        this.selectedRole = null;
     }
 
     triggerModaladd(e: boolean) {
