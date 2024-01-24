@@ -23,6 +23,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import {TooltipModule} from 'primeng/tooltip';
 import {SeguimientoRoutingModule} from "./siguemiento-routing.module";
 import {SiguemientoComponent} from "./siguemiento.component";
+import { DividerModule } from 'primeng/divider';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import {SiguemientoComponent} from "./siguemiento.component";
 		AvatarModule,
 		AvatarGroupModule,
 		OverlayPanelModule,
-		TooltipModule
+		TooltipModule,
+        DividerModule
 	],
     declarations: [SiguemientoComponent]
 })
