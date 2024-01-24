@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Table } from 'primeng/table';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { DataService } from 'src/app/services/proyecto/data.service';
@@ -42,39 +42,25 @@ export class SiguemientoComponent implements OnInit {
         valor_inicial: null,
         valor_final: null
     }
-
-
-
-
     isExpanded: boolean = false;
     idFrozen: boolean = false;
     loading: boolean = true;
-
-
-
-    @ViewChild('filter') filter!: ElementRef;
-    @ViewChild('miPanel') overlayPanel: OverlayPanel;
-
     display: boolean = false;
-
     proyects: any[];
     selectedProyects: any[];
-
-
-
-
     indice: number = 0;
     DaoMenu: any;
-
+    @ViewChild('filter') filter!: ElementRef;
+    @ViewChild('miPanel') overlayPanel: OverlayPanel;
 
     constructor(
         private route: ActivatedRoute,
         private server: DataService,
         private messageService: MessageService
-    ) {}
+    ) {this.RenderDatos()}
 
     ngOnInit() {
-        this.RenderDatos()
+
     }
 
 
@@ -84,12 +70,8 @@ export class SiguemientoComponent implements OnInit {
     RenderDatos() {
         this.server.GetData().subscribe((response) => {
             const res = response;
-
-
             this.customers1 = res;
             this.loading = false;
-            console.log(this.customers1);
-
         });
     }
 
