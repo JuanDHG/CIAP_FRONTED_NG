@@ -21,7 +21,7 @@ import { Message } from 'primeng/api';
 })
 export class SiguemientoComponent implements OnInit {
 
-    data: Data = {
+    customers1: Data = {
         iDproyecto: null,
         nombreProyecto: null,
         contrato: null,
@@ -43,7 +43,7 @@ export class SiguemientoComponent implements OnInit {
         valor_final: null
     }
 
-    customers1: Data;
+
 
 
     isExpanded: boolean = false;
@@ -84,10 +84,11 @@ export class SiguemientoComponent implements OnInit {
     RenderDatos() {
         this.server.GetData().subscribe((response) => {
             const res = response;
-            console.log(response);
+
 
             this.customers1 = res;
             this.loading = false;
+            console.log(this.customers1);
 
         });
     }
@@ -108,11 +109,13 @@ export class SiguemientoComponent implements OnInit {
     }
 
     formatCurrency(value: number) {
-        return value.toLocaleString('en-ES', {
+        return value.toLocaleString('es-CO', {
             style: 'currency',
             currency: 'COP',
+            minimumFractionDigits: 0,
         });
     }
+
 
 /*
     triggerModal(e: boolean) {

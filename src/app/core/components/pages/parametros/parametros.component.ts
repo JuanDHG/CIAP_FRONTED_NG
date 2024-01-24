@@ -18,9 +18,11 @@ export class ParametrosComponent implements OnInit {
 
     constructor(private route: ActivatedRoute) {
         const pm =  JSON.parse(this.Permisos);
-        const pmp = pm[1];
+        const pmp = pm[1].items[0];
+        console.log(pmp);
 
-        if (pmp.label === "Parametrizacion") {
+
+        if (pmp.label === "Parametros") {
             for (let i = 0; i < pmp.items.length; i++) {
                 const e = pmp.items[i];
                 this.steps.push({label: e.label});

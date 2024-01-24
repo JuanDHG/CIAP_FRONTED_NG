@@ -1,23 +1,25 @@
 export interface Data {
-    iDproyecto: string;
-    nombreProyecto: string;
-    contrato: string;
-    objeto: string;
-    idEtado: number;
-    Estado: string;
-    clienteNombre: string;
-    nitClente: number;
-    idGerencia: number;
-    Gerencia: string;
-    idDireccion: number;
-    direccion: string;
-    idUsuario: number;
-    gerente: string;
-    fecha_inicio: string;
-    fecha_final: string;
-    duracion: number;
-    valor_inicial: number;
-    valor_final: number;
+    Estado: any;
+    Gerencia: any;
+    clienteNombre: any;
+    contrato: any;
+    direccion: any;
+    duracion: any;
+    fecha_final: any;
+    fecha_inicio: any;
+    gerente: any;
+    iDproyecto: any;
+    idDireccion: any;
+    idEtado: any;
+    idGerencia: any;
+    idUsuario: any;
+    nitClente: any;
+    nombreProyecto: any;
+    objeto: any;
+    valor_final: any;
+    valor_inicial: any;
+    estadoProyecto?: any;
+
 }
 
 export interface DataStatus {

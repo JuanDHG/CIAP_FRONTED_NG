@@ -2,8 +2,8 @@
 	<div class="col-12">
 		<div class="card">
 
-					<p-table #dt2 [value]="customers1" dataKey="id" [rows]="8" scrollDirection="both" [scrollable]="true" scrollHeight="550px"  responsiveLayout="scroll" [loading]="loading" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true"
-                    [globalFilterFields]="['iDproyecto','nombreProyecto','contrato','objeto','idEtado','Estado','clienteNombre','nitClente','idGerencia','Gerencia','idDireccion','direccion','idUsuario','gerente','fecha_inicio','fecha_final','duracion','valor_inicial','valor_fina']" responsiveLayout="scroll">
+            <p-table #dt2 [value]="customers1" rowGroupMode="subheader" dataKey="id" [rows]="10"  sortMode="single" scrollDirection="both" [scrollable]="true" scrollHeight="550px"  responsiveLayout="scroll" [loading]="loading" [scrollable]="true" scrollHeight="400px" styleClass="p-datatable-gridlines " [paginator]="true"
+                    [globalFilterFields]="['Estado','Gerencia','clienteNombre','contrato','direccion','duracion','fecha_final','fecha_inicio','gerente','iDproyecto','idDireccion','idEtado','idGerencia','idUsuario','nitClente','nombreProyecto','objeto','valor_final','valor_inicial']" responsiveLayout="scroll">
 						<ng-template pTemplate="caption">
 							<div class="flex justify-content-between flex-column sm:flex-row">
 								<span class="p-input-icon-left mb-2">
@@ -20,156 +20,161 @@
 						</ng-template>
 						<ng-template pTemplate="header">
 							<tr>
-								<th style="min-width: 12rem">
+
+
+								<th pSortableColumn="iDproyecto" style="min-width: 16rem">
+
 									<div class="flex justify-content-between align-items-center">
 										ID PROYECTO
-										<p-columnFilter type="text" field="usuario" display="menu" placeholder="Buscar por nombre de usuario"></p-columnFilter>
+										<p-columnFilter type="text" field="iDproyecto" display="menu" placeholder="Buscar por nombre de proyecto"></p-columnFilter>
+                                        <p-sortIcon field="iDproyecto"></p-sortIcon>
 									</div>
+
 								</th>
-								<th style="min-width: 12rem">
+								<th pSortableColumn="Estado" style="min-width: 16rem">
 									<div class="flex justify-content-between align-items-center">
                                         ESTADO
-										<p-columnFilter type="numeric" field="identificacion" min=0 display="menu" placeholder="Buscar por Documento de identidad"></p-columnFilter>
+										<p-columnFilter type="text" field="Estado" min=0 display="menu" placeholder="Buscar por Documento de estado"></p-columnFilter>
+                                        <p-sortIcon field="Estado"></p-sortIcon>
 									</div>
+
 								</th>
-								<th style="min-width: 12rem">
+								<th  pSortableColumn="nombreProyecto" style="min-width: 16rem">
 									<div class="flex justify-content-between align-items-center">
 										NOMBRE
-										<p-columnFilter type="text" field="nombre" display="menu" placeholder="Buscar por nombre"></p-columnFilter>
+										<p-columnFilter type="text" field="nombreProyecto" display="menu" placeholder="Buscar por nombre"></p-columnFilter>
+                                        <p-sortIcon field="nombreProyecto"></p-sortIcon>
 									</div>
 								</th>
-								<th style="min-width: 12rem">
+								<th  pSortableColumn="contrato" style="min-width: 16rem">
 									<div class="flex justify-content-between align-items-center">
                                         N° CONTRATO
-										<p-columnFilter type="text" field="apellidos" display="menu" placeholder="Buscar por apellidos"></p-columnFilter>
+										<p-columnFilter type="text" field="contrato" display="menu" placeholder="Buscar por contrato"></p-columnFilter>
+                                        <p-sortIcon field="contrato"></p-sortIcon>
 									</div>
 								</th>
-								<th style="min-width: 12rem">
+								<th pSortableColumn="objeto" style="min-width: 30rem">
 									<div class="flex justify-content-between align-items-center">
                                         OBJETO
-										<p-columnFilter type="text" field="correo" display="menu" placeholder="Buscar por correo"></p-columnFilter>
+										<p-columnFilter type="text" field="objeto" display="menu" placeholder="Buscar por objeto"></p-columnFilter>
+                                        <p-sortIcon field="objeto"></p-sortIcon>
 									</div>
 								</th>
-								<th style="min-width: 12rem">
+								<th pSortableColumn="clienteNombre" style="min-width: 16rem">
 									<div class="flex justify-content-between align-items-center">
                                         CLIENTE
-										<p-columnFilter type="text" field="correo" display="menu" placeholder="Buscar por correo"></p-columnFilter>
+										<p-columnFilter type="text" field="clienteNombre" display="menu" placeholder="Buscar por razon social"></p-columnFilter>
+                                        <p-sortIcon field="clienteNombre"></p-sortIcon>
 									</div>
 								</th>
-								<th style="min-width: 12rem">
+								<th pSortableColumn="Gerencia" style="min-width: 16rem">
 									<div class="flex justify-content-between align-items-center">
                                         GERENCIA
-										<!-- <p-columnFilter type="text" field="estado" display="menu" placeholder="Buscar por correo"></p-columnFilter> -->
+										<p-columnFilter type="text" field="Gerencia" display="menu" placeholder="Buscar por gerencia"></p-columnFilter>
+                                        <p-sortIcon field="Gerencia"></p-sortIcon>
 									</div>
 								</th>
-								<th style="min-width: 12rem">
+								<th pSortableColumn="gerente" style="min-width: 16rem">
 									<div class="flex justify-content-between align-items-center">
                                         GERENTE
-										<!-- <p-columnFilter type="text" field="estado" display="menu" placeholder="Buscar por correo"></p-columnFilter> -->
+										<p-columnFilter type="text" field="gerente" display="menu" placeholder="Buscar por gerente"></p-columnFilter>
+                                        <p-sortIcon field="gerente"></p-sortIcon>
 									</div>
 								</th>
-								<th style="min-width: 12rem">
+								<th pSortableColumn="valor_inicial" style="min-width: 16rem">
 									<div class="flex justify-content-between align-items-center">
                                         VALOR INICIAL
-										<!-- <p-columnFilter type="text" field="estado" display="menu" placeholder="Buscar por correo"></p-columnFilter> -->
+                                        <p-columnFilter type="numeric" field="valor_inicial" display="menu" currency="COP"></p-columnFilter>
+                                        <p-sortIcon field="valor_inicial"></p-sortIcon>
 									</div>
 								</th>
-                                <th style="min-width: 12rem">
+                                <th pSortableColumn="valor_final" style="min-width: 16rem">
 									<div class="flex justify-content-between align-items-center">
                                         VALOR FINAL
-										<!-- <p-columnFilter type="text" field="estado" display="menu" placeholder="Buscar por correo"></p-columnFilter> -->
+                                        <p-columnFilter type="numeric" field="valor_final" display="menu" currency="COP"></p-columnFilter>
+                                        <p-sortIcon field="valor_final"></p-sortIcon>
 									</div>
 								</th>
-                                <th style="min-width: 12rem">
+                                <th pSortableColumn="duracion" style="min-width: 16rem">
 									<div class="flex justify-content-between align-items-center">
                                         DURACIÓN
-										<!-- <p-columnFilter type="text" field="estado" display="menu" placeholder="Buscar por correo"></p-columnFilter> -->
+										<p-columnFilter type="numeric" field="duracion"   display="menu" placeholder="Buscar por duracion"></p-columnFilter>
+                                        <p-sortIcon field="duracion"></p-sortIcon>
 									</div>
 								</th>
-                                <th style="min-width: 12rem">
+                                <th pSortableColumn="fecha_inicio" style="min-width: 16rem">
 									<div class="flex justify-content-between align-items-center">
                                         FECHA INICIO
-										<!-- <p-columnFilter type="text" field="estado" display="menu" placeholder="Buscar por correo"></p-columnFilter> -->
+                                        <p-columnFilter type="date" field="fecha_inicio" display="menu" placeholder="mm/dd/yyyy"></p-columnFilter>
+                                        <p-sortIcon field="fecha_inicio"></p-sortIcon>
 									</div>
 								</th>
-                                <th style="min-width: 12rem">
+                                <th  pSortableColumn="fecha_final" style="min-width: 16rem">
 									<div class="flex justify-content-between align-items-center">
                                         FECHA FIN
-										<!-- <p-columnFilter type="text" field="estado" display="menu" placeholder="Buscar por correo"></p-columnFilter> -->
+                                        <p-columnFilter type="date" field="fecha_final" display="menu" placeholder="mm/dd/yyyy"></p-columnFilter>
+                                        <p-sortIcon field="fecha_final"></p-sortIcon>
 									</div>
 								</th>
-                                <th style="min-width: 12rem">
+                                <th style="min-width: 16rem">
 									<div class="flex justify-content-between align-items-center">
                                         ACCIONES
-										<!-- <p-columnFilter type="text" field="estado" display="menu" placeholder="Buscar por correo"></p-columnFilter> -->
+
 									</div>
 								</th>
 							</tr>
 						</ng-template>
-						<ng-template pTemplate="body" let-customers1>
+						<ng-template pTemplate="body" let-customers1 >
 							<tr>
 								<td>
 									{{customers1.iDproyecto}}
 								</td>
 								<td>
-									<b>{{Customers1.Estado}}</b>
+									{{customers1.Estado}}
 								</td>
 								<td>
-									{{Customers1.nombreProyecto}}
+									{{customers1.nombreProyecto}}
 								</td>
 								<td>
-									{{Customers1.contrato}}
+									{{customers1.contrato}}
 								</td>
 								<td>
-									{{Customers1.objeto}}
+									{{customers1.objeto}}
 								</td>
                                 <td>
-									{{Customers1.clienteNombre}}
+									{{customers1.clienteNombre}}
 								</td>
                                 <td>
-									{{Customers1.Gerencia}}
+									{{customers1.Gerencia}}
 								</td>
                                 <td>
-									{{Customers1.gerente}}
+									{{customers1.gerente}}
 								</td>
                                 <td>
-									{{Customers1.valor_inicial}}
+									{{formatCurrency(customers1.valor_inicial)}}
 								</td>
                                 <td>
-									{{Customers1.valor_final}}
+									{{formatCurrency(customers1.valor_final)}}
 								</td>
                                 <td>
-									{{Customers1.duracion}}
+									{{customers1.duracion}}
 								</td>
                                 <td>
-									{{Customers1.fecha_inicio}}
+									{{customers1.fecha_inicio | date: 'dd/MM/yyyy HH:mm'}}
 								</td>
                                 <td>
-									{{Customers1.fecha_final}}
+									{{customers1.fecha_final | date: 'dd/MM/yyyy HH:mm'}}
+								</td>
+								<td>
+                                    <!-- (click)="onViewDataProyect(Customers1.id_usuario, $event)" -->
+                                    <button pButton pRipple type="button"  icon="pi pi-eye"  class="p-button-outline p-button-success cus"></button>
+                                    <!-- (click)="onPutCustomers1(Customers1)" -->
+									<button pButton pRipple type="button"  icon="pi pi-pencil"  class="p-button-outlined p-button-info cus"></button>
+                                    <!-- (click)="onPutStatususER(customers1.id_usuario, customers1.estado_cuenta)" -->
+									<p-inputSwitch class="cus" [ngModel]="customers1.estadoProyecto === 1" (ngModelChange)="customers1.estadoProyecto = $event ? 1 : 0"   inputId="customerSwitch"></p-inputSwitch>
+
 								</td>
 
-
-								<!-- <td>
-									<button pButton pRipple type="button" (click)="onViewDataProyect(Customers1.id_usuario, $event)" icon="pi pi-send"  iconPos="left" class="p-button-success cust_r_cus"></button>
-								</td>
-								<td>
-									{{Customers1.rol}}
-								</td>
-								<td>
-									<ng-container *ngIf="Customers1.estado_cuenta === 0; else activeStatus">
-										Inactivo
-									</ng-container>
-									<ng-template #activeStatus>
-										Activo
-									</ng-template>
-								</td>
-								<td>
-									<button pButton pRipple type="button"  icon="pi pi-pencil" (click)="onPutCustomers1(Customers1)" class="p-button-outlined p-button-info cus"></button>
-									<p-inputSwitch class="cus" [ngModel]="Customers1.estado_cuenta === 1" (ngModelChange)="Customers1.estado_cuenta = $event ? 1 : 0"  (click)="onPutStatususER(Customers1.id_usuario, Customers1.estado_cuenta)" inputId="customerSwitch"></p-inputSwitch>
-								</td> -->
-<!--								 <td>
-									{{customer.fechasistema | date: 'MM/dd/yyyy'}}
-								</td> -->
 							</tr>
 						</ng-template>
 						<ng-template pTemplate="emptymessage">
@@ -192,7 +197,7 @@
 <!-- prueba -->
 
 
-<!-- modal para Añadir Roles -->
+<!-- modal para Añadir  -->
 <!--<p-dialog [modal]="true" [(visible)]="display" [style]="{ width: '60vw' }" [maximizable]="true" [draggable]="false">
     <div class="modalCustomer flex align-items-center justify-content-center">
 
@@ -269,7 +274,7 @@
     </div>
 </p-dialog>-->
 
-<!-- modal para Editar Roles -->
+<!-- modal para Editar  -->
 <!--<p-dialog [modal]="true" [(visible)]="displayEdit" [style]="{ width: '60vw' }" [maximizable]="true" [draggable]="false">
     <div class="modalCustomer flex align-items-center justify-content-center">
 
@@ -346,7 +351,7 @@
     </div>
 </p-dialog>-->
 
-<!-- modal para Solo Ver Roles -->
+<!-- modal para Solo Ver  -->
 <!--<p-dialog [modal]="true" [(visible)]="displayVIew" [style]="{ width: '50vw' }" [maximizable]="true" [draggable]="false">
     <div class="modalCustomer flex align-items-center justify-content-center">
 

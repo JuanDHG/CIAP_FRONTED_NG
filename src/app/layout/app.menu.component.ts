@@ -33,25 +33,53 @@ export class AppMenuComponent implements OnInit {
             ]
         const MenuItem = JSON.parse(this.menu);
 
+        let itemss: any[] = []
 
 
         for (const menuItem of MenuItem) {
             const modelItem = {
                 label: menuItem.label,
-                items: []
+                items: [
+
+                ]
             };
+
+
 
             for (const subItem of menuItem.items) {
 
-                modelItem.items.push({
-                    label: subItem.label,
-                    icon: subItem.icon,
-                    routerLink:  subItem.routerLink,
-                    queryParams: { md: subItem.label }
-                });
-                // console.log(subItem.routerLink)
-            }
+                        for (const subMenu of subItem.items) {
 
+                            if (subMenu.id_padre === subItem.id.toString()) {
+                                itemss.push({
+                                  label: subMenu.label,
+                                  icon: subMenu.icon,
+                                  routerLink: subMenu.routerLink,
+                                  queryParams: { md: subMenu.label }
+                                });
+                              }else{}
+                        }
+
+                        if (subItem.items.length > 0) {
+                            modelItem.items.push({
+                                label: subItem.label,
+                                icon: subItem.icon,
+                                items : itemss,
+                                routerLink:  subItem.routerLink,
+                                queryParams: { md: subItem.label }
+                            });
+                        }else{
+                            modelItem.items.push({
+                                label: subItem.label,
+                                icon: subItem.icon,
+                                routerLink:  subItem.routerLink,
+                                queryParams: { md: subItem.label }
+                            });
+                        }
+
+
+
+            }
 
 
             this.model.push(modelItem);
@@ -92,67 +120,3 @@ export class AppMenuComponent implements OnInit {
 
 
 }
-// [
-//     {
-//         label: 'Home',
-//         items: [
-//             { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] }
-//         ]
-//     },
-//     {
-//         label: 'Configuración',
-//         items: [
-
-//             { label: 'roles', icon: 'pi pi-tags', routerLink: ['/home/roles'] },
-//             { label: 'Icon', icon: 'pi pi-microsoft', routerLink: ['/utilities/icons'], routerLinkActiveOptions: { paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' } },
-
-//         ]
-//     },
-//     {
-//         label: 'Parametrización',
-//         items: [
-
-//             { label: 'gerencia', icon: 'pi pi-briefcase', routerLink: ['/home/gerencia'] },
-//         ]
-//     },
-
-// ];
-
-// {
-//     label: 'Pages',
-//     icon: 'pi pi-fw pi-briefcase',
-//     items: [
-//         {
-//             label: 'Landing',
-//             icon: 'pi pi-fw pi-globe',
-//             routerLink: ['/landing']
-//         },
-//         {
-//             label: 'Auth',
-//             icon: 'pi pi-fw pi-user',
-//             items: [
-//                 {
-//                     label: 'Login',
-//                     icon: 'pi pi-fw pi-sign-in',
-//                     routerLink: ['/auth/login']
-//                 },
-//                 {
-//                     label: 'Error',
-//                     icon: 'pi pi-fw pi-times-circle',
-//                     routerLink: ['/auth/error']
-//                 },
-//                 {
-//                     label: 'Access Denied',
-//                     icon: 'pi pi-fw pi-lock',
-//                     routerLink: ['/auth/access']
-//                 }
-//             ]
-//         },
-//         {
-//             label: 'Crud',
-//             icon: 'pi pi-fw pi-pencil',
-//             routerLink: ['/pages/crud']
-//         },
-
-//     ]
-// },
